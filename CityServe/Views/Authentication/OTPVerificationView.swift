@@ -136,6 +136,7 @@ struct OTPVerificationView: View {
         }
         .navigationDestination(isPresented: $navigateToHome) {
             MainTabView()
+                .environmentObject(viewModel)
                 .navigationBarBackButtonHidden(true)
         }
     }

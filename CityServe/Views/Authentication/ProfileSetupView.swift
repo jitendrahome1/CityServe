@@ -184,6 +184,7 @@ struct ProfileSetupView: View {
         .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $navigateToHome) {
             MainTabView()
+                .environmentObject(viewModel)
                 .navigationBarBackButtonHidden(true)
         }
     }

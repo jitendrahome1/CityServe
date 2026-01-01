@@ -133,6 +133,14 @@ class AuthViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
 
+        // TODO: Enable Firebase when configured
+        // For now, simulate OTP sending for testing
+        try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+        verificationId = "mock_verification_id_123"
+        isLoading = false
+        print("✅ Mock OTP sent (Firebase disabled for testing)")
+
+        /* Firebase code - Enable when Firebase is configured
         do {
             // Format phone number for Firebase (+91XXXXXXXXXX)
             let formattedPhone = "+91\(phoneNumber.replacingOccurrences(of: " ", with: ""))"
@@ -150,6 +158,7 @@ class AuthViewModel: ObservableObject {
             errorMessage = authService.getUserFriendlyError(error)
             print("❌ Error sending OTP: \(error)")
         }
+        */
     }
 
     // MARK: - Verify OTP
@@ -168,6 +177,16 @@ class AuthViewModel: ObservableObject {
         isLoading = true
         errorMessage = nil
 
+        // TODO: Enable Firebase when configured
+        // For now, simulate OTP verification for testing
+        try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+        isLoading = false
+        print("✅ Mock OTP verified (Firebase disabled for testing)")
+
+        // Simulate new user for testing (returns true = needs profile setup)
+        return true
+
+        /* Firebase code - Enable when Firebase is configured
         do {
             // Verify OTP with Firebase
             let result = try await authService.verifyOTP(
@@ -194,6 +213,7 @@ class AuthViewModel: ObservableObject {
             print("❌ Error verifying OTP: \(error)")
             return false
         }
+        */
     }
 
     // MARK: - Complete Registration
@@ -215,13 +235,38 @@ class AuthViewModel: ObservableObject {
             return false
         }
 
+        isLoading = true
+        errorMessage = nil
+
+        // TODO: Enable Firebase when configured
+        // For now, create mock user for testing
+        try? await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
+
+        let user = User(
+            id: "mock_user_\(UUID().uuidString.prefix(8))",
+            fullName: fullName,
+            email: email.isEmpty ? nil : email,
+            phoneNumber: "+91\(phoneNumber)",
+            photoURL: nil,
+            userType: .customer,
+            city: selectedCity,
+            addresses: [],
+            createdAt: Date(),
+            updatedAt: Date()
+        )
+
+        currentUser = user
+        isAuthenticated = true
+        isLoading = false
+
+        print("✅ Mock registration completed for: \(fullName) (Firebase disabled)")
+        return true
+
+        /* Firebase code - Enable when Firebase is configured
         guard let firebaseUser = authService.currentUser else {
             errorMessage = "Authentication session expired. Please try again."
             return false
         }
-
-        isLoading = true
-        errorMessage = nil
 
         do {
             // Create user in Firestore

@@ -1,0 +1,304 @@
+/*
+  Localizable.strings
+  CityServe
+
+  English Localization
+*/
+
+// MARK: - Common
+"common.ok" = "OK";
+"common.cancel" = "Cancel";
+"common.done" = "Done";
+"common.save" = "Save";
+"common.delete" = "Delete";
+"common.edit" = "Edit";
+"common.back" = "Back";
+"common.next" = "Next";
+"common.continue" = "Continue";
+"common.confirm" = "Confirm";
+"common.yes" = "Yes";
+"common.no" = "No";
+"common.close" = "Close";
+"common.retry" = "Retry";
+"common.error" = "Error";
+"common.success" = "Success";
+"common.loading" = "Loading...";
+"common.search" = "Search";
+"common.filter" = "Filter";
+"common.sort" = "Sort";
+"common.apply" = "Apply";
+"common.clear" = "Clear";
+"common.seeAll" = "See All";
+"common.viewAll" = "View All";
+"common.submit" = "Submit";
+"common.send" = "Send";
+"common.resend" = "Resend";
+
+// MARK: - Authentication
+"auth.welcome.title" = "Welcome to UrbanNest";
+"auth.welcome.subtitle" = "Trusted services, delivered smartly";
+"auth.getStarted" = "Get Started";
+"auth.signIn" = "Sign In";
+"auth.signUp" = "Sign Up";
+"auth.logout" = "Logout";
+"auth.logout.confirm" = "Are you sure you want to logout?";
+
+// Phone Login
+"auth.phone.title" = "Enter Your Mobile Number";
+"auth.phone.subtitle" = "We'll send you a verification code";
+"auth.phone.placeholder" = "Mobile Number";
+"auth.phone.sendOtp" = "Send OTP";
+"auth.phone.validation.empty" = "Please enter your mobile number";
+"auth.phone.validation.invalid" = "Please enter a valid 10-digit phone number";
+
+// OTP Verification
+"auth.otp.title" = "Verify Your Number";
+"auth.otp.subtitle" = "Enter the 6-digit code sent to";
+"auth.otp.placeholder" = "Enter OTP";
+"auth.otp.resend.timer" = "Resend code in %d s";
+"auth.otp.resend.prompt" = "Didn't receive the code?";
+"auth.otp.verifying" = "Verifying code...";
+"auth.otp.validation.empty" = "Please enter the OTP";
+"auth.otp.validation.invalid" = "Invalid OTP. Please try again.";
+
+// Profile Setup
+"auth.profile.title" = "Complete Your Profile";
+"auth.profile.subtitle" = "Tell us a bit about yourself";
+"auth.profile.name.label" = "Full Name *";
+"auth.profile.name.placeholder" = "Enter your full name";
+"auth.profile.email.label" = "Email Address (Optional)";
+"auth.profile.email.placeholder" = "you@example.com";
+"auth.profile.email.help" = "We'll send booking confirmations here";
+"auth.profile.city.label" = "Select Your City *";
+"auth.profile.city.placeholder" = "Choose your city";
+"auth.profile.photo.add" = "Add Photo";
+"auth.profile.privacy" = "Your information is safe and secure";
+"auth.profile.complete" = "Get Started";
+"auth.profile.setting_up" = "Setting up your account...";
+
+// MARK: - Home
+"home.greeting.morning" = "Good morning, %@!";
+"home.greeting.afternoon" = "Good afternoon, %@!";
+"home.greeting.evening" = "Good evening, %@!";
+"home.greeting.default" = "Hello, %@!";
+"home.subtitle" = "What service do you need today?";
+"home.search.placeholder" = "Search for services...";
+"home.popular" = "Popular Services";
+"home.categories" = "All Categories";
+"home.loading" = "Loading services...";
+"home.category.services" = "%d services";
+"home.selectCity" = "Select City";
+
+// MARK: - Service Detail
+"service.bookNow" = "Book Now";
+"service.price" = "Price";
+"service.duration" = "Duration";
+"service.about" = "About this service";
+"service.included" = "What's Included";
+"service.excluded" = "What's Not Included";
+"service.reviews" = "Customer Reviews";
+"service.reviews.count" = "%d reviews";
+"service.faqs" = "Frequently Asked Questions";
+"service.related" = "Related Services";
+"service.loading" = "Loading details...";
+
+// MARK: - Search
+"search.title" = "Search Services";
+"search.recent" = "Recent Searches";
+"search.popular" = "Popular Searches";
+"search.trending" = "Trending Services";
+"search.results" = "Search Results";
+"search.noResults.title" = "No results found";
+"search.noResults.message" = "Try searching with different keywords";
+"search.clear" = "Clear Search";
+
+// MARK: - Booking Flow
+"booking.title" = "Book Service";
+"booking.step.address" = "Select Address";
+"booking.step.dateTime" = "Date & Time";
+"booking.step.summary" = "Summary";
+"booking.step.payment" = "Payment";
+
+// Address Step
+"booking.address.select" = "Select Service Address";
+"booking.address.saved" = "Saved Addresses";
+"booking.address.add" = "Add New Address";
+"booking.address.default" = "Default";
+"booking.address.home" = "Home";
+"booking.address.work" = "Work";
+"booking.address.other" = "Other";
+
+// Date & Time Step
+"booking.dateTime.select" = "Select Date & Time";
+"booking.dateTime.date" = "Date";
+"booking.dateTime.time" = "Time Slot";
+"booking.dateTime.morning" = "Morning";
+"booking.dateTime.afternoon" = "Afternoon";
+"booking.dateTime.evening" = "Evening";
+"booking.dateTime.available" = "Available";
+"booking.dateTime.unavailable" = "Unavailable";
+
+// Summary Step
+"booking.summary.title" = "Booking Summary";
+"booking.summary.service" = "Service";
+"booking.summary.address" = "Address";
+"booking.summary.dateTime" = "Date & Time";
+"booking.summary.pricing" = "Price Details";
+"booking.summary.basePrice" = "Base Price";
+"booking.summary.tax" = "Tax & Fees";
+"booking.summary.discount" = "Discount";
+"booking.summary.total" = "Total Amount";
+"booking.summary.promoCode" = "Have a promo code?";
+"booking.summary.promoCode.apply" = "Apply";
+"booking.summary.promoCode.applied" = "Promo code applied!";
+
+// Payment Step
+"booking.payment.title" = "Payment Method";
+"booking.payment.select" = "Select Payment Method";
+"booking.payment.cash" = "Cash on Service";
+"booking.payment.upi" = "UPI";
+"booking.payment.card" = "Credit/Debit Card";
+"booking.payment.wallet" = "Wallet";
+"booking.payment.processing" = "Processing payment...";
+"booking.payment.pay" = "Pay ₹%d";
+
+// Booking Confirmation
+"booking.confirmation.title" = "Booking Confirmed!";
+"booking.confirmation.message" = "Your service has been booked successfully";
+"booking.confirmation.bookingId" = "Booking ID: %@";
+"booking.confirmation.viewDetails" = "View Details";
+"booking.confirmation.goHome" = "Go to Home";
+
+// MARK: - Orders
+"orders.title" = "My Orders";
+"orders.active" = "Active";
+"orders.past" = "Past";
+"orders.empty.active" = "No active bookings";
+"orders.empty.past" = "No past bookings";
+"orders.empty.message" = "Book a service to see your orders here";
+
+// Order Status
+"orders.status.pending" = "Pending";
+"orders.status.confirmed" = "Confirmed";
+"orders.status.assigned" = "Professional Assigned";
+"orders.status.inProgress" = "In Progress";
+"orders.status.completed" = "Completed";
+"orders.status.cancelled" = "Cancelled";
+
+// Order Details
+"orders.detail.bookingId" = "Booking ID";
+"orders.detail.service" = "Service";
+"orders.detail.provider" = "Service Provider";
+"orders.detail.address" = "Service Address";
+"orders.detail.dateTime" = "Date & Time";
+"orders.detail.amount" = "Amount Paid";
+"orders.detail.status" = "Status";
+"orders.detail.timeline" = "Booking Timeline";
+"orders.detail.cancel" = "Cancel Booking";
+"orders.detail.reschedule" = "Reschedule";
+"orders.detail.rateService" = "Rate Service";
+"orders.detail.help" = "Need Help?";
+
+// Order Actions
+"orders.cancel.title" = "Cancel Booking";
+"orders.cancel.message" = "Are you sure you want to cancel this booking?";
+"orders.cancel.confirm" = "Yes, Cancel";
+"orders.cancel.reason" = "Reason for cancellation (optional)";
+"orders.reschedule.title" = "Reschedule Booking";
+
+// MARK: - Profile
+"profile.title" = "Profile";
+"profile.edit" = "Edit Profile";
+"profile.personalInfo" = "Personal Information";
+"profile.name" = "Name";
+"profile.email" = "Email";
+"profile.phone" = "Phone Number";
+"profile.city" = "City";
+
+// Saved Addresses
+"profile.addresses" = "Saved Addresses";
+"profile.addresses.manage" = "Manage Addresses";
+"profile.addresses.add" = "Add New Address";
+"profile.addresses.edit" = "Edit Address";
+"profile.addresses.delete" = "Delete Address";
+"profile.addresses.setDefault" = "Set as Default";
+"profile.addresses.empty" = "No saved addresses";
+
+// Settings
+"profile.settings" = "Settings";
+"profile.settings.notifications" = "Notifications";
+"profile.settings.language" = "Language";
+"profile.settings.terms" = "Terms & Conditions";
+"profile.settings.privacy" = "Privacy Policy";
+"profile.settings.help" = "Help & Support";
+"profile.settings.about" = "About";
+"profile.settings.version" = "Version %@";
+
+// Notifications
+"profile.notifications.title" = "Notification Preferences";
+"profile.notifications.booking" = "Booking Updates";
+"profile.notifications.offers" = "Offers & Promotions";
+"profile.notifications.reminders" = "Service Reminders";
+
+// MARK: - Reviews
+"reviews.title" = "Reviews";
+"reviews.write" = "Write a Review";
+"reviews.rating" = "Rating";
+"reviews.comment" = "Your Review";
+"reviews.comment.placeholder" = "Share your experience with this service";
+"reviews.submit" = "Submit Review";
+"reviews.thankyou" = "Thank you for your feedback!";
+
+// MARK: - Promo Codes
+"promo.first20.title" = "Get 20% off on first booking";
+"promo.first20.subtitle" = "Use code: FIRST20";
+"promo.first20.cta" = "Claim Now";
+"promo.acCheckup.title" = "Free AC Checkup";
+"promo.acCheckup.subtitle" = "Book AC service today";
+"promo.acCheckup.cta" = "Book Now";
+"promo.cleaning.title" = "₹500 Off on Cleaning";
+"promo.cleaning.subtitle" = "Limited time offer";
+"promo.cleaning.cta" = "Get Offer";
+
+// MARK: - Errors & Validation
+"error.network" = "Network error. Please check your internet connection.";
+"error.server" = "Something went wrong. Please try again.";
+"error.unknown" = "An unexpected error occurred.";
+"error.tryAgain" = "Please try again";
+
+// Validation
+"validation.required" = "This field is required";
+"validation.email.invalid" = "Please enter a valid email address";
+"validation.phone.invalid" = "Please enter a valid phone number";
+"validation.name.min" = "Name must be at least 2 characters";
+"validation.address.required" = "Please select or add an address";
+
+// MARK: - Empty States
+"empty.default.title" = "Nothing here yet";
+"empty.default.message" = "Check back later for updates";
+"empty.search.title" = "No results found";
+"empty.search.message" = "Try searching with different keywords";
+"empty.bookings.title" = "No bookings yet";
+"empty.bookings.message" = "Book your first service to get started";
+
+// MARK: - Alerts & Confirmations
+"alert.delete.title" = "Delete Confirmation";
+"alert.delete.message" = "Are you sure you want to delete this?";
+"alert.unsavedChanges.title" = "Unsaved Changes";
+"alert.unsavedChanges.message" = "You have unsaved changes. Do you want to discard them?";
+"alert.discard" = "Discard";
+
+// MARK: - Time & Date
+"date.today" = "Today";
+"date.tomorrow" = "Tomorrow";
+"date.yesterday" = "Yesterday";
+"time.morning" = "Morning (6 AM - 12 PM)";
+"time.afternoon" = "Afternoon (12 PM - 6 PM)";
+"time.evening" = "Evening (6 PM - 9 PM)";
+
+// MARK: - Loading Messages
+"loading.services" = "Loading services...";
+"loading.details" = "Loading details...";
+"loading.booking" = "Processing your booking...";
+"loading.payment" = "Processing payment...";
+"loading.profile" = "Loading profile...";

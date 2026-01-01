@@ -55,7 +55,7 @@ struct HomeView: View {
                 // Loading overlay
                 if viewModel.isLoading && viewModel.categories.isEmpty {
                     LoadingView(
-                        message: "Loading services...",
+                        message: Strings.Home.loading,
                         style: .spinner
                     )
                 }
@@ -99,7 +99,7 @@ struct HomeView: View {
                 .font(.system(size: 28, weight: .bold))
                 .foregroundColor(.textPrimary)
 
-            Text("What service do you need today?")
+            Text(Strings.Home.subtitle)
                 .font(.system(size: 15))
                 .foregroundColor(.textSecondary)
         }
@@ -115,7 +115,7 @@ struct HomeView: View {
                     .font(.system(size: 18, weight: .medium))
                     .foregroundColor(.textSecondary)
 
-                Text("Search for services...")
+                Text(Strings.Home.searchPlaceholder)
                     .font(.system(size: 15))
                     .foregroundColor(.textTertiary)
 
@@ -132,7 +132,7 @@ struct HomeView: View {
     private var popularServicesSection: some View {
         VStack(alignment: .leading, spacing: Spacing.md) {
             HStack {
-                Text("Popular Services")
+                Text(Strings.Home.popular)
                     .font(.h3)
                     .foregroundColor(.textPrimary)
                     .fontWeight(.bold)
@@ -141,7 +141,7 @@ struct HomeView: View {
 
                 NavigationLink(destination: ServiceCategoriesView()) {
                     HStack(spacing: 4) {
-                        Text("See All")
+                        Text(Strings.Common.seeAll)
                             .font(.bodySmall)
                             .foregroundColor(.primary)
                             .fontWeight(.semibold)
@@ -186,7 +186,7 @@ struct HomeView: View {
     private var categoriesSection: some View {
         VStack(alignment: .leading, spacing: Spacing.md) {
             HStack {
-                Text("All Categories")
+                Text(Strings.Home.categories)
                     .font(.h3)
                     .foregroundColor(.textPrimary)
                     .fontWeight(.bold)
@@ -291,13 +291,13 @@ struct HomeView: View {
 
         switch hour {
         case 5..<12:
-            return "Good morning, \(userName)!"
+            return Strings.Home.greetingMorning(userName)
         case 12..<17:
-            return "Good afternoon, \(userName)!"
+            return Strings.Home.greetingAfternoon(userName)
         case 17..<21:
-            return "Good evening, \(userName)!"
+            return Strings.Home.greetingEvening(userName)
         default:
-            return "Hello, \(userName)!"
+            return Strings.Home.greetingDefault(userName)
         }
     }
 
@@ -329,7 +329,7 @@ struct CategoryCard: View {
                 .fontWeight(.medium)
                 .multilineTextAlignment(.center)
 
-            Text("\(category.serviceCount) services")
+            Text(Strings.Home.categoryServices(category.serviceCount))
                 .font(.caption)
                 .foregroundColor(.textSecondary)
         }
@@ -423,11 +423,11 @@ struct CitySelectorSheet: View {
                     }
                 }
             }
-            .navigationTitle("Select City")
+            .navigationTitle(Strings.Home.selectCity)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Done") {
+                    Button(Strings.Common.done) {
                         dismiss()
                     }
                 }
@@ -509,28 +509,28 @@ struct PromoBanner: Identifiable {
     static let mockBanners: [PromoBanner] = [
         PromoBanner(
             id: "promo1",
-            title: "Get 20% off on first booking",
-            subtitle: "Use code: FIRST20",
+            title: Strings.Promo.first20Title,
+            subtitle: Strings.Promo.first20Subtitle,
             icon: "gift.fill",
-            ctaText: "Claim Now",
+            ctaText: Strings.Promo.first20Cta,
             gradientColors: [Color.secondary, Color.secondaryLight],
             promoCode: "FIRST20"
         ),
         PromoBanner(
             id: "promo2",
-            title: "Free AC Checkup",
-            subtitle: "Book AC service today",
+            title: Strings.Promo.acCheckupTitle,
+            subtitle: Strings.Promo.acCheckupSubtitle,
             icon: "snowflake",
-            ctaText: "Book Now",
+            ctaText: Strings.Promo.acCheckupCta,
             gradientColors: [Color.info, Color.info.opacity(0.7)],
             promoCode: nil
         ),
         PromoBanner(
             id: "promo3",
-            title: "₹500 Off on Cleaning",
-            subtitle: "Limited time offer",
+            title: Strings.Promo.cleaningTitle,
+            subtitle: Strings.Promo.cleaningSubtitle,
             icon: "sparkles",
-            ctaText: "Get Offer",
+            ctaText: Strings.Promo.cleaningCta,
             gradientColors: [Color.success, Color.success.opacity(0.7)],
             promoCode: "CLEAN500"
         )

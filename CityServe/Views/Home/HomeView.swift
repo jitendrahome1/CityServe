@@ -21,7 +21,7 @@ struct HomeView: View {
                     .ignoresSafeArea()
 
                 ScrollView {
-                    VStack(spacing: Spacing.xl) {
+                    VStack(spacing: 20) {
                         // Greeting Section
                         greetingSection
 
@@ -31,19 +31,22 @@ struct HomeView: View {
                         // Popular Services
                         if !viewModel.isLoading && !viewModel.popularServices.isEmpty {
                             popularServicesSection
+                                .padding(.top, 8)
                         }
 
                         // All Categories
                         if !viewModel.categories.isEmpty {
                             categoriesSection
+                                .padding(.top, 8)
                         }
 
                         // Promotional Carousel
                         promoCarousel
+                            .padding(.top, 8)
 
                         Spacer(minLength: Spacing.xl)
                     }
-                    .padding(.top, Spacing.md)
+                    .padding(.top, 12)
                 }
                 .refreshable {
                     await viewModel.refreshData()
@@ -91,39 +94,37 @@ struct HomeView: View {
     // MARK: - Subviews
 
     private var greetingSection: some View {
-        VStack(alignment: .leading, spacing: Spacing.xs) {
+        VStack(alignment: .leading, spacing: 4) {
             Text(greetingText)
-                .font(.h2)
+                .font(.system(size: 28, weight: .bold))
                 .foregroundColor(.textPrimary)
 
             Text("What service do you need today?")
-                .font(.body)
+                .font(.system(size: 15))
                 .foregroundColor(.textSecondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, Spacing.screenPadding)
+        .padding(.top, Spacing.xs)
     }
 
     private var searchBar: some View {
         NavigationLink(destination: SearchView()) {
             HStack(spacing: Spacing.sm) {
                 Image(systemName: "magnifyingglass")
-                    .font(.system(size: Spacing.iconMD))
+                    .font(.system(size: 18, weight: .medium))
                     .foregroundColor(.textSecondary)
 
                 Text("Search for services...")
-                    .font(.input)
+                    .font(.system(size: 15))
                     .foregroundColor(.textTertiary)
 
                 Spacer()
             }
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
-            .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
-                    .stroke(Color.divider, lineWidth: 1)
-            )
+            .cornerRadius(12)
+            .shadow(color: .black.opacity(0.04), radius: 4, x: 0, y: 2)
         }
         .padding(.horizontal, Spacing.screenPadding)
     }
@@ -134,14 +135,21 @@ struct HomeView: View {
                 Text("Popular Services")
                     .font(.h3)
                     .foregroundColor(.textPrimary)
+                    .fontWeight(.bold)
 
                 Spacer()
 
                 NavigationLink(destination: ServiceCategoriesView()) {
-                    Text("See All")
-                        .font(.bodySmall)
-                        .foregroundColor(.primary)
-                        .fontWeight(.semibold)
+                    HStack(spacing: 4) {
+                        Text("See All")
+                            .font(.bodySmall)
+                            .foregroundColor(.primary)
+                            .fontWeight(.semibold)
+
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 12, weight: .semibold))
+                            .foregroundColor(.primary)
+                    }
                 }
             }
             .padding(.horizontal, Spacing.screenPadding)
@@ -165,29 +173,37 @@ struct HomeView: View {
                                 action: {},
                                 style: .vertical
                             )
-                            .frame(width: 160)
+                            .frame(width: 180, height: 240)
                         }
                     }
                 }
                 .padding(.horizontal, Spacing.screenPadding)
+                .padding(.vertical, 2)
             }
         }
     }
 
     private var categoriesSection: some View {
         VStack(alignment: .leading, spacing: Spacing.md) {
-            Text("All Categories")
-                .font(.h3)
-                .foregroundColor(.textPrimary)
-                .padding(.horizontal, Spacing.screenPadding)
+            HStack {
+                Text("All Categories")
+                    .font(.h3)
+                    .foregroundColor(.textPrimary)
+                    .fontWeight(.bold)
+
+                Spacer()
+            }
+            .padding(.horizontal, Spacing.screenPadding)
 
             LazyVGrid(columns: [
-                GridItem(.flexible(), spacing: Spacing.md),
-                GridItem(.flexible(), spacing: Spacing.md)
-            ], spacing: Spacing.md) {
-                ForEach(viewModel.categories) { category in
+                GridItem(.flexible(), spacing: Spacing.sm),
+                GridItem(.flexible(), spacing: Spacing.sm),
+                GridItem(.flexible(), spacing: Spacing.sm),
+                GridItem(.flexible(), spacing: Spacing.sm)
+            ], spacing: Spacing.sm) {
+                ForEach(viewModel.categories.prefix(8)) { category in
                     NavigationLink(destination: CategoryDetailView(category: category)) {
-                        CategoryCard(category: category)
+                        CompactCategoryCard(category: category)
                     }
                 }
             }
@@ -325,6 +341,45 @@ struct CategoryCard: View {
             RoundedRectangle(cornerRadius: Spacing.radiusMd)
                 .stroke(Color.divider, lineWidth: 1)
         )
+    }
+
+    private var categoryColor: Color {
+        switch category.iconColor {
+        case "primary": return .primary
+        case "secondary": return .secondary
+        case "success": return .success
+        case "warning": return .warning
+        case "info": return .info
+        default: return .primary
+        }
+    }
+}
+
+// MARK: - Compact Category Card (4-column grid)
+
+struct CompactCategoryCard: View {
+    let category: ServiceCategory
+
+    var body: some View {
+        VStack(spacing: Spacing.xs) {
+            ZStack {
+                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                    .fill(categoryColor.opacity(0.1))
+                    .frame(height: 72)
+
+                Image(systemName: category.icon)
+                    .font(.system(size: 32))
+                    .foregroundColor(categoryColor)
+            }
+
+            Text(category.name)
+                .font(.caption)
+                .foregroundColor(.textPrimary)
+                .fontWeight(.medium)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+                .fixedSize(horizontal: false, vertical: true)
+        }
     }
 
     private var categoryColor: Color {

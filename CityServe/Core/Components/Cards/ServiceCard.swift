@@ -54,32 +54,37 @@ struct ServiceCard: View {
     // MARK: - Layouts
 
     private var verticalLayout: some View {
-        VStack(alignment: .leading, spacing: Spacing.xs) {
+        VStack(alignment: .leading, spacing: 0) {
             // Image
             serviceImage
                 .aspectRatio(4/3, contentMode: .fill)
-                .frame(height: 140)
+                .frame(height: 120)
                 .clipped()
                 .cornerRadius(Spacing.radiusMd, corners: [.topLeft, .topRight])
 
             // Details
-            VStack(alignment: .leading, spacing: Spacing.xxs) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text(service.name)
-                    .font(.h5)
+                    .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(.textPrimary)
                     .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
 
                 if let rating = service.rating {
                     ratingView(rating: rating, reviewCount: service.reviewCount)
                 }
 
+                Spacer()
+
                 priceView
             }
-            .padding(Spacing.sm)
+            .padding(12)
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .frame(height: 220)
         .background(Color.surface)
         .cornerRadius(Spacing.radiusLg)
-        .mediumShadow()
+        .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 2)
     }
 
     private var horizontalLayout: some View {
@@ -129,27 +134,28 @@ struct ServiceCard: View {
     }
 
     private var compactLayout: some View {
-        VStack(spacing: Spacing.xs) {
+        VStack(spacing: 8) {
             // Icon or Image
             ZStack {
                 if let icon = service.icon {
-                    Circle()
+                    RoundedRectangle(cornerRadius: 12)
                         .fill(Color.primary.opacity(0.1))
-                        .frame(width: 56, height: 56)
+                        .frame(width: 64, height: 64)
 
-                    Text(icon)
-                        .font(.system(size: 28))
+                    Image(systemName: icon)
+                        .font(.system(size: 32))
+                        .foregroundColor(.primary)
                 } else {
                     serviceImage
                         .aspectRatio(1, contentMode: .fill)
-                        .frame(width: 56, height: 56)
-                        .clipShape(Circle())
+                        .frame(width: 64, height: 64)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
             }
 
             // Name
             Text(service.name)
-                .font(.bodySmall)
+                .font(.system(size: 12, weight: .medium))
                 .foregroundColor(.textPrimary)
                 .lineLimit(2)
                 .multilineTextAlignment(.center)
@@ -158,15 +164,15 @@ struct ServiceCard: View {
             // Price
             if let price = service.basePrice {
                 Text("₹\(Int(price))+")
-                    .font(.caption)
+                    .font(.system(size: 11, weight: .semibold))
                     .foregroundColor(.textSecondary)
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(Spacing.sm)
+        .padding(10)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusLg)
-        .mediumShadow()
+        .cornerRadius(Spacing.radiusMd)
+        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
     }
 
     // MARK: - Subviews
@@ -197,8 +203,9 @@ struct ServiceCard: View {
         ZStack {
             Color.neutralGray
             if let icon = service.icon {
-                Text(icon)
+                Image(systemName: icon)
                     .font(.system(size: 40))
+                    .foregroundColor(.textTertiary)
             } else {
                 Image(systemName: "wrench.and.screwdriver")
                     .font(.system(size: 32))
@@ -208,18 +215,18 @@ struct ServiceCard: View {
     }
 
     private func ratingView(rating: Double, reviewCount: Int?) -> some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 3) {
             Image(systemName: "star.fill")
-                .font(.system(size: 12))
+                .font(.system(size: 11))
                 .foregroundColor(.secondary)
 
             Text(String(format: "%.1f", rating))
-                .font(.rating)
+                .font(.system(size: 12, weight: .semibold))
                 .foregroundColor(.textPrimary)
 
             if let count = reviewCount, count > 0 {
                 Text("(\(count))")
-                    .font(.caption)
+                    .font(.system(size: 11))
                     .foregroundColor(.textSecondary)
             }
         }
@@ -230,11 +237,11 @@ struct ServiceCard: View {
             if let price = service.basePrice {
                 if let maxPrice = service.maxPrice, maxPrice != price {
                     Text("₹\(Int(price))-\(Int(maxPrice))")
-                        .font(.priceSmall)
+                        .font(.system(size: 14, weight: .bold))
                         .foregroundColor(.textPrimary)
                 } else {
                     Text("₹\(Int(price))+")
-                        .font(.priceSmall)
+                        .font(.system(size: 14, weight: .bold))
                         .foregroundColor(.textPrimary)
                 }
             }

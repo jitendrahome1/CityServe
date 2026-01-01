@@ -75,7 +75,7 @@ struct ServiceDetailView: View {
             if viewModel.isLoading {
                 Color.black.opacity(0.3)
                     .ignoresSafeArea()
-                LoadingView(message: "Loading details...", style: .spinner)
+                LoadingView(message: Strings.Service.loading, style: .spinner)
             }
         }
         .navigationTitle("")
@@ -163,7 +163,7 @@ struct ServiceDetailView: View {
         HStack(spacing: Spacing.lg) {
             // Price
             VStack(alignment: .leading, spacing: Spacing.xxs) {
-                Text("Price")
+                Text(Strings.Service.price)
                     .font(.caption)
                     .foregroundColor(.textSecondary)
 
@@ -178,7 +178,7 @@ struct ServiceDetailView: View {
 
             // Duration
             VStack(alignment: .leading, spacing: Spacing.xxs) {
-                Text("Duration")
+                Text(Strings.Service.duration)
                     .font(.caption)
                     .foregroundColor(.textSecondary)
 
@@ -204,7 +204,7 @@ struct ServiceDetailView: View {
 
     private var bookNowButton: some View {
         PrimaryButton(
-            "Book Now",
+            Strings.Service.bookNow,
             icon: "calendar",
             size: .large,
             action: {
@@ -216,7 +216,7 @@ struct ServiceDetailView: View {
 
     private var descriptionSection: some View {
         VStack(alignment: .leading, spacing: Spacing.sm) {
-            Text("About this service")
+            Text(Strings.Service.about)
                 .font(.h4)
                 .foregroundColor(.textPrimary)
                 .fontWeight(.semibold)
@@ -235,7 +235,7 @@ struct ServiceDetailView: View {
             // Inclusions
             if !service.inclusions.isEmpty {
                 VStack(alignment: .leading, spacing: Spacing.sm) {
-                    Text("What's Included")
+                    Text(Strings.Service.included)
                         .font(.h5)
                         .foregroundColor(.textPrimary)
                         .fontWeight(.semibold)
@@ -257,7 +257,7 @@ struct ServiceDetailView: View {
             // Exclusions
             if !service.exclusions.isEmpty {
                 VStack(alignment: .leading, spacing: Spacing.sm) {
-                    Text("What's Not Included")
+                    Text(Strings.Service.excluded)
                         .font(.h5)
                         .foregroundColor(.textPrimary)
                         .fontWeight(.semibold)
@@ -283,7 +283,7 @@ struct ServiceDetailView: View {
     private var reviewsSection: some View {
         VStack(alignment: .leading, spacing: Spacing.md) {
             HStack {
-                Text("Customer Reviews")
+                Text(Strings.Service.reviews)
                     .font(.h4)
                     .foregroundColor(.textPrimary)
                     .fontWeight(.semibold)
@@ -291,7 +291,7 @@ struct ServiceDetailView: View {
                 Spacer()
 
                 NavigationLink(destination: ReviewsListView(reviews: viewModel.reviews, serviceName: service.name)) {
-                    Text("See All")
+                    Text(Strings.Common.seeAll)
                         .font(.bodySmall)
                         .foregroundColor(.primary)
                         .fontWeight(.semibold)
@@ -314,7 +314,7 @@ struct ServiceDetailView: View {
                         }
                     }
 
-                    Text("\(service.reviewCount) reviews")
+                    Text(Strings.Service.reviewsCount(service.reviewCount))
                         .font(.caption)
                         .foregroundColor(.textSecondary)
                 }
@@ -366,7 +366,7 @@ struct ServiceDetailView: View {
 
     private var faqSection: some View {
         VStack(alignment: .leading, spacing: Spacing.md) {
-            Text("Frequently Asked Questions")
+            Text(Strings.Service.faqs)
                 .font(.h4)
                 .foregroundColor(.textPrimary)
                 .fontWeight(.semibold)
@@ -389,7 +389,7 @@ struct ServiceDetailView: View {
 
     private var relatedServicesSection: some View {
         VStack(alignment: .leading, spacing: Spacing.md) {
-            Text("Related Services")
+            Text(Strings.Service.related)
                 .font(.h4)
                 .foregroundColor(.textPrimary)
                 .fontWeight(.semibold)

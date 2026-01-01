@@ -24,11 +24,11 @@ struct ProfileSetupView: View {
 
                     // Title
                     VStack(spacing: Spacing.sm) {
-                        Text("Complete Your Profile")
+                        Text(Strings.Auth.profileTitle)
                             .font(.h2)
                             .foregroundColor(.textPrimary)
 
-                        Text("Tell us a bit about yourself")
+                        Text(Strings.Auth.profileSubtitle)
                             .font(.body)
                             .foregroundColor(.textSecondary)
                     }
@@ -39,8 +39,8 @@ struct ProfileSetupView: View {
                     VStack(spacing: Spacing.formFieldGap) {
                         // Full Name
                         StandardTextField(
-                            label: "Full Name *",
-                            placeholder: "Enter your full name",
+                            label: Strings.Auth.nameLabel,
+                            placeholder: Strings.Auth.namePlaceholder,
                             text: $viewModel.fullName,
                             leadingIcon: "person",
                             textContentType: .name,
@@ -49,11 +49,11 @@ struct ProfileSetupView: View {
 
                         // Email (Optional)
                         StandardTextField(
-                            label: "Email Address (Optional)",
-                            placeholder: "you@example.com",
+                            label: Strings.Auth.emailLabel,
+                            placeholder: Strings.Auth.emailPlaceholder,
                             text: $viewModel.email,
                             leadingIcon: "envelope",
-                            helpText: "We'll send booking confirmations here",
+                            helpText: Strings.Auth.emailHelp,
                             keyboardType: .emailAddress,
                             textContentType: .emailAddress,
                             autocapitalization: .never
@@ -61,7 +61,7 @@ struct ProfileSetupView: View {
 
                         // City Selection
                         VStack(alignment: .leading, spacing: Spacing.labelInputGap) {
-                            Text("Select Your City *")
+                            Text(Strings.Auth.cityLabel)
                                 .font(.label)
                                 .foregroundColor(.textSecondary)
 
@@ -86,7 +86,7 @@ struct ProfileSetupView: View {
                                         .font(.system(size: Spacing.iconMD))
                                         .foregroundColor(viewModel.selectedCity.isEmpty ? .textSecondary : .primary)
 
-                                    Text(viewModel.selectedCity.isEmpty ? "Choose your city" : viewModel.selectedCity)
+                                    Text(viewModel.selectedCity.isEmpty ? Strings.Auth.cityPlaceholder : viewModel.selectedCity)
                                         .font(.input)
                                         .foregroundColor(viewModel.selectedCity.isEmpty ? .textTertiary : .textPrimary)
 
@@ -143,7 +143,7 @@ struct ProfileSetupView: View {
                             .font(.system(size: Spacing.iconSM))
                             .foregroundColor(.primary)
 
-                        Text("Your information is safe and secure")
+                        Text(Strings.Auth.privacy)
                             .font(.caption)
                             .foregroundColor(.textSecondary)
                     }
@@ -159,7 +159,7 @@ struct ProfileSetupView: View {
                 Spacer()
 
                 PrimaryButton(
-                    "Get Started",
+                    Strings.Auth.complete,
                     isDisabled: !isFormValid,
                     isLoading: viewModel.isLoading,
                     action: {
@@ -176,7 +176,7 @@ struct ProfileSetupView: View {
                     .ignoresSafeArea()
 
                 LoadingView(
-                    message: "Setting up your account...",
+                    message: Strings.Auth.settingUp,
                     style: .spinner
                 )
             }
@@ -213,7 +213,7 @@ struct ProfileSetupView: View {
                     Image(systemName: "camera.fill")
                         .font(.system(size: Spacing.iconXS))
 
-                    Text("Add Photo")
+                    Text(Strings.Auth.addPhoto)
                         .font(.bodySmall)
                         .fontWeight(.semibold)
                 }

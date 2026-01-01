@@ -28,11 +28,11 @@ struct OTPVerificationView: View {
 
                     // Title and description
                     VStack(spacing: Spacing.sm) {
-                        Text("Verify Your Number")
+                        Text(Strings.Auth.otpTitle)
                             .font(.h2)
                             .foregroundColor(.textPrimary)
 
-                        Text("Enter the 6-digit code sent to")
+                        Text(Strings.Auth.otpSubtitle)
                             .font(.body)
                             .foregroundColor(.textSecondary)
 
@@ -67,23 +67,18 @@ struct OTPVerificationView: View {
                         // Resend section
                         HStack(spacing: Spacing.xxs) {
                             if timeRemaining > 0 {
-                                Text("Resend code in")
+                                Text(Strings.Auth.otpResendTimer(timeRemaining))
                                     .font(.bodySmall)
                                     .foregroundColor(.textSecondary)
-
-                                Text("\(timeRemaining)s")
-                                    .font(.bodySmall)
-                                    .foregroundColor(.primary)
-                                    .fontWeight(.semibold)
                             } else {
-                                Text("Didn't receive the code?")
+                                Text(Strings.Auth.otpResendPrompt)
                                     .font(.bodySmall)
                                     .foregroundColor(.textSecondary)
 
                                 Button(action: {
                                     resendOTP()
                                 }) {
-                                    Text("Resend")
+                                    Text(Strings.Common.resend)
                                         .font(.bodySmall)
                                         .foregroundColor(.primary)
                                         .fontWeight(.semibold)
@@ -104,7 +99,7 @@ struct OTPVerificationView: View {
                     .ignoresSafeArea()
 
                 LoadingView(
-                    message: "Verifying code...",
+                    message: Strings.Auth.otpVerifying,
                     style: .spinner
                 )
             }
@@ -118,7 +113,7 @@ struct OTPVerificationView: View {
                     HStack(spacing: Spacing.xxs) {
                         Image(systemName: "chevron.left")
                             .font(.button)
-                        Text("Back")
+                        Text(Strings.Common.back)
                             .font(.body)
                     }
                     .foregroundColor(.primary)

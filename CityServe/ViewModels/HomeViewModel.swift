@@ -57,26 +57,12 @@ class HomeViewModel: ObservableObject {
     // MARK: - Data Loading
 
     func loadInitialData() {
-        isLoading = true
-        errorMessage = nil
-
-        Task {
-            do {
-                // Simulate network delay
-                try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second
-
-                // Load mock data
-                categories = ServiceCategory.mockCategories
-                allServices = Service.mockServices
-                popularServices = allServices.filter { $0.isPopular }
-                promoBanners = PromoBanner.mockBanners
-
-                isLoading = false
-            } catch {
-                errorMessage = "Failed to load services. Please try again."
-                isLoading = false
-            }
-        }
+        // Load mock data immediately for better UX
+        categories = ServiceCategory.mockCategories
+        allServices = Service.mockServices
+        popularServices = allServices.filter { $0.isPopular }
+        promoBanners = PromoBanner.mockBanners
+        isLoading = false
     }
 
     func refreshData() async {

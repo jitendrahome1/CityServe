@@ -58,6 +58,11 @@ struct HomeView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                if viewModel.categories.isEmpty {
+                    viewModel.loadInitialData()
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     citySelectorButton

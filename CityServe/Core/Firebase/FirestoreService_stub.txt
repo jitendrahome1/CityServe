@@ -1,0 +1,62 @@
+// Stubbed Firestore methods - to replace in FirestoreService.swift
+
+// Booking Operations
+func createBooking(_ booking: Booking) async throws -> String {
+    // TODO: Enable when Firebase is configured
+    let stubId = UUID().uuidString
+    print("✅ Booking created (stub): \(stubId)")
+    return stubId
+}
+
+func fetchBooking(id: String) async throws -> Booking {
+    // TODO: Enable when Firebase is configured
+    throw FirestoreError.documentNotFound
+}
+
+func fetchBookings(userId: String) async throws -> [Booking] {
+    // TODO: Enable when Firebase is configured
+    return []
+}
+
+func fetchActiveBookings(userId: String) async throws -> [Booking] {
+    // TODO: Enable when Firebase is configured
+    return []
+}
+
+func updateBookingStatus(id: String, status: String) async throws {
+    // TODO: Enable when Firebase is configured
+    print("✅ Booking status updated (stub): \(id) -> \(status)")
+}
+
+func cancelBooking(id: String, reason: String) async throws {
+    // TODO: Enable when Firebase is configured
+    print("✅ Booking cancelled (stub): \(id)")
+}
+
+// Real-time Listeners - return stub listener
+func observeBooking(id: String, handler: @escaping (Result<Booking, Error>) -> Void) -> Any {
+    // TODO: Enable when Firebase is configured - return ListenerRegistration
+    return NSObject() // Stub
+}
+
+func observeActiveBookings(userId: String, handler: @escaping (Result<[Booking], Error>) -> Void) -> Any {
+    // TODO: Enable when Firebase is configured - return ListenerRegistration
+    return NSObject() // Stub
+}
+
+// Batch Operations
+func batchUpdateBookings(updates: [(id: String, fields: [String: Any])]) async throws {
+    // TODO: Enable when Firebase is configured
+    print("✅ Batch update completed (stub): \(updates.count) bookings")
+}
+
+// Helper Methods
+func documentExists(collection: String, id: String) async throws -> Bool {
+    // TODO: Enable when Firebase is configured
+    return false
+}
+
+func getDocumentCount(collection: String) async throws -> Int {
+    // TODO: Enable when Firebase is configured
+    return 0
+}

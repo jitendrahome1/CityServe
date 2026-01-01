@@ -170,7 +170,6 @@ struct HomeView: View {
                                     rating: service.rating,
                                     reviewCount: service.reviewCount
                                 ),
-                                action: {},
                                 style: .vertical
                             )
                             .frame(width: 180, height: 240)

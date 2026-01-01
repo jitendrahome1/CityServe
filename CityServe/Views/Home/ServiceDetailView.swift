@@ -411,7 +411,6 @@ struct ServiceDetailView: View {
                                     rating: relatedService.rating,
                                     reviewCount: relatedService.reviewCount
                                 ),
-                                action: {},
                                 style: .vertical
                             )
                             .frame(width: 160)

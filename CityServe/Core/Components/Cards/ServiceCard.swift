@@ -15,10 +15,16 @@ struct ServiceCard: View {
     // MARK: - Properties
 
     let service: ServiceCardModel
-    let action: () -> Void
+    let action: (() -> Void)?
 
     var style: CardStyle = .vertical
     @State private var isPressed = false
+
+    init(service: ServiceCardModel, action: (() -> Void)? = nil, style: CardStyle = .vertical) {
+        self.service = service
+        self.action = action
+        self.style = style
+    }
 
     // MARK: - Card Styles
 
@@ -41,9 +47,10 @@ struct ServiceCard: View {
                 compactLayout
             }
         }
-        .contentShape(Rectangle())
-        .onTapGesture {
-            handleTap()
+        .if(action != nil) { view in
+            view.onTapGesture {
+                handleTap()
+            }
         }
     }
 
@@ -248,7 +255,7 @@ struct ServiceCard: View {
 
     private func handleTap() {
         Haptics.light()
-        action()
+        action?()
     }
 }
 
@@ -285,11 +292,20 @@ struct ServiceCardModel: Identifiable {
     }
 }
 
-// MARK: - Corner Radius Extension
+// MARK: - View Extensions
 
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape(RoundedCorner(radius: radius, corners: corners))
+    }
+
+    @ViewBuilder
+    func `if`<Transform: View>(_ condition: Bool, transform: (Self) -> Transform) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
+        }
     }
 }
 

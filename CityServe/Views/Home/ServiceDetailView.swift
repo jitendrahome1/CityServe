@@ -11,6 +11,7 @@ struct ServiceDetailView: View {
 
     let service: Service
     @StateObject private var viewModel: ServiceDetailViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State private var navigateToBooking = false
 
     init(service: Service) {
@@ -81,6 +82,7 @@ struct ServiceDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(isPresented: $navigateToBooking) {
             BookingFlowContainerView(service: service)
+                .environmentObject(authViewModel)
         }
     }
 
@@ -530,14 +532,46 @@ struct FAQItem: View {
 // MARK: - Preview
 
 #Preview {
-    NavigationStack {
+    let authViewModel = AuthViewModel()
+    authViewModel.currentUser = User(
+        id: "123",
+        fullName: "Rahul Sharma",
+        email: "rahul@example.com",
+        phoneNumber: "9876543210",
+        photoURL: nil,
+        userType: .customer,
+        city: "Delhi",
+        addresses: [],
+        createdAt: Date(),
+        updatedAt: Date()
+    )
+    authViewModel.isAuthenticated = true
+
+    return NavigationStack {
         ServiceDetailView(service: Service.mockServices[0])
+            .environmentObject(authViewModel)
     }
 }
 
 #Preview("Dark Mode") {
-    NavigationStack {
+    let authViewModel = AuthViewModel()
+    authViewModel.currentUser = User(
+        id: "123",
+        fullName: "Rahul Sharma",
+        email: "rahul@example.com",
+        phoneNumber: "9876543210",
+        photoURL: nil,
+        userType: .customer,
+        city: "Delhi",
+        addresses: [],
+        createdAt: Date(),
+        updatedAt: Date()
+    )
+    authViewModel.isAuthenticated = true
+
+    return NavigationStack {
         ServiceDetailView(service: Service.mockServices[0])
+            .environmentObject(authViewModel)
     }
     .preferredColorScheme(.dark)
 }

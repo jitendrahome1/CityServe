@@ -31,7 +31,7 @@ struct ServiceCard: View {
     // MARK: - Body
 
     var body: some View {
-        Button(action: handleTap) {
+        Group {
             switch style {
             case .vertical:
                 verticalLayout
@@ -41,14 +41,10 @@ struct ServiceCard: View {
                 compactLayout
             }
         }
-        .buttonStyle(PlainButtonStyle())
-        .scaleEffect(isPressed ? 0.97 : 1.0)
-        .animation(Animations.buttonTap, value: isPressed)
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .onChanged { _ in isPressed = true }
-                .onEnded { _ in isPressed = false }
-        )
+        .contentShape(Rectangle())
+        .onTapGesture {
+            handleTap()
+        }
     }
 
     // MARK: - Layouts

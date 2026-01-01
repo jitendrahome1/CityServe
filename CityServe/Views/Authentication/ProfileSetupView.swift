@@ -111,9 +111,28 @@ struct ProfileSetupView: View {
 
                         // Error message
                         if let error = viewModel.errorMessage {
-                            ErrorBanner(message: error) {
-                                viewModel.errorMessage = nil
+                            HStack(spacing: Spacing.sm) {
+                                Image(systemName: "exclamationmark.circle.fill")
+                                    .font(.system(size: Spacing.iconMD))
+                                    .foregroundColor(.error)
+
+                                Text(error)
+                                    .font(.bodySmall)
+                                    .foregroundColor(.error)
+
+                                Spacer()
+
+                                Button(action: {
+                                    viewModel.errorMessage = nil
+                                }) {
+                                    Image(systemName: "xmark")
+                                        .font(.system(size: Spacing.iconXS))
+                                        .foregroundColor(.error)
+                                }
                             }
+                            .padding(Spacing.md)
+                            .background(Color.error.opacity(0.1))
+                            .cornerRadius(Spacing.radiusMd)
                         }
                     }
                     .padding(.horizontal, Spacing.screenPadding)
@@ -164,9 +183,7 @@ struct ProfileSetupView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationDestination(isPresented: $navigateToHome) {
-            // Placeholder for HomeView
-            Text("Home View - Welcome!")
-                .font(.h1)
+            MainTabView()
                 .navigationBarBackButtonHidden(true)
         }
     }

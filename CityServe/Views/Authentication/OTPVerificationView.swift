@@ -135,8 +135,7 @@ struct OTPVerificationView: View {
             ProfileSetupView(viewModel: viewModel)
         }
         .navigationDestination(isPresented: $navigateToHome) {
-            // Placeholder for HomeView
-            Text("Home View")
+            MainTabView()
                 .navigationBarBackButtonHidden(true)
         }
     }

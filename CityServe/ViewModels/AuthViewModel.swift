@@ -305,6 +305,7 @@ class AuthViewModel: ObservableObject {
             print("❌ Error completing registration: \(error)")
             return false
         }
+        */
     }
 
     // MARK: - Login (Existing User)

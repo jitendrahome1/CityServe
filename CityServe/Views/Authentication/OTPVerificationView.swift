@@ -188,9 +188,8 @@ struct OTPVerificationView: View {
     // MARK: - Timer
 
     private func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
             Task { @MainActor in
-                guard let self = self else { return }
                 if self.timeRemaining > 0 {
                     self.timeRemaining -= 1
                 } else {

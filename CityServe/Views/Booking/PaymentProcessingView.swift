@@ -576,7 +576,7 @@ class PaymentProcessingViewModel: ObservableObject {
             // Simulate 90% success rate
             if Int.random(in: 1...10) <= 9 {
                 guard let txnId = transactionId else {
-                    paymentState = .failed(.unknown)
+                    paymentState = .failed(.unknown("Transaction ID not generated"))
                     return
                 }
                 paymentState = .success(transactionId: txnId)
@@ -597,7 +597,7 @@ class PaymentProcessingViewModel: ObservableObject {
         // Simulate 80% success rate for UPI
         if Int.random(in: 1...10) <= 8 {
             guard let txnId = transactionId else {
-                paymentState = .failed(.unknown)
+                paymentState = .failed(.unknown("Transaction ID not generated"))
                 return
             }
             paymentState = .success(transactionId: txnId)

@@ -245,7 +245,7 @@ struct BookingConfirmationView: View {
     private var actionButtons: some View {
         VStack(spacing: Spacing.md) {
             // View Booking Button
-            NavigationLink(destination: Text("Booking Details - Coming Soon")) {
+            NavigationLink(destination: BookingDetailView(booking: booking)) {
                 HStack {
                     Image(systemName: "doc.text")
                         .font(.h5)

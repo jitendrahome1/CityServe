@@ -10,6 +10,7 @@ import SwiftUI
 struct ServiceCategoriesView: View {
 
     @StateObject private var viewModel = HomeViewModel()
+    @EnvironmentObject var authViewModel: AuthViewModel
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -23,7 +24,8 @@ struct ServiceCategoriesView: View {
                     GridItem(.flexible(), spacing: Spacing.md)
                 ], spacing: Spacing.md) {
                     ForEach(viewModel.categories) { category in
-                        NavigationLink(destination: CategoryDetailView(category: category)) {
+                        NavigationLink(destination: CategoryDetailView(category: category)
+                            .environmentObject(authViewModel)) {
                             CategoryCard(category: category)
                         }
                     }
@@ -39,14 +41,46 @@ struct ServiceCategoriesView: View {
 // MARK: - Preview
 
 #Preview {
-    NavigationStack {
+    let authViewModel = AuthViewModel()
+    authViewModel.currentUser = User(
+        id: "123",
+        fullName: "Rahul Sharma",
+        email: "rahul@example.com",
+        phoneNumber: "9876543210",
+        photoURL: nil,
+        userType: .customer,
+        city: "Delhi",
+        addresses: [],
+        createdAt: Date(),
+        updatedAt: Date()
+    )
+    authViewModel.isAuthenticated = true
+
+    return NavigationStack {
         ServiceCategoriesView()
+            .environmentObject(authViewModel)
     }
 }
 
 #Preview("Dark Mode") {
-    NavigationStack {
+    let authViewModel = AuthViewModel()
+    authViewModel.currentUser = User(
+        id: "123",
+        fullName: "Rahul Sharma",
+        email: "rahul@example.com",
+        phoneNumber: "9876543210",
+        photoURL: nil,
+        userType: .customer,
+        city: "Delhi",
+        addresses: [],
+        createdAt: Date(),
+        updatedAt: Date()
+    )
+    authViewModel.isAuthenticated = true
+
+    return NavigationStack {
         ServiceCategoriesView()
+            .environmentObject(authViewModel)
     }
     .preferredColorScheme(.dark)
 }

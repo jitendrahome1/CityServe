@@ -398,7 +398,8 @@ struct ServiceDetailView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: Spacing.md) {
                     ForEach(viewModel.relatedServices.prefix(4)) { relatedService in
-                        NavigationLink(destination: ServiceDetailView(service: relatedService)) {
+                        NavigationLink(destination: ServiceDetailView(service: relatedService)
+                            .environmentObject(authViewModel)) {
                             ServiceCard(
                                 service: ServiceCardModel(
                                     id: relatedService.id,

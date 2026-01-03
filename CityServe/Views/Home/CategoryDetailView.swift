@@ -11,6 +11,7 @@ struct CategoryDetailView: View {
 
     let category: ServiceCategory
     @StateObject private var viewModel = HomeViewModel()
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State private var showFilters = false
 
     var body: some View {
@@ -169,7 +170,8 @@ struct CategoryDetailView: View {
         ScrollView {
             LazyVStack(spacing: Spacing.md) {
                 ForEach(filteredServices) { service in
-                    NavigationLink(destination: ServiceDetailView(service: service)) {
+                    NavigationLink(destination: ServiceDetailView(service: service)
+                        .environmentObject(authViewModel)) {
                         ServiceCard(
                             service: ServiceCardModel(
                                 id: service.id,
@@ -319,14 +321,46 @@ struct FilterSheet: View {
 // MARK: - Preview
 
 #Preview {
-    NavigationStack {
+    let authViewModel = AuthViewModel()
+    authViewModel.currentUser = User(
+        id: "123",
+        fullName: "Rahul Sharma",
+        email: "rahul@example.com",
+        phoneNumber: "9876543210",
+        photoURL: nil,
+        userType: .customer,
+        city: "Delhi",
+        addresses: [],
+        createdAt: Date(),
+        updatedAt: Date()
+    )
+    authViewModel.isAuthenticated = true
+
+    return NavigationStack {
         CategoryDetailView(category: ServiceCategory.mockCategories[0])
+            .environmentObject(authViewModel)
     }
 }
 
 #Preview("Dark Mode") {
-    NavigationStack {
+    let authViewModel = AuthViewModel()
+    authViewModel.currentUser = User(
+        id: "123",
+        fullName: "Rahul Sharma",
+        email: "rahul@example.com",
+        phoneNumber: "9876543210",
+        photoURL: nil,
+        userType: .customer,
+        city: "Delhi",
+        addresses: [],
+        createdAt: Date(),
+        updatedAt: Date()
+    )
+    authViewModel.isAuthenticated = true
+
+    return NavigationStack {
         CategoryDetailView(category: ServiceCategory.mockCategories[0])
+            .environmentObject(authViewModel)
     }
     .preferredColorScheme(.dark)
 }

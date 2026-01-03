@@ -90,10 +90,13 @@ iOSInjectionProject/
 
 # Firebase
 # IMPORTANT: Do not commit real Firebase credentials!
-# GoogleService-Info.plist should be replaced with actual credentials locally
+# Environment-specific Firebase configs are ignored
 # For CI/CD, use environment variables or secure storage
-GoogleService-Info-Production.plist
-GoogleService-Info-Staging.plist
+CityServe/Firebase/GoogleService-Info-Dev.plist
+CityServe/Firebase/GoogleService-Info-Staging.plist
+CityServe/Firebase/GoogleService-Info-Production.plist
+# Keep the placeholder and README
+!CityServe/Firebase/README.md
 
 # macOS
 .DS_Store

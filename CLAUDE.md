@@ -14,9 +14,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Technology Stack
 
-- **iOS**: SwiftUI + Combine (iOS 17.0+)
+- **iOS**: SwiftUI + Combine (iOS 17.0+, Xcode 15.0+)
 - **Architecture**: MVVM + Clean Architecture
 - **Backend**: Firebase (Auth ✅, Firestore ready, Cloud Functions planned, Storage ready)
+- **Localization**: Type-safe localization system with Strings.swift
 - **Payments (Planned)**: Razorpay (India), UPI, Cards, Wallets
 - **Notifications (Planned)**: Firebase Cloud Messaging
 - **Maps (Planned)**: Google Maps Platform
@@ -50,7 +51,10 @@ CityServe/
     │   │   ├── Typography.swift
     │   │   ├── Spacing.swift
     │   │   ├── Shadows.swift
-    │   │   └── Animations.swift
+    │   │   ├── Animations.swift
+    │   │   └── Haptics.swift
+    │   ├── Localization/        # Type-safe localization
+    │   │   └── Strings.swift    # All app strings (supports i18n)
     │   ├── Firebase/            # Firebase service layer
     │   │   ├── FirebaseAuthService.swift
     │   │   ├── FirestoreService.swift
@@ -169,12 +173,13 @@ User Action → View → ViewModel (via methods)
 - **Haptics**: UIImpactFeedbackGenerator, UINotificationFeedbackGenerator
 
 **Current Implementation Status**:
-- ✅ Complete Design System (Colors, Typography, Spacing, Shadows, Animations)
+- ✅ Complete Design System (Colors, Typography, Spacing, Shadows, Animations, Haptics)
+- ✅ Type-safe Localization System (ready for multi-language support)
 - ✅ 10 Reusable UI Components (Buttons, TextFields, Cards, Common views)
-- ✅ 4 Data Models (User, Service, Provider, Booking)
-- ✅ 6 ViewModels (Auth, Home, ServiceDetail, Booking, Orders, Profile)
+- ✅ 5 Data Models (User, Service, Provider, Booking, Help)
+- ✅ 8 ViewModels (Auth, Home, ServiceDetail, Booking, Orders, Profile, HelpCenter, ContactSupport, Chat)
 - ✅ 35+ SwiftUI Views across 6 major flows
-- ✅ Mock data for testing (no backend integration yet)
+- ✅ Mock data for testing (Firebase Auth is live, other features use mock data)
 - ✅ Dark mode support
 - ✅ Accessibility labels
 
@@ -307,7 +312,11 @@ struct CityServeApp: App {
 - ✅ Service layer created (FirebaseAuthService, FirestoreService, FirebaseStorageService)
 - ✅ AuthViewModel migrated from mock to real Firebase
 - ✅ User registration saves to Firestore
-- ⚠️ **IMPORTANT**: Replace `GoogleService-Info.plist` with real Firebase credentials
+- ⚠️ **IMPORTANT**: The app currently has Firebase commented out in CityServeApp.swift (line 9, 18). You must:
+  1. Replace `GoogleService-Info.plist` with real Firebase credentials
+  2. Uncomment `import Firebase` in CityServeApp.swift
+  3. Uncomment `FirebaseApp.configure()` in the init method
+  4. Ensure Firebase SDK is properly integrated via Swift Package Manager
 
 **Phase 2 - Ready to implement**:
 - Firestore Database (services, bookings, providers)
@@ -553,6 +562,14 @@ dump(complexObject)  // Pretty print
 4. **Use NavigationStack** instead of deprecated NavigationView
 5. **Add SwiftUI Previews** to every view for rapid development
 6. **Follow MVVM pattern** - keep Views simple, logic in ViewModels
+7. **Use type-safe localization** - Always use `Strings.*` enum instead of hardcoded strings:
+   ```swift
+   // Good
+   Text(Strings.Auth.phoneTitle)
+
+   // Bad
+   Text("Enter Phone Number")
+   ```
 
 ### Code Organization
 
@@ -560,7 +577,9 @@ dump(complexObject)  // Pretty print
 - **ViewModels**: Business logic, state management, data operations
 - **Models**: Data structures, conform to Codable for serialization
 - **Components**: Reusable UI elements in `Core/Components/`
-- **DesignSystem**: Centralized colors, typography, spacing
+- **DesignSystem**: Centralized colors, typography, spacing, animations, haptics
+- **Localization**: Type-safe strings in `Core/Localization/Strings.swift`
+- **Firebase**: Service layer for backend integration in `Core/Firebase/`
 
 ### Naming Conventions
 
@@ -623,26 +642,31 @@ See `NAMING.md` and `docs/design/DESIGN_SYSTEM.md` for complete guidelines.
 
 ## Current Status
 
-**iOS Customer App MVP** - ✅ Complete + Firebase Auth Integrated 🔥
-- ✅ Firebase Authentication working (Phone OTP)
-- ✅ User profiles saving to Firestore
-- ✅ Full authentication flow implemented
+**iOS Customer App MVP** - ✅ Complete + Firebase Auth Ready 🔥
+- ✅ Full authentication flow implemented (Phone OTP)
+- ✅ Firebase service layer created and ready
+- ✅ Type-safe localization system implemented
 - ✅ Service discovery & search functional (mock data)
 - ✅ Complete 4-step booking flow (mock data)
 - ✅ Orders management with tracking (mock data)
 - ✅ Profile & settings complete
+- ✅ Help center and contact support views
 - ✅ Design system & component library ready
 - ✅ 12 specialized Claude Code agents configured
 
 **Next Steps**:
-1. **CRITICAL**: Replace GoogleService-Info.plist with real Firebase credentials
+1. **CRITICAL**: Enable Firebase integration:
+   - Replace GoogleService-Info.plist with real credentials
+   - Uncomment Firebase imports and initialization in CityServeApp.swift
+   - Add Firebase SDK via Swift Package Manager if not already added
 2. Migrate remaining features to Firebase (Services, Bookings, Orders)
 3. Implement real-time listeners for bookings
-4. Implement Razorpay payment integration
-5. Add real-time location tracking
-6. Implement push notifications (FCM)
-7. Add unit and UI tests
-8. Deploy to TestFlight for beta testing
+4. Add localization files (.strings) for multi-language support
+5. Implement Razorpay payment integration
+6. Add real-time location tracking
+7. Implement push notifications (FCM)
+8. Add unit and UI tests
+9. Deploy to TestFlight for beta testing
 
 ## Specialized Agents
 

@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchView: View {
 
     @StateObject private var viewModel = HomeViewModel()
+    @EnvironmentObject var authViewModel: AuthViewModel
     @Environment(\.dismiss) private var dismiss
     @FocusState private var isSearchFocused: Bool
     @State private var showFilters = false
@@ -205,7 +206,8 @@ struct SearchView: View {
                         .fontWeight(.semibold)
 
                     ForEach(viewModel.popularServices.prefix(5)) { service in
-                        NavigationLink(destination: ServiceDetailView(service: service)) {
+                        NavigationLink(destination: ServiceDetailView(service: service)
+                            .environmentObject(authViewModel)) {
                             SearchResultCard(service: service)
                         }
                     }
@@ -266,7 +268,8 @@ struct SearchView: View {
 
                         // Results
                         ForEach(viewModel.filteredServices) { service in
-                            NavigationLink(destination: ServiceDetailView(service: service)) {
+                            NavigationLink(destination: ServiceDetailView(service: service)
+                                .environmentObject(authViewModel)) {
                                 SearchResultCard(service: service)
                             }
                         }
@@ -415,14 +418,46 @@ struct FilterChip: View {
 // MARK: - Preview
 
 #Preview {
-    NavigationStack {
+    let authViewModel = AuthViewModel()
+    authViewModel.currentUser = User(
+        id: "123",
+        fullName: "Rahul Sharma",
+        email: "rahul@example.com",
+        phoneNumber: "9876543210",
+        photoURL: nil,
+        userType: .customer,
+        city: "Delhi",
+        addresses: [],
+        createdAt: Date(),
+        updatedAt: Date()
+    )
+    authViewModel.isAuthenticated = true
+
+    return NavigationStack {
         SearchView()
+            .environmentObject(authViewModel)
     }
 }
 
 #Preview("Dark Mode") {
-    NavigationStack {
+    let authViewModel = AuthViewModel()
+    authViewModel.currentUser = User(
+        id: "123",
+        fullName: "Rahul Sharma",
+        email: "rahul@example.com",
+        phoneNumber: "9876543210",
+        photoURL: nil,
+        userType: .customer,
+        city: "Delhi",
+        addresses: [],
+        createdAt: Date(),
+        updatedAt: Date()
+    )
+    authViewModel.isAuthenticated = true
+
+    return NavigationStack {
         SearchView()
+            .environmentObject(authViewModel)
     }
     .preferredColorScheme(.dark)
 }

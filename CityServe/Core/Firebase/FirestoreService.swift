@@ -7,7 +7,7 @@
 //
 
 import Foundation
-// import FirebaseFirestore // TODO: Enable when Firebase is configured
+import FirebaseFirestore
 import Combine
 
 class FirestoreService {

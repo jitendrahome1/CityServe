@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 import Combine
-// import FirebaseAuth // TODO: Enable when Firebase is configured
+import FirebaseAuth
 
 @MainActor
 class AuthViewModel: ObservableObject {

@@ -22,54 +22,52 @@ struct BookingFlowContainerView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.background
-                    .ignoresSafeArea()
+        ZStack {
+            Color.background
+                .ignoresSafeArea()
 
-                VStack(spacing: 0) {
-                    // Progress Bar
-                    progressBar
+            VStack(spacing: 0) {
+                // Progress Bar
+                progressBar
 
-                    // Step Content
-                    stepContent
-                        .frame(maxHeight: .infinity)
+                // Step Content
+                stepContent
+                    .frame(maxHeight: .infinity)
 
-                    // Bottom Action Bar
-                    bottomActionBar
-                }
+                // Bottom Action Bar
+                bottomActionBar
             }
-            .navigationTitle(viewModel.currentStep.title)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        if viewModel.currentStep == .address {
-                            dismiss()
-                        } else {
-                            viewModel.goToPreviousStep()
-                        }
-                    }) {
-                        HStack(spacing: Spacing.xxs) {
-                            Image(systemName: "chevron.left")
-                                .font(.buttonSmall)
-
-                            Text(viewModel.currentStep == .address ? "Cancel" : "Back")
-                                .font(.body)
-                        }
-                        .foregroundColor(.primary)
+        }
+        .navigationTitle(viewModel.currentStep.title)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    if viewModel.currentStep == .address {
+                        dismiss()
+                    } else {
+                        viewModel.goToPreviousStep()
                     }
+                }) {
+                    HStack(spacing: Spacing.xxs) {
+                        Image(systemName: "chevron.left")
+                            .font(.buttonSmall)
+
+                        Text(viewModel.currentStep == .address ? "Cancel" : "Back")
+                            .font(.body)
+                    }
+                    .foregroundColor(.primary)
                 }
             }
-            .navigationDestination(isPresented: $showConfirmation) {
-                if let booking = viewModel.createdBooking {
-                    BookingConfirmationView(booking: booking)
-                }
+        }
+        .navigationDestination(isPresented: $showConfirmation) {
+            if let booking = viewModel.createdBooking {
+                BookingConfirmationView(booking: booking)
             }
-            .onAppear {
-                viewModel.currentUser = authViewModel.currentUser
-                viewModel.loadInitialData()
-            }
+        }
+        .onAppear {
+            viewModel.currentUser = authViewModel.currentUser
+            viewModel.loadInitialData()
         }
     }
 

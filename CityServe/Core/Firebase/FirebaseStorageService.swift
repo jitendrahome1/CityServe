@@ -7,7 +7,7 @@
 //
 
 import Foundation
-// import FirebaseStorage // TODO: Enable when Firebase is configured
+import FirebaseStorage
 import UIKit
 
 class FirebaseStorageService {

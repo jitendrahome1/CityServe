@@ -1,0 +1,25 @@
+// Development Configuration
+// This configuration is used for local development and testing
+
+// App Configuration
+APP_DISPLAY_NAME = UrbanNest DEV
+APP_BUNDLE_ID = com.urbanest.app
+ENVIRONMENT = DEV
+
+// Xcode Build Settings
+PRODUCT_BUNDLE_IDENTIFIER = $(APP_BUNDLE_ID)
+INFOPLIST_KEY_CFBundleDisplayName = $(APP_DISPLAY_NAME)
+GENERATE_INFOPLIST_FILE = YES
+
+// Firebase
+FIREBASE_CONFIG_FILE = GoogleService-Info-Dev.plist
+
+// API Configuration (for future backend)
+API_BASE_URL = https:/$()/dev-api.urbanest.app
+ENABLE_LOGGING = YES
+ENABLE_ANALYTICS = NO
+
+// Build Settings
+SWIFT_VERSION = 5.0
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) DEV
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) DEV=1

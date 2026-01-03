@@ -1,0 +1,25 @@
+// Staging Configuration
+// This configuration is used for QA testing and pre-production validation
+
+// App Configuration
+APP_DISPLAY_NAME = UrbanNest STAGING
+APP_BUNDLE_ID = com.urbanest.app
+ENVIRONMENT = STAGING
+
+// Xcode Build Settings
+PRODUCT_BUNDLE_IDENTIFIER = $(APP_BUNDLE_ID)
+INFOPLIST_KEY_CFBundleDisplayName = $(APP_DISPLAY_NAME)
+GENERATE_INFOPLIST_FILE = YES
+
+// Firebase
+FIREBASE_CONFIG_FILE = GoogleService-Info-Staging.plist
+
+// API Configuration (for future backend)
+API_BASE_URL = https:/$()/staging-api.urbanest.app
+ENABLE_LOGGING = YES
+ENABLE_ANALYTICS = YES
+
+// Build Settings
+SWIFT_VERSION = 5.0
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = $(inherited) STAGING
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) STAGING=1

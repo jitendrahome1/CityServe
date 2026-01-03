@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-// import Firebase // TODO: Enable when Firebase is configured
+import FirebaseCore
+
 
 @main
 struct CityServeApp: App {
@@ -14,11 +15,13 @@ struct CityServeApp: App {
     // MARK: - Initialization
 
     init() {
-        // TODO: Configure Firebase when ready
-        // FirebaseApp.configure()
+        // Configure Firebase
+        FirebaseApp.configure()
 
         #if DEBUG
-        print("✅ App initialized (Firebase not configured yet)")
+        print("✅ Firebase configured successfully")
+        print("📱 Project: cityserve-42e9b")
+        print("📦 Bundle ID: com.agarwal.product.com.CityServe")
         // Optional: Use Firebase Emulators for local development
         // configureFirebaseEmulators()
         #endif

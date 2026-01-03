@@ -139,7 +139,8 @@ struct HomeView: View {
 
                 Spacer()
 
-                NavigationLink(destination: ServiceCategoriesView()) {
+                NavigationLink(destination: ServiceCategoriesView()
+                    .environmentObject(authViewModel)) {
                     HStack(spacing: 4) {
                         Text(Strings.Common.seeAll)
                             .font(.bodySmall)
@@ -157,7 +158,8 @@ struct HomeView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: Spacing.md) {
                     ForEach(viewModel.popularServices.prefix(6)) { service in
-                        NavigationLink(destination: ServiceDetailView(service: service)) {
+                        NavigationLink(destination: ServiceDetailView(service: service)
+                            .environmentObject(authViewModel)) {
                             ServiceCard(
                                 service: ServiceCardModel(
                                     id: service.id,
@@ -201,7 +203,8 @@ struct HomeView: View {
                 GridItem(.flexible(), spacing: Spacing.sm)
             ], spacing: Spacing.sm) {
                 ForEach(viewModel.categories.prefix(8)) { category in
-                    NavigationLink(destination: CategoryDetailView(category: category)) {
+                    NavigationLink(destination: CategoryDetailView(category: category)
+                        .environmentObject(authViewModel)) {
                         CompactCategoryCard(category: category)
                     }
                 }

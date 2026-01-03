@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build Xcode Project",
+			"type": "shell",
+			"command": "xcodebuild -scheme CityServe -project CityServe.xcodeproj clean build",
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		}
+	]
+}

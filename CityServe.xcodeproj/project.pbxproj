@@ -15,9 +15,9 @@
 
 /* Begin PBXFileReference section */
 		D4897C752F0447030077F8FB /* CityServe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityServe.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D78943CEE63D48E9BA151CE0 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
-		9D745F43967F4A4A95BDDA2D /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
-		5D4103AC884F44B88DE35AB9 /* Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Dev.xcconfig; sourceTree = "<group>"; };
+		D78943CEE63D48E9BA151CE0 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CityServe/Config/Production.xcconfig; sourceTree = "<group>"; };
+		9D745F43967F4A4A95BDDA2D /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CityServe/Config/Staging.xcconfig; sourceTree = "<group>"; };
+		5D4103AC884F44B88DE35AB9 /* Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = CityServe/Config/Dev.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */

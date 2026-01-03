@@ -120,11 +120,19 @@ struct HomeView: View {
                     .foregroundColor(.textTertiary)
 
                 Spacer()
+
+                Image(systemName: "mic.fill")
+                    .font(.system(size: 16))
+                    .foregroundColor(.primary.opacity(0.6))
             }
-            .padding(Spacing.md)
-            .background(Color.surface)
-            .cornerRadius(12)
-            .shadow(color: .black.opacity(0.04), radius: 4, x: 0, y: 2)
+            .padding(.horizontal, Spacing.md)
+            .padding(.vertical, 14)
+            .background(
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(Color.surface)
+                    .shadow(color: Color.primary.opacity(0.06), radius: 8, x: 0, y: 2)
+                    .shadow(color: .black.opacity(0.03), radius: 2, x: 0, y: 1)
+            )
         }
         .padding(.horizontal, Spacing.screenPadding)
     }
@@ -361,26 +369,52 @@ struct CategoryCard: View {
 
 struct CompactCategoryCard: View {
     let category: ServiceCategory
+    @State private var isPressed = false
 
     var body: some View {
-        VStack(spacing: Spacing.xs) {
+        VStack(spacing: 10) {
+            // Icon with modern gradient background
             ZStack {
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
-                    .fill(categoryColor.opacity(0.1))
-                    .frame(height: 72)
+                // Gradient background
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(
+                        LinearGradient(
+                            colors: [categoryColor.opacity(0.15), categoryColor.opacity(0.05)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(height: 76)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(categoryColor.opacity(0.2), lineWidth: 1)
+                    )
 
                 Image(systemName: category.icon)
-                    .font(.system(size: 32))
-                    .foregroundColor(categoryColor)
+                    .font(.system(size: 34))
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [categoryColor, categoryColor.opacity(0.7)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
             }
 
             Text(category.name)
-                .font(.caption)
+                .font(.system(size: 12, weight: .medium))
                 .foregroundColor(.textPrimary)
-                .fontWeight(.medium)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .fixedSize(horizontal: false, vertical: true)
+        }
+        .scaleEffect(isPressed ? 0.95 : 1.0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isPressed)
+        .onTapGesture {
+            isPressed = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                isPressed = false
+            }
         }
     }
 
@@ -442,58 +476,89 @@ struct CitySelectorSheet: View {
 
 struct PromoCard: View {
     let promo: PromoBanner
+    @State private var isPressed = false
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            // Background Gradient
-            LinearGradient(
-                colors: promo.gradientColors,
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .cornerRadius(Spacing.radiusLg)
+            // Background Gradient with glassmorphism
+            RoundedRectangle(cornerRadius: 18)
+                .fill(
+                    LinearGradient(
+                        colors: promo.gradientColors,
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 18)
+                        .fill(
+                            LinearGradient(
+                                colors: [.white.opacity(0.2), .clear],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                )
 
             // Content
             VStack(alignment: .leading, spacing: Spacing.sm) {
-                // Icon
+                // Icon and CTA Badge
                 HStack {
-                    Image(systemName: promo.icon)
-                        .font(.system(size: 32))
-                        .foregroundColor(.white)
+                    ZStack {
+                        Circle()
+                            .fill(Color.white.opacity(0.2))
+                            .frame(width: 44, height: 44)
+
+                        Image(systemName: promo.icon)
+                            .font(.system(size: 22))
+                            .foregroundColor(.white)
+                    }
 
                     Spacer()
 
-                    // CTA Badge
+                    // CTA Badge with modern design
                     if let ctaText = promo.ctaText {
                         Text(ctaText)
-                            .font(.caption)
-                            .fontWeight(.semibold)
+                            .font(.system(size: 11, weight: .bold))
                             .foregroundColor(.white)
-                            .padding(.horizontal, Spacing.sm)
-                            .padding(.vertical, Spacing.xxs)
-                            .background(Color.white.opacity(0.2))
-                            .cornerRadius(Spacing.radiusPill)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(
+                                Capsule()
+                                    .fill(Color.white.opacity(0.25))
+                                    .background(.ultraThinMaterial)
+                            )
                     }
                 }
 
                 Spacer()
 
-                // Title
+                // Title with shadow for readability
                 Text(promo.title)
-                    .font(.h4)
-                    .fontWeight(.bold)
+                    .font(.system(size: 18, weight: .bold))
                     .foregroundColor(.white)
                     .lineLimit(2)
+                    .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 1)
 
                 // Subtitle
                 Text(promo.subtitle)
-                    .font(.body)
-                    .foregroundColor(.white.opacity(0.9))
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundColor(.white.opacity(0.95))
+                    .shadow(color: .black.opacity(0.15), radius: 2, x: 0, y: 1)
             }
-            .padding(Spacing.lg)
+            .padding(18)
         }
-        .frame(height: 140)
-        .shadow(color: .black.opacity(0.12), radius: 8, x: 0, y: 4)
+        .frame(height: 150)
+        .shadow(color: promo.gradientColors.first?.opacity(0.3) ?? .black.opacity(0.15), radius: 12, x: 0, y: 6)
+        .shadow(color: .black.opacity(0.08), radius: 4, x: 0, y: 2)
+        .scaleEffect(isPressed ? 0.98 : 1.0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isPressed)
+        .onTapGesture {
+            isPressed = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                isPressed = false
+            }
+        }
     }
 }
 

@@ -12,7 +12,7 @@ extension Color {
 
     // MARK: - Brand Colors
 
-    /// Primary brand color - Deep Teal
+    /// Primary brand color - Modern Purple (Urban Company style)
     /// Used for: Primary CTA buttons, active states, brand elements
     static let primary = Color("Primary")
 
@@ -24,7 +24,7 @@ extension Color {
     /// Used for: Pressed states, borders
     static let primaryDark = Color("PrimaryDark")
 
-    /// Secondary brand color - Warm Orange
+    /// Secondary brand color - Vibrant Orange
     /// Used for: Accent, highlights, secondary CTAs, notifications
     static let secondary = Color("Secondary")
 
@@ -33,6 +33,14 @@ extension Color {
 
     /// Secondary color - Dark variant
     static let secondaryDark = Color("SecondaryDark")
+
+    // MARK: - Modern Accent Colors
+
+    /// Gradient start color for modern cards
+    static let gradientStart = Color("GradientStart")
+
+    /// Gradient end color for modern cards
+    static let gradientEnd = Color("GradientEnd")
 
     // MARK: - Neutral Colors
 
@@ -86,21 +94,27 @@ extension Color {
         } else {
             // Fallback to hardcoded hex values
             switch name {
-            // Primary
+            // Primary (Modern Purple - Urban Company style)
             case "Primary":
-                self.init(hex: "#0D7377")
+                self.init(hex: "#6C5CE7")  // Vibrant Purple
             case "PrimaryLight":
-                self.init(hex: "#14A0A5")
+                self.init(hex: "#A29BFE")  // Light Purple
             case "PrimaryDark":
-                self.init(hex: "#095256")
+                self.init(hex: "#5F3DC4")  // Dark Purple
 
             // Secondary
             case "Secondary":
-                self.init(hex: "#FF6B35")
+                self.init(hex: "#FF6B35")  // Vibrant Orange
             case "SecondaryLight":
                 self.init(hex: "#FF8B60")
             case "SecondaryDark":
                 self.init(hex: "#E5501F")
+
+            // Gradient Colors
+            case "GradientStart":
+                self.init(hex: "#6C5CE7")  // Purple
+            case "GradientEnd":
+                self.init(hex: "#A29BFE")  // Light Purple
 
             // Neutral
             case "NeutralGray":

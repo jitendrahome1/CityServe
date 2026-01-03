@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PhoneRegistrationView: View {
 
-    @StateObject private var viewModel = AuthViewModel()
+    @EnvironmentObject var viewModel: AuthViewModel
     @State private var phoneInput = ""
     @State private var navigateToOTP = false
     @FocusState private var isPhoneFocused: Bool

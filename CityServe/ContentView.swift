@@ -17,8 +17,9 @@ struct ContentView: View {
                 MainTabView()
                     .environmentObject(authViewModel)
             } else {
-                // Authentication Flow
+                // Authentication Flow - CRITICAL: Pass authViewModel to avoid multiple instances
                 SplashView()
+                    .environmentObject(authViewModel)
             }
         }
     }

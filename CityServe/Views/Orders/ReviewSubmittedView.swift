@@ -305,7 +305,7 @@ struct ConfettiView: View {
         for i in 0..<50 {
             let piece = ConfettiPiece(
                 id: i,
-                color: colors.randomElement()!,
+                color: colors.randomElement() ?? .primary,  // FIXED: Use nil coalescing
                 x: CGFloat.random(in: 0...size.width),
                 y: -20,
                 rotation: Double.random(in: 0...360),

@@ -50,6 +50,7 @@ struct MainTabView: View {
         TabView(selection: $selectedTab) {
             // Home Tab
             HomeView()
+                .environmentObject(authViewModel)
                 .tabItem {
                     Label(Tab.home.title, systemImage: selectedTab == .home ? Tab.home.iconFilled : Tab.home.icon)
                 }
@@ -57,6 +58,7 @@ struct MainTabView: View {
 
             // Explore Tab
             ServiceCategoriesView()
+                .environmentObject(authViewModel)
                 .tabItem {
                     Label(Tab.explore.title, systemImage: selectedTab == .explore ? Tab.explore.iconFilled : Tab.explore.icon)
                 }
@@ -64,6 +66,7 @@ struct MainTabView: View {
 
             // Orders Tab
             OrdersView()
+                .environmentObject(authViewModel)
                 .tabItem {
                     Label(Tab.orders.title, systemImage: selectedTab == .orders ? Tab.orders.iconFilled : Tab.orders.icon)
                 }
@@ -71,6 +74,7 @@ struct MainTabView: View {
 
             // Profile Tab
             ProfileView()
+                .environmentObject(authViewModel)
                 .tabItem {
                     Label(Tab.profile.title, systemImage: selectedTab == .profile ? Tab.profile.iconFilled : Tab.profile.icon)
                 }

@@ -328,7 +328,7 @@ struct ProviderProfileView: View {
                     }
                     .padding(Spacing.md)
                     .background(Color.surface)
-                    .cornerRadius(Spacing.radiusMd)
+                    .cornerRadius(Spacing.radiusLg)
                 }
             }
         }
@@ -444,7 +444,7 @@ struct ProviderReviewCard: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
     }
 }
 

@@ -117,6 +117,8 @@ struct CategoryDetailView: View {
                         .stroke(Color.divider, lineWidth: 1)
                 )
             }
+            .accessibilityLabel("Sort services")
+            .accessibilityHint("Change the sort order of services")
 
             // Filters Button
             Button(action: {
@@ -146,6 +148,8 @@ struct CategoryDetailView: View {
                         .stroke(Color.divider, lineWidth: 1)
                 )
             }
+            .accessibilityLabel("Filter services")
+            .accessibilityHint(hasActiveFilters ? "Active filters applied. Double tap to modify" : "Double tap to filter services by price and rating")
 
             Spacer()
 
@@ -159,6 +163,8 @@ struct CategoryDetailView: View {
                         .foregroundColor(.error)
                         .fontWeight(.medium)
                 }
+                .accessibilityLabel("Clear all filters")
+                .accessibilityHint("Remove all active filters and show all services")
             }
         }
         .padding(.horizontal, Spacing.screenPadding)
@@ -188,6 +194,8 @@ struct CategoryDetailView: View {
                             style: .horizontal
                         )
                     }
+                    .accessibilityLabel("\(service.name), \(service.formattedPrice), rated \(String(format: "%.1f", service.rating)) stars")
+                    .accessibilityHint("View service details and book")
                 }
             }
             .padding(Spacing.screenPadding)

@@ -80,8 +80,7 @@ struct ServiceCard: View {
                     .padding(.vertical, 4)
                     .background(
                         Capsule()
-                            .fill(Color.black.opacity(0.6))
-                            .background(.ultraThinMaterial)
+                            .fill(Color.black.opacity(0.75))  // Darker background for better visibility
                     )
                     .padding(10)
                 }
@@ -132,10 +131,9 @@ struct ServiceCard: View {
         .frame(height: 240)
         .background(Color.surface)
         .cornerRadius(Spacing.radiusLg)
-        .shadow(color: Color.primary.opacity(0.08), radius: 12, x: 0, y: 4)
-        .shadow(color: .black.opacity(0.04), radius: 4, x: 0, y: 2)
-        .scaleEffect(isPressed ? 0.97 : 1.0)
-        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isPressed)
+        .floatingCardShadow()  // Modern, lighter shadow from design system
+        .scaleEffect(isPressed ? 0.98 : 1.0)  // Subtle press effect
+        .animation(Animations.cardPress, value: isPressed)  // Design system animation
     }
 
     private var horizontalLayout: some View {
@@ -145,7 +143,7 @@ struct ServiceCard: View {
                 .aspectRatio(1, contentMode: .fill)
                 .frame(width: 80, height: 80)
                 .clipped()
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)  // More rounded (12pt instead of 8pt)
 
             // Details
             VStack(alignment: .leading, spacing: Spacing.xxs) {
@@ -181,7 +179,7 @@ struct ServiceCard: View {
         .padding(Spacing.sm)
         .background(Color.surface)
         .cornerRadius(Spacing.radiusLg)
-        .mediumShadow()
+        .floatingCardShadow()  // Modern, lighter shadow from design system
     }
 
     private var compactLayout: some View {
@@ -222,8 +220,8 @@ struct ServiceCard: View {
         .frame(maxWidth: .infinity)
         .padding(10)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
-        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
+        .cornerRadius(Spacing.radiusLg)  // More rounded (12pt instead of 8pt)
+        .subtleShadow()  // Lighter shadow for compact cards
     }
 
     // MARK: - Subviews

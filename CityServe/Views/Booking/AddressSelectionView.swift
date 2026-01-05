@@ -66,9 +66,9 @@ struct AddressSelectionView: View {
                     }
                     .padding(Spacing.md)
                     .background(Color.surface)
-                    .cornerRadius(Spacing.radiusMd)
+                    .cornerRadius(Spacing.radiusLg)
                     .overlay(
-                        RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                        RoundedRectangle(cornerRadius: Spacing.radiusLg)
                             .stroke(Color.primary.opacity(0.3), style: StrokeStyle(lineWidth: 1.5, dash: [5, 5]))
                     )
                 }
@@ -172,9 +172,9 @@ struct AddressCard: View {
             }
             .padding(Spacing.md)
             .background(isSelected ? Color.primary.opacity(0.05) : Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .stroke(isSelected ? Color.primary : Color.divider, lineWidth: isSelected ? 2 : 1)
             )
         }

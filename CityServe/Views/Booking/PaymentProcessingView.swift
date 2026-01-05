@@ -176,7 +176,7 @@ struct ProcessingStateView: View {
             .padding(.horizontal, Spacing.md)
             .padding(.vertical, Spacing.sm)
             .background(Color.primary.opacity(0.1))
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
 
             Spacer()
         }
@@ -236,7 +236,7 @@ struct UPICollectionView: View {
                 .padding(.horizontal, Spacing.md)
                 .padding(.vertical, Spacing.xs)
                 .background(Color.primary.opacity(0.1))
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
 
             // Countdown Timer
             HStack(spacing: Spacing.xxs) {
@@ -385,7 +385,7 @@ struct PaymentFailureView: View {
                     .padding(.horizontal, Spacing.md)
                     .padding(.vertical, Spacing.xs)
                     .background(Color.error.opacity(0.1))
-                    .cornerRadius(Spacing.radiusMd)
+                    .cornerRadius(Spacing.radiusLg)
 
                 // Transaction ID
                 if let transactionId = transactionId {

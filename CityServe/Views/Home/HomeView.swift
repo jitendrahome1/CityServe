@@ -21,7 +21,7 @@ struct HomeView: View {
                     .ignoresSafeArea()
 
                 ScrollView {
-                    VStack(spacing: 20) {
+                    VStack(spacing: Spacing.lg) {
                         // Greeting Section
                         greetingSection
 
@@ -31,22 +31,22 @@ struct HomeView: View {
                         // Popular Services
                         if !viewModel.isLoading && !viewModel.popularServices.isEmpty {
                             popularServicesSection
-                                .padding(.top, 8)
+                                .padding(.top, Spacing.xs)
                         }
 
                         // All Categories
                         if !viewModel.categories.isEmpty {
                             categoriesSection
-                                .padding(.top, 8)
+                                .padding(.top, Spacing.xs)
                         }
 
                         // Promotional Carousel
                         promoCarousel
-                            .padding(.top, 8)
+                            .padding(.top, Spacing.xs)
 
                         Spacer(minLength: Spacing.xl)
                     }
-                    .padding(.top, 12)
+                    .padding(.top, Spacing.sm)
                 }
                 .refreshable {
                     await viewModel.refreshData()
@@ -149,22 +149,24 @@ struct HomeView: View {
 
                 NavigationLink(destination: ServiceCategoriesView()
                     .environmentObject(authViewModel)) {
-                    HStack(spacing: 4) {
+                    HStack(spacing: Spacing.xxs) {
                         Text(Strings.Common.seeAll)
                             .font(.bodySmall)
                             .foregroundColor(.primary)
                             .fontWeight(.semibold)
 
                         Image(systemName: "chevron.right")
-                            .font(.system(size: 12, weight: .semibold))
+                            .font(.caption)
                             .foregroundColor(.primary)
                     }
                 }
+                .accessibilityLabel("See all services")
+                .accessibilityHint("View all available services")
             }
             .padding(.horizontal, Spacing.screenPadding)
 
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: Spacing.md) {
+                LazyHStack(spacing: Spacing.md) {
                     ForEach(viewModel.popularServices.prefix(6)) { service in
                         NavigationLink(destination: ServiceDetailView(service: service)
                             .environmentObject(authViewModel)) {
@@ -271,9 +273,11 @@ struct HomeView: View {
     private var searchButton: some View {
         NavigationLink(destination: SearchView()) {
             Image(systemName: "magnifyingglass")
-                .font(.system(size: Spacing.iconMD))
+                .font(.title3)
                 .foregroundColor(.textPrimary)
         }
+        .accessibilityLabel("Search services")
+        .accessibilityHint("Double tap to search for services")
     }
 
     private var notificationButton: some View {
@@ -282,7 +286,7 @@ struct HomeView: View {
         }) {
             ZStack(alignment: .topTrailing) {
                 Image(systemName: "bell.fill")
-                    .font(.system(size: Spacing.iconMD))
+                    .font(.title3)
                     .foregroundColor(.textPrimary)
 
                 // Notification badge
@@ -292,6 +296,8 @@ struct HomeView: View {
                     .offset(x: 2, y: -2)
             }
         }
+        .accessibilityLabel("Notifications")
+        .accessibilityHint("You have unread notifications")
     }
 
     // MARK: - Computed Properties
@@ -510,7 +516,7 @@ struct PromoCard: View {
                             .frame(width: 44, height: 44)
 
                         Image(systemName: promo.icon)
-                            .font(.system(size: 22))
+                            .font(.title2)
                             .foregroundColor(.white)
                     }
 
@@ -519,10 +525,11 @@ struct PromoCard: View {
                     // CTA Badge with modern design
                     if let ctaText = promo.ctaText {
                         Text(ctaText)
-                            .font(.system(size: 11, weight: .bold))
+                            .font(.caption)
+                            .fontWeight(.bold)
                             .foregroundColor(.white)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
+                            .padding(.horizontal, Spacing.sm)
+                            .padding(.vertical, Spacing.xxs)
                             .background(
                                 Capsule()
                                     .fill(Color.white.opacity(0.25))
@@ -535,14 +542,15 @@ struct PromoCard: View {
 
                 // Title with shadow for readability
                 Text(promo.title)
-                    .font(.system(size: 18, weight: .bold))
+                    .font(.title3)
+                    .fontWeight(.bold)
                     .foregroundColor(.white)
                     .lineLimit(2)
                     .shadow(color: .black.opacity(0.2), radius: 2, x: 0, y: 1)
 
                 // Subtitle
                 Text(promo.subtitle)
-                    .font(.system(size: 13, weight: .medium))
+                    .font(.subheadline)
                     .foregroundColor(.white.opacity(0.95))
                     .shadow(color: .black.opacity(0.15), radius: 2, x: 0, y: 1)
             }

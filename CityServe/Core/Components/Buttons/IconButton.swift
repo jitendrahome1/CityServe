@@ -108,14 +108,14 @@ struct IconButton: View {
                 .frame(width: size.dimension, height: size.dimension)
                 .background(backgroundColor)
                 .overlay(
-                    RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                    RoundedRectangle(cornerRadius: Spacing.radiusLg)
                         .stroke(
                             style.borderColor ?? Color.clear,
                             lineWidth: style.borderColor != nil ? 2 : 0
                         )
                 )
-                .cornerRadius(Spacing.radiusMd)
-                .scaleEffect(isPressed ? 0.9 : 1.0)
+                .cornerRadius(Spacing.radiusLg)  // More rounded (12pt instead of 8pt)
+                .scaleEffect(isPressed ? 0.92 : 1.0)  // Slightly less dramatic for icon buttons
                 .opacity(isDisabled ? 0.5 : 1.0)
         }
         .buttonStyle(PlainButtonStyle())

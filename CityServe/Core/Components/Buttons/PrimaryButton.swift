@@ -98,9 +98,9 @@ struct PrimaryButton: View {
             .frame(height: size.height)
             .padding(.horizontal, size.horizontalPadding)
             .background(backgroundColor)
-            .cornerRadius(Spacing.radiusMd)
-            .mediumShadow()
-            .scaleEffect(isPressed ? 0.97 : 1.0)
+            .cornerRadius(Spacing.radiusLg)  // More rounded (12pt instead of 8pt)
+            .floatingCardShadow()  // Lighter, more modern shadow
+            .scaleEffect(isPressed ? 0.98 : 1.0)  // Subtle press effect
             .opacity(opacity)
         }
         .buttonStyle(PlainButtonStyle())

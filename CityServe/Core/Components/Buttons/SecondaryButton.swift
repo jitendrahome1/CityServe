@@ -80,11 +80,11 @@ struct SecondaryButton: View {
             .padding(.horizontal, size.horizontalPadding)
             .background(backgroundColor)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .stroke(borderColor, lineWidth: borderWidth)
             )
-            .cornerRadius(Spacing.radiusMd)
-            .scaleEffect(isPressed ? 0.97 : 1.0)
+            .cornerRadius(Spacing.radiusLg)  // More rounded (12pt instead of 8pt)
+            .scaleEffect(isPressed ? 0.98 : 1.0)  // Subtle press effect
             .opacity(opacity)
         }
         .buttonStyle(PlainButtonStyle())

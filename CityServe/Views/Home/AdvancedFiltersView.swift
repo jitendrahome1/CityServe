@@ -170,9 +170,9 @@ struct AdvancedFiltersView: View {
             }
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .stroke(Color.divider, lineWidth: 1)
             )
         }
@@ -196,9 +196,9 @@ struct AdvancedFiltersView: View {
             }
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .stroke(Color.divider, lineWidth: 1)
             )
         }
@@ -279,9 +279,9 @@ struct AdvancedFiltersView: View {
                         }
                         .padding(Spacing.md)
                         .background(Color.surface)
-                        .cornerRadius(Spacing.radiusMd)
+                        .cornerRadius(Spacing.radiusLg)
                         .overlay(
-                            RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                            RoundedRectangle(cornerRadius: Spacing.radiusLg)
                                 .stroke(Color.divider, lineWidth: 1)
                         )
                     }

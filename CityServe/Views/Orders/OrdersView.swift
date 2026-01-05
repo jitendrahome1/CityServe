@@ -276,7 +276,7 @@ struct BookingCard: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
     }
 
     private var serviceIcon: String {

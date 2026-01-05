@@ -83,7 +83,7 @@ struct ReviewSubmittedView: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
                     .background(Color.primary.opacity(0.1))
-                    .cornerRadius(Spacing.radiusMd)
+                    .cornerRadius(Spacing.radiusLg)
                 }
                 .padding(.horizontal, Spacing.screenPadding)
                 .padding(.bottom, Spacing.lg)
@@ -146,7 +146,7 @@ struct ReviewSubmittedView: View {
                 .padding(Spacing.md)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.secondary.opacity(0.1))
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
                 .padding(.horizontal, Spacing.screenPadding)
 
                 Spacer()
@@ -269,9 +269,9 @@ struct ReviewSummaryCard: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
         .overlay(
-            RoundedRectangle(cornerRadius: Spacing.radiusMd)
+            RoundedRectangle(cornerRadius: Spacing.radiusLg)
                 .stroke(Color.divider, lineWidth: 1)
         )
     }

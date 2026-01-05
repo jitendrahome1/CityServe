@@ -110,7 +110,7 @@ struct ServiceDetailView: View {
             // Tags
             if !service.tags.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: Spacing.xs) {
+                    LazyHStack(spacing: Spacing.xs) {
                         ForEach(service.tags, id: \.self) { tag in
                             Text(tag)
                                 .font(.caption)
@@ -198,7 +198,7 @@ struct ServiceDetailView: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
         .padding(.horizontal, Spacing.screenPadding)
     }
 
@@ -211,6 +211,8 @@ struct ServiceDetailView: View {
                 navigateToBooking = true
             }
         )
+        .accessibilityLabel("Book \(service.name)")
+        .accessibilityHint("Proceed to booking flow")
         .padding(.horizontal, Spacing.screenPadding)
     }
 
@@ -296,6 +298,8 @@ struct ServiceDetailView: View {
                         .foregroundColor(.primary)
                         .fontWeight(.semibold)
                 }
+                .accessibilityLabel("See all reviews")
+                .accessibilityHint("View all \(service.reviewCount) reviews for this service")
             }
 
             // Rating Summary
@@ -303,7 +307,7 @@ struct ServiceDetailView: View {
                 // Average Rating
                 VStack(spacing: Spacing.xxs) {
                     Text(String(format: "%.1f", viewModel.averageRating))
-                        .font(.custom("Inter-Bold", size: 40))
+                        .font(.system(size: 40, weight: .bold))
                         .foregroundColor(.textPrimary)
 
                     HStack(spacing: Spacing.xxs) {
@@ -396,7 +400,7 @@ struct ServiceDetailView: View {
                 .padding(.horizontal, Spacing.screenPadding)
 
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: Spacing.md) {
+                LazyHStack(spacing: Spacing.md) {
                     ForEach(viewModel.relatedServices.prefix(4)) { relatedService in
                         NavigationLink(destination: ServiceDetailView(service: relatedService)
                             .environmentObject(authViewModel)) {
@@ -484,7 +488,7 @@ struct ReviewCard: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
     }
 }
 
@@ -515,6 +519,8 @@ struct FAQItem: View {
                         .foregroundColor(.textSecondary)
                 }
             }
+            .accessibilityLabel(faq.question)
+            .accessibilityHint(isExpanded ? "Double tap to collapse answer" : "Double tap to view answer")
 
             if isExpanded {
                 Text(faq.answer)
@@ -525,7 +531,7 @@ struct FAQItem: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
     }
 }
 

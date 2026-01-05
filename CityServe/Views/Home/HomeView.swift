@@ -94,13 +94,13 @@ struct HomeView: View {
     // MARK: - Subviews
 
     private var greetingSection: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: Spacing.xxs) {
             Text(greetingText)
-                .font(.system(size: 28, weight: .bold))
+                .h2Style()
                 .foregroundColor(.textPrimary)
 
             Text(Strings.Home.subtitle)
-                .font(.system(size: 15))
+                .bodyStyle()
                 .foregroundColor(.textSecondary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -112,17 +112,17 @@ struct HomeView: View {
         NavigationLink(destination: SearchView()) {
             HStack(spacing: Spacing.sm) {
                 Image(systemName: "magnifyingglass")
-                    .font(.system(size: 18, weight: .medium))
+                    .font(.bodyLarge)
                     .foregroundColor(.textSecondary)
 
                 Text(Strings.Home.searchPlaceholder)
-                    .font(.system(size: 15))
+                    .bodyStyle()
                     .foregroundColor(.textTertiary)
 
                 Spacer()
 
                 Image(systemName: "mic.fill")
-                    .font(.system(size: 16))
+                    .font(.body)
                     .foregroundColor(.primary.opacity(0.6))
             }
             .padding(.horizontal, Spacing.md)

@@ -77,11 +77,13 @@ struct SearchView: View {
                                 .font(.system(size: Spacing.iconSM))
                                 .foregroundColor(.textTertiary)
                         }
+                        .accessibilityLabel("Clear search")
+                        .accessibilityHint("Clear search text and start over")
                     }
                 }
                 .padding(Spacing.md)
                 .background(Color.surface)
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
 
                 // Filter Button
                 Button(action: {
@@ -101,8 +103,10 @@ struct SearchView: View {
                     }
                     .frame(width: 44, height: 44)
                     .background(Color.surface)
-                    .cornerRadius(Spacing.radiusMd)
+                    .cornerRadius(Spacing.radiusLg)
                 }
+                .accessibilityLabel("Advanced filters")
+                .accessibilityHint(hasActiveFilters ? "Active filters applied" : "Filter by price and rating")
             }
             .padding(.horizontal, Spacing.screenPadding)
             .padding(.top, Spacing.sm)
@@ -118,7 +122,7 @@ struct SearchView: View {
 
     private var activeFiltersChips: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: Spacing.xs) {
+            LazyHStack(spacing: Spacing.xs) {
                 if let priceRange = viewModel.filters.priceRange {
                     FilterChip(
                         text: "₹\(Int(priceRange.min)) - ₹\(Int(priceRange.max))",
@@ -151,6 +155,8 @@ struct SearchView: View {
                         .background(Color.error.opacity(0.1))
                         .cornerRadius(Spacing.radiusPill)
                 }
+                .accessibilityLabel("Clear all filters")
+                .accessibilityHint("Remove all active filters")
             }
             .padding(.horizontal, Spacing.screenPadding)
         }
@@ -188,12 +194,14 @@ struct SearchView: View {
                                 .padding(.vertical, Spacing.xs)
                                 .frame(maxWidth: .infinity)
                                 .background(Color.surface)
-                                .cornerRadius(Spacing.radiusMd)
+                                .cornerRadius(Spacing.radiusLg)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                                    RoundedRectangle(cornerRadius: Spacing.radiusLg)
                                         .stroke(Color.divider, lineWidth: 1)
                                 )
                             }
+                            .accessibilityLabel("Search \(category.name)")
+                            .accessibilityHint("Quick search for \(category.name) services")
                         }
                     }
                 }
@@ -210,6 +218,8 @@ struct SearchView: View {
                             .environmentObject(authViewModel)) {
                             SearchResultCard(service: service)
                         }
+                        .accessibilityLabel("\(service.name), \(service.formattedPrice)")
+                        .accessibilityHint("View details and book this service")
                     }
                 }
 
@@ -272,6 +282,8 @@ struct SearchView: View {
                                 .environmentObject(authViewModel)) {
                                 SearchResultCard(service: service)
                             }
+                            .accessibilityLabel("\(service.name), \(service.formattedPrice), rated \(String(format: "%.1f", service.rating))")
+                            .accessibilityHint("View details and book this service")
                         }
                     }
                     .padding(Spacing.screenPadding)
@@ -322,7 +334,7 @@ struct SearchResultCard: View {
         HStack(spacing: Spacing.md) {
             // Icon
             ZStack {
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .fill(Color.primary.opacity(0.1))
                     .frame(width: 60, height: 60)
 

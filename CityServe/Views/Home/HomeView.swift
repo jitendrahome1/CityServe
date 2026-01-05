@@ -475,7 +475,7 @@ struct CitySelectorSheet: View {
 // MARK: - Promo Card
 
 struct PromoCard: View {
-    let promo: PromoBanner
+    let promo: PromoBannerModel
     @State private var isPressed = false
 
     var body: some View {
@@ -564,7 +564,7 @@ struct PromoCard: View {
 
 // MARK: - Promo Banner Model
 
-struct PromoBanner: Identifiable {
+struct PromoBannerModel: Identifiable {
     let id: String
     let title: String
     let subtitle: String
@@ -573,8 +573,8 @@ struct PromoBanner: Identifiable {
     let gradientColors: [Color]
     let promoCode: String?
 
-    static let mockBanners: [PromoBanner] = [
-        PromoBanner(
+    static let mockBanners: [PromoBannerModel] = [
+        PromoBannerModel(
             id: "promo1",
             title: Strings.Promo.first20Title,
             subtitle: Strings.Promo.first20Subtitle,
@@ -583,7 +583,7 @@ struct PromoBanner: Identifiable {
             gradientColors: [Color.secondary, Color.secondaryLight],
             promoCode: "FIRST20"
         ),
-        PromoBanner(
+        PromoBannerModel(
             id: "promo2",
             title: Strings.Promo.acCheckupTitle,
             subtitle: Strings.Promo.acCheckupSubtitle,
@@ -592,7 +592,7 @@ struct PromoBanner: Identifiable {
             gradientColors: [Color.info, Color.info.opacity(0.7)],
             promoCode: nil
         ),
-        PromoBanner(
+        PromoBannerModel(
             id: "promo3",
             title: Strings.Promo.cleaningTitle,
             subtitle: Strings.Promo.cleaningSubtitle,

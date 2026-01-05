@@ -85,7 +85,7 @@ struct ShimmerBox: View {
     @State private var phase: CGFloat = 0
 
     var body: some View {
-        RoundedRectangle(cornerRadius: Spacing.radiusMd)
+        RoundedRectangle(cornerRadius: Spacing.radiusLg)
             .fill(Color.neutralGray)
             .frame(height: 80)
             .overlay(
@@ -104,6 +104,7 @@ struct ShimmerBox: View {
                 }
             )
             .clipped()
+            .subtleShadow()
             .onAppear {
                 withAnimation(
                     Animation.linear(duration: 1.5)

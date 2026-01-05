@@ -29,7 +29,7 @@ class HomeViewModel: ObservableObject {
     @Published var selectedCity = "Delhi"
     let availableCities = ["Delhi", "Mumbai", "Bangalore", "Pune", "Hyderabad"]
 
-    @Published var promoBanners: [PromoBanner] = []
+    @Published var promoBanners: [PromoBannerModel] = []
     @Published var selectedPromoIndex = 0
 
     // MARK: - Computed Properties
@@ -61,7 +61,7 @@ class HomeViewModel: ObservableObject {
         categories = ServiceCategory.mockCategories
         allServices = Service.mockServices
         popularServices = allServices.filter { $0.isPopular }
-        promoBanners = PromoBanner.mockBanners
+        promoBanners = PromoBannerModel.mockBanners
         isLoading = false
     }
 
@@ -76,7 +76,7 @@ class HomeViewModel: ObservableObject {
             categories = ServiceCategory.mockCategories
             allServices = Service.mockServices
             popularServices = allServices.filter { $0.isPopular }
-            promoBanners = PromoBanner.mockBanners
+            promoBanners = PromoBannerModel.mockBanners
 
             isLoading = false
         } catch {

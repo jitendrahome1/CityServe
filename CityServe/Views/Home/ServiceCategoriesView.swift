@@ -28,6 +28,8 @@ struct ServiceCategoriesView: View {
                             .environmentObject(authViewModel)) {
                             CategoryCard(category: category)
                         }
+                        .accessibilityLabel(category.name)
+                        .accessibilityHint("View services in \(category.name) category")
                     }
                 }
                 .padding(Spacing.screenPadding)

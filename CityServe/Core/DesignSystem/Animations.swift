@@ -93,14 +93,32 @@ struct Animations {
         dampingFraction: 0.8
     )
 
-    /// Tab switch animation
-    static let tabSwitch = Animation.easeInOut(duration: fast)
+    /// Tab switch animation (smooth spring for modern feel)
+    static let tabSwitch = Animation.spring(
+        response: 0.3,
+        dampingFraction: 0.75
+    )
 
     /// Loading animation
     static let loading = Animation.linear(duration: normal).repeatForever(autoreverses: false)
 
     /// Pulse animation (for notifications, alerts)
     static let pulse = Animation.easeInOut(duration: slow).repeatForever(autoreverses: true)
+
+    /// Badge pulse animation (for membership/high-demand badges) - from designs
+    static let badgePulse = Animation.easeInOut(duration: 0.6).repeatForever(autoreverses: true)
+
+    /// Card press animation (for service cards with subtle feedback)
+    static let cardPress = Animation.spring(
+        response: 0.25,
+        dampingFraction: 0.6
+    )
+
+    /// Floating card appear animation (for elevated service cards) - from designs
+    static let floatingCardAppear = Animation.spring(
+        response: 0.45,
+        dampingFraction: 0.75
+    )
 
     /// Shake animation (for errors)
     static let shake = Animation.linear(duration: instant).repeatCount(3, autoreverses: true)
@@ -175,6 +193,17 @@ extension View {
     func shimmer(isActive: Bool) -> some View {
         self.modifier(ShimmerEffect(isActive: isActive))
     }
+
+    /// Badge pulse animation (for membership/high-demand badges)
+    func badgePulse(isActive: Bool) -> some View {
+        self.modifier(BadgePulseEffect(isActive: isActive))
+    }
+
+    /// Card press animation (for service cards with subtle feedback)
+    func cardPressEffect(isPressed: Bool) -> some View {
+        self.scaleEffect(isPressed ? 0.98 : 1.0)
+            .animation(Animations.cardPress, value: isPressed)
+    }
 }
 
 // MARK: - Animation Modifiers
@@ -218,6 +247,38 @@ struct PulseEffect: ViewModifier {
                     }
                 } else {
                     scale = 1.0
+                }
+            }
+    }
+}
+
+/// Badge pulse effect for membership/high-demand badges (from designs)
+struct BadgePulseEffect: ViewModifier {
+    let isActive: Bool
+    @State private var scale: CGFloat = 1.0
+    @State private var opacity: Double = 1.0
+
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(scale)
+            .opacity(opacity)
+            .onAppear {
+                if isActive {
+                    withAnimation(Animations.badgePulse) {
+                        scale = 1.05
+                        opacity = 0.9
+                    }
+                }
+            }
+            .onChange(of: isActive) { oldValue, newValue in
+                if newValue {
+                    withAnimation(Animations.badgePulse) {
+                        scale = 1.05
+                        opacity = 0.9
+                    }
+                } else {
+                    scale = 1.0
+                    opacity = 1.0
                 }
             }
     }
@@ -300,9 +361,12 @@ extension View {
  - Button Tap: Fast ease in-out
  - Card Appear: Smooth spring
  - Modal Present: Gentle spring
- - Tab Switch: Fast ease in-out
+ - Tab Switch: Smooth spring (updated for modern feel)
  - Loading: Linear repeat forever
  - Pulse: Ease in-out repeat
+ - Badge Pulse: Subtle pulse for membership/high-demand badges (NEW - from designs)
+ - Card Press: Spring animation for service cards (NEW - from designs)
+ - Floating Card Appear: Smooth spring for elevated cards (NEW - from designs)
  - Shake: Fast linear repeat (3x)
 
  Transitions:
@@ -315,6 +379,26 @@ extension View {
  Usage Examples:
 
  ```swift
+ // NEW: Badge pulse animation (membership/high-demand badges)
+ Text("Plus")
+     .badgePulse(isActive: true)
+
+ // NEW: Card press animation (service cards)
+ ServiceCardView()
+     .cardPressEffect(isPressed: isPressed)
+
+ // NEW: Floating card appearance
+ if showCard {
+     ServiceCard()
+         .transition(.opacity.animation(Animations.floatingCardAppear))
+ }
+
+ // NEW: Smooth tab switching
+ TabView(selection: $selectedTab) {
+     // ...
+ }
+ .animation(Animations.tabSwitch, value: selectedTab)
+
  // Button press animation
  Button("Tap Me") { }
      .scaleButtonEffect(isPressed: isPressed)

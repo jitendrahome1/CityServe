@@ -49,6 +49,8 @@ struct OTPVerificationView: View {
                                     .font(.h4)
                                     .foregroundColor(.primary)
                             }
+                            .accessibilityLabel("Edit phone number")
+                            .accessibilityHint("Double tap to change your phone number")
                         }
                     }
                     .multilineTextAlignment(.center)
@@ -83,6 +85,8 @@ struct OTPVerificationView: View {
                                         .foregroundColor(.primary)
                                         .fontWeight(.semibold)
                                 }
+                                .accessibilityLabel("Resend OTP")
+                                .accessibilityHint("Double tap to receive a new verification code")
                             }
                         }
                     }

@@ -92,6 +92,7 @@ struct MainTabView: View {
 
 struct CustomTabBar: View {
     @Binding var selectedTab: MainTabView.Tab
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         HStack(spacing: 0) {
@@ -108,20 +109,20 @@ struct CustomTabBar: View {
                 )
             }
         }
-        .padding(.top, 6)
-        .padding(.bottom, max(UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .first?.windows.first?.safeAreaInsets.bottom ?? 0, 6))
+        .frame(height: 49)
         .background(
-            Color.white
-                .opacity(0.98)
-                .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: -1)
-        )
-        .overlay(
-            Rectangle()
-                .fill(Color.gray.opacity(0.2))
-                .frame(height: 0.33),
-            alignment: .top
+            ZStack {
+                // Background blur effect
+                (colorScheme == .dark ? Color.black : Color.white)
+                    .opacity(colorScheme == .dark ? 0.9 : 0.95)
+
+                // Subtle top border
+                VStack {
+                    Divider()
+                    Spacer()
+                }
+            }
+            .ignoresSafeArea(edges: .bottom)
         )
     }
 }
@@ -135,19 +136,18 @@ struct TabBarItem: View {
 
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 3) {
+            VStack(spacing: 2) {
                 Image(systemName: isSelected ? tab.iconFilled : tab.icon)
-                    .font(.system(size: 22, weight: isSelected ? .semibold : .regular))
-                    .foregroundColor(isSelected ? Color(hex: "#5F4FE0") : Color.gray.opacity(0.6))
-                    .frame(height: 22)
+                    .font(.system(size: 24, weight: isSelected ? .semibold : .regular))
+                    .foregroundColor(isSelected ? Color(hex: "#5F4FE0") : Color.gray.opacity(0.55))
+                    .frame(height: 26)
 
                 Text(tab.title)
-                    .font(.system(size: 9, weight: isSelected ? .medium : .regular))
-                    .foregroundColor(isSelected ? Color(hex: "#5F4FE0") : Color.gray.opacity(0.7))
+                    .font(.system(size: 10, weight: isSelected ? .medium : .regular))
+                    .foregroundColor(isSelected ? Color(hex: "#5F4FE0") : Color.gray.opacity(0.65))
                     .lineLimit(1)
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 2)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .contentShape(Rectangle())
         }
         .buttonStyle(PlainButtonStyle())

@@ -21,9 +21,9 @@ struct MainTabView: View {
 
         var title: String {
             switch self {
-            case .home: return "Home"
+            case .home: return "UC"
             case .bookings: return "Bookings"
-            case .plus: return "Plus"
+            case .plus: return "UC Plus"
             case .rewards: return "Rewards"
             case .account: return "Account"
             }

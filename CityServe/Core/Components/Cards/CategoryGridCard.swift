@@ -161,6 +161,19 @@ struct CategoryCardModel: Identifiable {
     }
 }
 
+// MARK: - Extension for ServiceCategory
+
+extension CategoryCardModel {
+    init(from category: ServiceCategory) {
+        self.id = category.id
+        self.name = category.name
+        self.icon = category.icon
+        self.imageURL = category.imageURL
+        self.iconColor = nil
+        self.gradientColors = nil
+    }
+}
+
 // MARK: - Preview
 
 #Preview("Category Grid Cards") {

@@ -100,7 +100,7 @@ struct CustomTabBar: View {
                     tab: tab,
                     isSelected: selectedTab == tab,
                     action: {
-                        withAnimation(.easeInOut(duration: 0.2)) {
+                        withAnimation(.easeInOut(duration: 0.15)) {
                             selectedTab = tab
                             Haptics.light()
                         }
@@ -108,16 +108,19 @@ struct CustomTabBar: View {
                 )
             }
         }
-        .padding(.top, 8)
-        .padding(.bottom, 8)
+        .padding(.top, 6)
+        .padding(.bottom, max(UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?.windows.first?.safeAreaInsets.bottom ?? 0, 6))
         .background(
-            Color.surface
-                .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: -2)
+            Color.white
+                .opacity(0.98)
+                .shadow(color: Color.black.opacity(0.05), radius: 2, x: 0, y: -1)
         )
         .overlay(
             Rectangle()
-                .fill(Color.divider)
-                .frame(height: 0.5),
+                .fill(Color.gray.opacity(0.2))
+                .frame(height: 0.33),
             alignment: .top
         )
     }
@@ -132,19 +135,19 @@ struct TabBarItem: View {
 
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 4) {
+            VStack(spacing: 3) {
                 Image(systemName: isSelected ? tab.iconFilled : tab.icon)
-                    .font(.system(size: 24))
-                    .foregroundColor(isSelected ? .primary : .textTertiary)
-                    .frame(height: 24)
+                    .font(.system(size: 22, weight: isSelected ? .semibold : .regular))
+                    .foregroundColor(isSelected ? Color(hex: "#5F4FE0") : Color.gray.opacity(0.6))
+                    .frame(height: 22)
 
                 Text(tab.title)
-                    .font(.system(size: 10, weight: isSelected ? .semibold : .regular))
-                    .foregroundColor(isSelected ? .primary : .textTertiary)
+                    .font(.system(size: 9, weight: isSelected ? .medium : .regular))
+                    .foregroundColor(isSelected ? Color(hex: "#5F4FE0") : Color.gray.opacity(0.7))
                     .lineLimit(1)
             }
             .frame(maxWidth: .infinity)
-            .padding(.vertical, 4)
+            .padding(.vertical, 2)
             .contentShape(Rectangle())
         }
         .buttonStyle(PlainButtonStyle())

@@ -102,7 +102,7 @@ struct HelpCenterView: View {
         .padding(.horizontal, Spacing.md)
         .padding(.vertical, Spacing.sm)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
         .padding(.horizontal, Spacing.md)
     }
 
@@ -238,9 +238,9 @@ struct HelpCenterView: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 48)
                     .background(Color.white)
-                    .cornerRadius(Spacing.radiusMd)
+                    .cornerRadius(Spacing.radiusLg)
                     .overlay(
-                        RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                        RoundedRectangle(cornerRadius: Spacing.radiusLg)
                             .stroke(Color.primary, lineWidth: 1.5)
                     )
                 }

@@ -58,36 +58,82 @@ struct ServiceCard: View {
 
     private var verticalLayout: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Image
-            serviceImage
-                .aspectRatio(4/3, contentMode: .fill)
-                .frame(height: 120)
-                .clipped()
-                .cornerRadius(Spacing.radiusMd, corners: [.topLeft, .topRight])
+            // Image with overlay gradient
+            ZStack(alignment: .topTrailing) {
+                serviceImage
+                    .aspectRatio(4/3, contentMode: .fill)
+                    .frame(height: 130)
+                    .clipped()
+
+                // Rating badge overlay
+                if let rating = service.rating {
+                    HStack(spacing: 3) {
+                        Image(systemName: "star.fill")
+                            .font(.system(size: 10))
+                            .foregroundColor(.white)
+
+                        Text(String(format: "%.1f", rating))
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundColor(.white)
+                    }
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(
+                        Capsule()
+                            .fill(Color.black.opacity(0.75))  // Darker background for better visibility
+                    )
+                    .padding(10)
+                }
+            }
+            .cornerRadius(Spacing.radiusLg, corners: [.topLeft, .topRight])
 
             // Details
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text(service.name)
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(.system(size: 15, weight: .semibold))
                     .foregroundColor(.textPrimary)
                     .lineLimit(2)
                     .fixedSize(horizontal: false, vertical: true)
 
-                if let rating = service.rating {
-                    ratingView(rating: rating, reviewCount: service.reviewCount)
+                if let description = service.shortDescription {
+                    Text(description)
+                        .font(.system(size: 12))
+                        .foregroundColor(.textSecondary)
+                        .lineLimit(2)
                 }
 
                 Spacer()
 
-                priceView
+                // Price with gradient background
+                HStack {
+                    if let price = service.basePrice {
+                        Text("₹\(Int(price))")
+                            .font(.system(size: 16, weight: .bold))
+                            .foregroundColor(.primary)
+
+                        if let maxPrice = service.maxPrice, maxPrice != price {
+                            Text("- ₹\(Int(maxPrice))")
+                                .font(.system(size: 14, weight: .semibold))
+                                .foregroundColor(.textSecondary)
+                        }
+                    }
+
+                    Spacer()
+
+                    Image(systemName: "arrow.right.circle.fill")
+                        .font(.system(size: 20))
+                        .foregroundColor(.primary.opacity(0.8))
+                }
             }
-            .padding(12)
+            .padding(14)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .frame(height: 220)
+        .frame(height: 240)
         .background(Color.surface)
         .cornerRadius(Spacing.radiusLg)
-        .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 2)
+        .floatingCardShadow()  // Modern, lighter shadow from design system
+        .scaleEffect(isPressed ? 0.98 : 1.0)  // Subtle press effect
+        .animation(Animations.cardPress, value: isPressed)  // Design system animation
     }
 
     private var horizontalLayout: some View {
@@ -97,7 +143,7 @@ struct ServiceCard: View {
                 .aspectRatio(1, contentMode: .fill)
                 .frame(width: 80, height: 80)
                 .clipped()
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)  // More rounded (12pt instead of 8pt)
 
             // Details
             VStack(alignment: .leading, spacing: Spacing.xxs) {
@@ -133,7 +179,7 @@ struct ServiceCard: View {
         .padding(Spacing.sm)
         .background(Color.surface)
         .cornerRadius(Spacing.radiusLg)
-        .mediumShadow()
+        .floatingCardShadow()  // Modern, lighter shadow from design system
     }
 
     private var compactLayout: some View {
@@ -174,8 +220,8 @@ struct ServiceCard: View {
         .frame(maxWidth: .infinity)
         .padding(10)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
-        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
+        .cornerRadius(Spacing.radiusLg)  // More rounded (12pt instead of 8pt)
+        .subtleShadow()  // Lighter shadow for compact cards
     }
 
     // MARK: - Subviews
@@ -254,8 +300,13 @@ struct ServiceCard: View {
     // MARK: - Actions
 
     private func handleTap() {
+        isPressed = true
         Haptics.light()
-        action?()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            isPressed = false
+            action?()
+        }
     }
 }
 

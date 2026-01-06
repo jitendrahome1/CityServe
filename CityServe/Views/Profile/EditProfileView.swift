@@ -168,7 +168,7 @@ struct EditProfileView: View {
                 }
                 .padding(Spacing.md)
                 .background(Color.surface.opacity(0.5))
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
 
                 Text("Phone number cannot be changed")
                     .font(.caption)
@@ -221,7 +221,7 @@ struct EditProfileView: View {
                     }
                     .padding(Spacing.md)
                     .background(Color.surface)
-                    .cornerRadius(Spacing.radiusMd)
+                    .cornerRadius(Spacing.radiusLg)
                 }
             }
         }
@@ -263,7 +263,7 @@ struct SuccessBanner: View {
         }
         .padding(Spacing.md)
         .background(Color.success.opacity(0.1))
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
     }
 }
 

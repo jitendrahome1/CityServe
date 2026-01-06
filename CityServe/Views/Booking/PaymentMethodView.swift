@@ -146,7 +146,7 @@ struct PaymentMethodView: View {
         }
         .padding(Spacing.md)
         .background(Color.success.opacity(0.05))
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
     }
 }
 
@@ -209,9 +209,9 @@ struct SavedPaymentMethodCard: View {
             }
             .padding(Spacing.md)
             .background(isSelected ? Color.primary.opacity(0.05) : Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .stroke(isSelected ? Color.primary : Color.divider, lineWidth: isSelected ? 2 : 1)
             )
         }
@@ -279,9 +279,9 @@ struct PaymentMethodCard: View {
             }
             .padding(Spacing.md)
             .background(isSelected ? Color.primary.opacity(0.05) : Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .stroke(isSelected ? Color.primary : Color.divider, lineWidth: isSelected ? 2 : 1)
             )
         }

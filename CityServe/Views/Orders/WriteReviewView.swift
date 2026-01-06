@@ -240,7 +240,7 @@ struct WriteReviewView: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
     }
 
     private var reviewTextSection: some View {
@@ -266,9 +266,9 @@ struct WriteReviewView: View {
                     .scrollContentBackground(.hidden)
             }
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .stroke(
                         viewModel.reviewText.count > 500 ? Color.error : Color.divider,
                         lineWidth: 1
@@ -451,7 +451,7 @@ struct ReviewPhotoUpload: View {
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(height: 80)
-                            .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusMd))
+                            .clipShape(RoundedRectangle(cornerRadius: Spacing.radiusLg))
 
                         // Remove button
                         Button(action: {
@@ -493,9 +493,9 @@ struct ReviewPhotoUpload: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 80)
                         .background(Color.primary.opacity(0.1))
-                        .cornerRadius(Spacing.radiusMd)
+                        .cornerRadius(Spacing.radiusLg)
                         .overlay(
-                            RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                            RoundedRectangle(cornerRadius: Spacing.radiusLg)
                                 .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [4]))
                                 .foregroundColor(.primary)
                         )

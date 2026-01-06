@@ -130,7 +130,7 @@ struct BookingConfirmationView: View {
         }
         .padding(Spacing.md)
         .background(Color.primary.opacity(0.05))
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
     }
 
     private var bookingDetailsCard: some View {
@@ -238,7 +238,7 @@ struct BookingConfirmationView: View {
             }
             .padding(Spacing.md)
             .background(Color.info.opacity(0.05))
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
         }
     }
 
@@ -258,7 +258,7 @@ struct BookingConfirmationView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 52)
                 .background(Color.primary)
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
             }
 
             // Back to Home Button
@@ -277,9 +277,9 @@ struct BookingConfirmationView: View {
                 .frame(maxWidth: .infinity)
                 .frame(height: 52)
                 .background(Color.surface)
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
                 .overlay(
-                    RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                    RoundedRectangle(cornerRadius: Spacing.radiusLg)
                         .stroke(Color.primary, lineWidth: 1.5)
                 )
             }

@@ -12,7 +12,7 @@ extension Color {
 
     // MARK: - Brand Colors
 
-    /// Primary brand color - Deep Teal
+    /// Primary brand color - Modern Purple (Urban Company style)
     /// Used for: Primary CTA buttons, active states, brand elements
     static let primary = Color("Primary")
 
@@ -24,7 +24,7 @@ extension Color {
     /// Used for: Pressed states, borders
     static let primaryDark = Color("PrimaryDark")
 
-    /// Secondary brand color - Warm Orange
+    /// Secondary brand color - Vibrant Orange
     /// Used for: Accent, highlights, secondary CTAs, notifications
     static let secondary = Color("Secondary")
 
@@ -33,6 +33,14 @@ extension Color {
 
     /// Secondary color - Dark variant
     static let secondaryDark = Color("SecondaryDark")
+
+    // MARK: - Modern Accent Colors
+
+    /// Gradient start color for modern cards
+    static let gradientStart = Color("GradientStart")
+
+    /// Gradient end color for modern cards
+    static let gradientEnd = Color("GradientEnd")
 
     // MARK: - Neutral Colors
 
@@ -76,6 +84,28 @@ extension Color {
     /// Info color - for informational messages
     static let info = Color("Info")
 
+    // MARK: - Design-Specific Semantic Colors
+
+    /// Membership gold color - for Plus membership badges and highlights
+    /// Used for: Plus badge, premium features, membership UI
+    static let membershipGold = Color("MembershipGold")
+
+    /// High demand indicator color - for popular time slots and services
+    /// Used for: "High demand" badges, popular markers
+    static let highDemand = Color("HighDemand")
+
+    /// Promo background color - for promotional banners
+    /// Used for: Promo cards, offer banners, discount highlights
+    static let promoBackground = Color("PromoBackground")
+
+    /// Card overlay color - for glassmorphism effects
+    /// Used for: Frosted glass overlays, modern card effects
+    static let cardOverlay = Color("CardOverlay")
+
+    /// UC Safe badge color - for verified/safe badges
+    /// Used for: Safety badges, verification marks
+    static let ucSafeBadge = Color("UCSafeBadge")
+
     // MARK: - Fallback Colors (for when Assets.xcassets is not set up)
 
     /// Returns the color with fallback to hex value
@@ -86,21 +116,27 @@ extension Color {
         } else {
             // Fallback to hardcoded hex values
             switch name {
-            // Primary
+            // Primary (Modern Purple - Extracted from designs)
             case "Primary":
-                self.init(hex: "#0D7377")
+                self.init(hex: "#6366F1")  // Indigo/Purple from designs
             case "PrimaryLight":
-                self.init(hex: "#14A0A5")
+                self.init(hex: "#A5A8FF")  // Light Indigo
             case "PrimaryDark":
-                self.init(hex: "#095256")
+                self.init(hex: "#4F46E5")  // Dark Indigo
 
             // Secondary
             case "Secondary":
-                self.init(hex: "#FF6B35")
+                self.init(hex: "#FF6B35")  // Vibrant Orange
             case "SecondaryLight":
                 self.init(hex: "#FF8B60")
             case "SecondaryDark":
                 self.init(hex: "#E5501F")
+
+            // Gradient Colors
+            case "GradientStart":
+                self.init(hex: "#6C5CE7")  // Purple
+            case "GradientEnd":
+                self.init(hex: "#A29BFE")  // Light Purple
 
             // Neutral
             case "NeutralGray":
@@ -131,6 +167,18 @@ extension Color {
                 self.init(hex: "#EA5455")
             case "Info":
                 self.init(hex: "#00CFE8")
+
+            // Design-Specific Semantic Colors
+            case "MembershipGold":
+                self.init(hex: "#FFD700")  // Gold for Plus membership
+            case "HighDemand":
+                self.init(hex: "#FF5252")  // Bright red for high demand badges
+            case "PromoBackground":
+                self.init(hex: "#FFF3E0")  // Light orange/cream for promo banners
+            case "CardOverlay":
+                self.init(hex: "#26FFFFFF")  // Semi-transparent white (15% opacity) for glassmorphism
+            case "UCSafeBadge":
+                self.init(hex: "#4CAF50")  // Green for UC Safe verification
 
             default:
                 self.init(.gray)
@@ -175,9 +223,9 @@ extension Color {
  ===================
 
  Primary Colors:
- - Primary (Deep Teal): #0D7377
-   - Light: #14A0A5
-   - Dark: #095256
+ - Primary (Indigo Purple): #6366F1 (extracted from designs)
+   - Light: #A5A8FF
+   - Dark: #4F46E5
    Usage: Primary CTA buttons, active states, brand elements
 
  - Secondary (Warm Orange): #FF6B35
@@ -194,6 +242,13 @@ extension Color {
  - Warning: #FFC107 (Yellow/Amber)
  - Error: #EA5455 (Red)
  - Info: #00CFE8 (Cyan)
+
+ Design-Specific Semantic Colors:
+ - Membership Gold: #FFD700 (for Plus membership badges)
+ - High Demand: #FF5252 (for popular time slot badges)
+ - Promo Background: #FFF3E0 (for promotional banners)
+ - Card Overlay: #FFFFFF with 15% opacity (for glassmorphism)
+ - UC Safe Badge: #4CAF50 (for verification badges)
 
  Dark Mode:
  - Background Dark: #1E1E1E

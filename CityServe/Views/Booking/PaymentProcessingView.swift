@@ -176,7 +176,7 @@ struct ProcessingStateView: View {
             .padding(.horizontal, Spacing.md)
             .padding(.vertical, Spacing.sm)
             .background(Color.primary.opacity(0.1))
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
 
             Spacer()
         }
@@ -236,7 +236,7 @@ struct UPICollectionView: View {
                 .padding(.horizontal, Spacing.md)
                 .padding(.vertical, Spacing.xs)
                 .background(Color.primary.opacity(0.1))
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
 
             // Countdown Timer
             HStack(spacing: Spacing.xxs) {
@@ -385,7 +385,7 @@ struct PaymentFailureView: View {
                     .padding(.horizontal, Spacing.md)
                     .padding(.vertical, Spacing.xs)
                     .background(Color.error.opacity(0.1))
-                    .cornerRadius(Spacing.radiusMd)
+                    .cornerRadius(Spacing.radiusLg)
 
                 // Transaction ID
                 if let transactionId = transactionId {
@@ -575,7 +575,11 @@ class PaymentProcessingViewModel: ObservableObject {
 
             // Simulate 90% success rate
             if Int.random(in: 1...10) <= 9 {
-                paymentState = .success(transactionId: transactionId!)
+                guard let txnId = transactionId else {
+                    paymentState = .failed(.unknown("Transaction ID not generated"))
+                    return
+                }
+                paymentState = .success(transactionId: txnId)
             } else {
                 paymentState = .failed(.insufficientBalance)
             }
@@ -592,7 +596,11 @@ class PaymentProcessingViewModel: ObservableObject {
 
         // Simulate 80% success rate for UPI
         if Int.random(in: 1...10) <= 8 {
-            paymentState = .success(transactionId: transactionId!)
+            guard let txnId = transactionId else {
+                paymentState = .failed(.unknown("Transaction ID not generated"))
+                return
+            }
+            paymentState = .success(transactionId: txnId)
         } else {
             paymentState = .failed(.authenticationFailed)
         }

@@ -26,8 +26,13 @@ struct ServiceCategoriesView: View {
                     ForEach(viewModel.categories) { category in
                         NavigationLink(destination: CategoryDetailView(category: category)
                             .environmentObject(authViewModel)) {
-                            CategoryCard(category: category)
+                            CategoryGridCard(
+                                category: CategoryCardModel(from: category),
+                                action: nil
+                            )
                         }
+                        .accessibilityLabel(category.name)
+                        .accessibilityHint("View services in \(category.name) category")
                     }
                 }
                 .padding(Spacing.screenPadding)

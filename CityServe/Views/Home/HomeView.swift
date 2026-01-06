@@ -2,7 +2,8 @@
 //  HomeView.swift
 //  CityServe
 //
-//  Main Home Screen - Service Discovery
+//  Main Home Screen - Urban Company Design Pattern
+//  Redesigned to match UC's layout and visual hierarchy
 //
 
 import SwiftUI
@@ -20,33 +21,36 @@ struct HomeView: View {
                 Color.background
                     .ignoresSafeArea()
 
-                ScrollView {
-                    VStack(spacing: 20) {
-                        // Greeting Section
-                        greetingSection
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: Spacing.md) {
+                        // 1. Location + Search Bar (inline at top)
+                        locationAndSearchSection
 
-                        // Search Bar
-                        searchBar
+                        // 2. Plus Membership Banner
+                        plusMembershipBanner
 
-                        // Popular Services
-                        if !viewModel.isLoading && !viewModel.popularServices.isEmpty {
-                            popularServicesSection
-                                .padding(.top, 8)
+                        // 3. Custom Package Banner
+                        customPackageBanner
+
+                        // 4. Personal Services Section
+                        personalServicesSection
+
+                        // 5. Home Services Section
+                        homeServicesSection
+
+                        // 6. Trending Services Section
+                        trendingServicesSection
+
+                        // 7. Sponsored Ad Section (optional)
+                        if viewModel.sponsoredAd != nil {
+                            sponsoredAdSection
                         }
 
-                        // All Categories
-                        if !viewModel.categories.isEmpty {
-                            categoriesSection
-                                .padding(.top, 8)
-                        }
+                        // 8. Quick Access Buttons
+                        quickAccessButtons
 
-                        // Promotional Carousel
-                        promoCarousel
-                            .padding(.top, 8)
-
-                        Spacer(minLength: Spacing.xl)
+                        Spacer(minLength: Spacing.xxl)
                     }
-                    .padding(.top, 12)
                 }
                 .refreshable {
                     await viewModel.refreshData()
@@ -55,27 +59,15 @@ struct HomeView: View {
                 // Loading overlay
                 if viewModel.isLoading && viewModel.categories.isEmpty {
                     LoadingView(
-                        message: Strings.Home.loading,
+                        message: "Loading services...",
                         style: .spinner
                     )
                 }
             }
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarHidden(true) // Custom header, no navigation bar
             .onAppear {
                 if viewModel.categories.isEmpty {
                     viewModel.loadInitialData()
-                }
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    citySelectorButton
-                }
-
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack(spacing: Spacing.sm) {
-                        searchButton
-                        notificationButton
-                    }
                 }
             }
             .sheet(isPresented: $showCitySelector) {
@@ -91,307 +83,414 @@ struct HomeView: View {
         }
     }
 
-    // MARK: - Subviews
+    // MARK: - 1. Location & Search Section
 
-    private var greetingSection: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(greetingText)
-                .font(.system(size: 28, weight: .bold))
-                .foregroundColor(.textPrimary)
+    private var locationAndSearchSection: some View {
+        VStack(spacing: Spacing.sm) {
+            // Location row
+            HStack {
+                Image(systemName: "mappin.circle.fill")
+                    .font(.title3)
+                    .foregroundColor(.primary)
 
-            Text(Strings.Home.subtitle)
-                .font(.system(size: 15))
-                .foregroundColor(.textSecondary)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, Spacing.screenPadding)
-        .padding(.top, Spacing.xs)
-    }
+                Button(action: { showCitySelector = true }) {
+                    HStack(spacing: Spacing.xxs) {
+                        Text(truncatedAddress)
+                            .font(.body)
+                            .foregroundColor(.textPrimary)
+                            .fontWeight(.medium)
+                            .lineLimit(1)
 
-    private var searchBar: some View {
-        NavigationLink(destination: SearchView()) {
-            HStack(spacing: Spacing.sm) {
-                Image(systemName: "magnifyingglass")
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundColor(.textSecondary)
-
-                Text(Strings.Home.searchPlaceholder)
-                    .font(.system(size: 15))
-                    .foregroundColor(.textTertiary)
+                        Image(systemName: "chevron.down")
+                            .font(.caption)
+                            .foregroundColor(.textSecondary)
+                    }
+                }
 
                 Spacer()
+
+                // Notification bell
+                Button(action: { showNotifications = true }) {
+                    Image(systemName: "bell")
+                        .font(.title3)
+                        .foregroundColor(.textPrimary)
+                }
+            }
+            .padding(.horizontal, Spacing.screenPadding)
+            .padding(.top, Spacing.md)
+
+            // Search bar
+            NavigationLink(destination: SearchView()) {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.textSecondary)
+
+                    Text("Search for services and packages")
+                        .font(.body)
+                        .foregroundColor(.textTertiary)
+
+                    Spacer()
+                }
+                .padding(Spacing.md)
+                .background(Color.surface)
+                .cornerRadius(Spacing.radiusLg)
+                .overlay(
+                    RoundedRectangle(cornerRadius: Spacing.radiusLg)
+                        .stroke(Color.divider, lineWidth: 1)
+                )
+            }
+            .padding(.horizontal, Spacing.screenPadding)
+        }
+    }
+
+    // MARK: - 2. Plus Membership Banner
+
+    private var plusMembershipBanner: some View {
+        NavigationLink(destination: PlusMembershipView()) {
+            HStack(spacing: Spacing.md) {
+                // Plus icon with gradient background
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.secondary, Color.warning],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 40, height: 40)
+
+                    Image(systemName: "star.fill")
+                        .font(.title3)
+                        .foregroundColor(.white)
+                }
+
+                // Text content
+                Text("plus")
+                    .font(.h4)
+                    .fontWeight(.bold)
+                    .foregroundColor(.primary)
+
+                Text("Save 15% on every service")
+                    .font(.body)
+                    .foregroundColor(.textSecondary)
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(.body)
+                    .foregroundColor(.textTertiary)
             }
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(12)
-            .shadow(color: .black.opacity(0.04), radius: 4, x: 0, y: 2)
+            .cornerRadius(Spacing.radiusLg)
+            .overlay(
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
+                    .stroke(Color.divider, lineWidth: 1)
+            )
         }
         .padding(.horizontal, Spacing.screenPadding)
     }
 
-    private var popularServicesSection: some View {
+    // MARK: - 3. Custom Package Banner
+
+    private var customPackageBanner: some View {
+        NavigationLink(destination: Text("Custom Package Builder")) {
+            ZStack(alignment: .leading) {
+                // Purple gradient background
+                LinearGradient(
+                    colors: [Color.primary, Color.primaryDark],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+
+                HStack {
+                    VStack(alignment: .leading, spacing: Spacing.xs) {
+                        Text("Let's make a package just")
+                            .font(.h4)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+
+                        Text("for you, \(userName)!")
+                            .font(.h4)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+
+                        HStack(spacing: Spacing.xxs) {
+                            Text("Salon for women")
+                                .font(.body)
+                                .foregroundColor(.white.opacity(0.9))
+
+                            Image(systemName: "arrow.right")
+                                .font(.body)
+                                .foregroundColor(.white)
+                        }
+                        .padding(.top, Spacing.xs)
+                    }
+
+                    Spacer()
+
+                    // Placeholder for person image
+                    Image(systemName: "person.crop.circle.fill")
+                        .font(.system(size: 80))
+                        .foregroundColor(.white.opacity(0.3))
+                }
+                .padding(Spacing.md)
+            }
+            .frame(height: 120)
+            .cornerRadius(Spacing.radiusLg)
+        }
+        .padding(.horizontal, Spacing.screenPadding)
+    }
+
+    // MARK: - 4. Personal Services Section
+
+    private var personalServicesSection: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            Text("Personal Services")
+                .font(.h3)
+                .fontWeight(.bold)
+                .foregroundColor(.textPrimary)
+                .padding(.horizontal, Spacing.screenPadding)
+
+            LazyVGrid(columns: gridColumns, spacing: Spacing.md) {
+                ForEach(viewModel.personalServiceCategories.prefix(5)) { category in
+                    NavigationLink(destination: CategoryDetailView(category: category)) {
+                        CategoryGridCard(
+                            category: CategoryCardModel(from: category),
+                            action: nil
+                        )
+                    }
+                }
+            }
+            .padding(.horizontal, Spacing.screenPadding)
+        }
+    }
+
+    // MARK: - 5. Home Services Section
+
+    private var homeServicesSection: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            Text("Home Services")
+                .font(.h3)
+                .fontWeight(.bold)
+                .foregroundColor(.textPrimary)
+                .padding(.horizontal, Spacing.screenPadding)
+
+            LazyVGrid(columns: gridColumns, spacing: Spacing.md) {
+                ForEach(viewModel.homeServiceCategories.prefix(5)) { category in
+                    NavigationLink(destination: CategoryDetailView(category: category)) {
+                        CategoryGridCard(
+                            category: CategoryCardModel(from: category),
+                            action: nil
+                        )
+                    }
+                }
+            }
+            .padding(.horizontal, Spacing.screenPadding)
+        }
+    }
+
+    // MARK: - 6. Trending Services Section
+
+    private var trendingServicesSection: some View {
         VStack(alignment: .leading, spacing: Spacing.md) {
             HStack {
-                Text(Strings.Home.popular)
+                Text("Trending Services")
                     .font(.h3)
-                    .foregroundColor(.textPrimary)
                     .fontWeight(.bold)
+                    .foregroundColor(.textPrimary)
 
                 Spacer()
 
-                NavigationLink(destination: ServiceCategoriesView()
-                    .environmentObject(authViewModel)) {
-                    HStack(spacing: 4) {
-                        Text(Strings.Common.seeAll)
-                            .font(.bodySmall)
-                            .foregroundColor(.primary)
-                            .fontWeight(.semibold)
-
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundColor(.primary)
-                    }
+                NavigationLink(destination: Text("All Trending Services")) {
+                    Text("Explore All Trending Services")
+                        .font(.caption)
+                        .foregroundColor(.primary)
                 }
             }
             .padding(.horizontal, Spacing.screenPadding)
 
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: Spacing.md) {
-                    ForEach(viewModel.popularServices.prefix(6)) { service in
-                        NavigationLink(destination: ServiceDetailView(service: service)
-                            .environmentObject(authViewModel)) {
-                            ServiceCard(
-                                service: ServiceCardModel(
-                                    id: service.id,
-                                    name: service.name,
-                                    icon: service.icon,
-                                    imageURL: service.imageURL,
-                                    shortDescription: service.shortDescription,
-                                    basePrice: service.basePrice,
-                                    maxPrice: service.priceRange?.max,
-                                    rating: service.rating,
-                                    reviewCount: service.reviewCount
-                                ),
-                                style: .vertical
-                            )
-                            .frame(width: 180, height: 240)
+                LazyHStack(spacing: Spacing.md) {
+                    ForEach(viewModel.trendingServices.prefix(6)) { service in
+                        NavigationLink(destination: ServiceDetailView(service: service)) {
+                            TrendingServiceCard(service: service)
                         }
                     }
                 }
                 .padding(.horizontal, Spacing.screenPadding)
-                .padding(.vertical, 2)
             }
         }
     }
 
-    private var categoriesSection: some View {
-        VStack(alignment: .leading, spacing: Spacing.md) {
-            HStack {
-                Text(Strings.Home.categories)
-                    .font(.h3)
-                    .foregroundColor(.textPrimary)
-                    .fontWeight(.bold)
+    // MARK: - 7. Sponsored Ad Section
 
-                Spacer()
-            }
-            .padding(.horizontal, Spacing.screenPadding)
+    private var sponsoredAdSection: some View {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            Text("SPONSORED")
+                .font(.caption2)
+                .fontWeight(.bold)
+                .foregroundColor(.textTertiary)
+                .padding(.horizontal, Spacing.screenPadding)
 
-            LazyVGrid(columns: [
-                GridItem(.flexible(), spacing: Spacing.sm),
-                GridItem(.flexible(), spacing: Spacing.sm),
-                GridItem(.flexible(), spacing: Spacing.sm),
-                GridItem(.flexible(), spacing: Spacing.sm)
-            ], spacing: Spacing.sm) {
-                ForEach(viewModel.categories.prefix(8)) { category in
-                    NavigationLink(destination: CategoryDetailView(category: category)
-                        .environmentObject(authViewModel)) {
-                        CompactCategoryCard(category: category)
+            ZStack(alignment: .bottomLeading) {
+                // Ad background with gradient
+                LinearGradient(
+                    colors: [Color.secondary.opacity(0.3), Color.secondary],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+
+                // Content overlay
+                VStack(alignment: .leading, spacing: Spacing.xs) {
+                    Text("Two's better")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+
+                    Text("than one.")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+
+                    Text("Buy one Flatbread Pizza, get another for ₹99")
+                        .font(.caption)
+                        .foregroundColor(.white.opacity(0.9))
+
+                    PrimaryButton("Order Now", size: .medium) {
+                        // Handle ad tap
                     }
+                    .frame(width: 120)
                 }
+                .padding(Spacing.md)
             }
+            .frame(height: 180)
+            .cornerRadius(Spacing.radiusLg)
             .padding(.horizontal, Spacing.screenPadding)
         }
     }
 
-    private var promoCarousel: some View {
+    // MARK: - 8. Quick Access Buttons
+
+    private var quickAccessButtons: some View {
         VStack(spacing: Spacing.xs) {
-            // Promo Carousel with TabView
-            TabView(selection: $viewModel.selectedPromoIndex) {
-                ForEach(Array(viewModel.promoBanners.enumerated()), id: \.element.id) { index, promo in
-                    PromoCard(promo: promo)
-                        .tag(index)
-                }
+            Divider()
+                .padding(.horizontal, Spacing.screenPadding)
+
+            // First row
+            LazyVGrid(columns: [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: Spacing.md) {
+                QuickAccessButton(icon: "building.2", title: "Shake Shack", action: {})
+                QuickAccessButton(icon: "cart", title: "Rapid Grocery", action: {})
+                QuickAccessButton(icon: "tag", title: "Offers", action: {})
+                QuickAccessButton(icon: "sparkle", title: "New", action: {})
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .frame(height: 140)
             .padding(.horizontal, Spacing.screenPadding)
 
-            // Custom Page Indicator
-            if viewModel.promoBanners.count > 1 {
-                HStack(spacing: Spacing.xs) {
-                    ForEach(0..<viewModel.promoBanners.count, id: \.self) { index in
-                        Capsule()
-                            .fill(index == viewModel.selectedPromoIndex ? Color.primary : Color.divider)
-                            .frame(
-                                width: index == viewModel.selectedPromoIndex ? 20 : 6,
-                                height: 6
-                            )
-                            .animation(.easeInOut(duration: 0.3), value: viewModel.selectedPromoIndex)
-                    }
-                }
+            // Second row
+            LazyVGrid(columns: [
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: Spacing.md) {
+                QuickAccessButton(icon: "ticket", title: "Only on Skip", action: {})
+                QuickAccessButton(icon: "fork.knife", title: "Fast Food", action: {})
+                QuickAccessButton(icon: "questionmark.circle", title: "Help", action: {})
+                QuickAccessButton(icon: "creditcard", title: "Wallet", action: {})
             }
+            .padding(.horizontal, Spacing.screenPadding)
+            .padding(.bottom, Spacing.md)
         }
     }
 
-    private var citySelectorButton: some View {
-        Button(action: {
-            showCitySelector = true
-        }) {
-            HStack(spacing: Spacing.xxs) {
-                Text(viewModel.selectedCity)
-                    .font(.h5)
-                    .foregroundColor(.primary)
-                    .fontWeight(.semibold)
+    // MARK: - Helper Properties
 
-                Image(systemName: "chevron.down")
-                    .font(.caption)
-                    .foregroundColor(.primary)
-            }
-        }
-    }
-
-    private var searchButton: some View {
-        NavigationLink(destination: SearchView()) {
-            Image(systemName: "magnifyingglass")
-                .font(.system(size: Spacing.iconMD))
-                .foregroundColor(.textPrimary)
-        }
-    }
-
-    private var notificationButton: some View {
-        Button(action: {
-            showNotifications = true
-        }) {
-            ZStack(alignment: .topTrailing) {
-                Image(systemName: "bell.fill")
-                    .font(.system(size: Spacing.iconMD))
-                    .foregroundColor(.textPrimary)
-
-                // Notification badge
-                Circle()
-                    .fill(Color.error)
-                    .frame(width: 8, height: 8)
-                    .offset(x: 2, y: -2)
-            }
-        }
-    }
-
-    // MARK: - Computed Properties
-
-    private var greetingText: String {
-        let hour = Calendar.current.component(.hour, from: Date())
-
-        switch hour {
-        case 5..<12:
-            return Strings.Home.greetingMorning(userName)
-        case 12..<17:
-            return Strings.Home.greetingAfternoon(userName)
-        case 17..<21:
-            return Strings.Home.greetingEvening(userName)
-        default:
-            return Strings.Home.greetingDefault(userName)
-        }
+    private var gridColumns: [GridItem] {
+        Array(repeating: GridItem(.flexible(), spacing: Spacing.md), count: 5)
     }
 
     private var userName: String {
         authViewModel.currentUser?.fullName.components(separatedBy: " ").first ?? "User"
     }
-}
 
-// MARK: - Category Card
-
-struct CategoryCard: View {
-    let category: ServiceCategory
-
-    var body: some View {
-        VStack(spacing: Spacing.sm) {
-            ZStack {
-                Circle()
-                    .fill(categoryColor.opacity(0.1))
-                    .frame(width: 64, height: 64)
-
-                Image(systemName: category.icon)
-                    .font(.h1)
-                    .foregroundColor(categoryColor)
-            }
-
-            Text(category.name)
-                .font(.bodyLarge)
-                .foregroundColor(.textPrimary)
-                .fontWeight(.medium)
-                .multilineTextAlignment(.center)
-
-            Text(Strings.Home.categoryServices(category.serviceCount))
-                .font(.caption)
-                .foregroundColor(.textSecondary)
+    private var truncatedAddress: String {
+        guard let address = authViewModel.currentUser?.addresses.first(where: { $0.isDefault }) else {
+            return viewModel.selectedCity
         }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, Spacing.lg)
-        .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
-        .overlay(
-            RoundedRectangle(cornerRadius: Spacing.radiusMd)
-                .stroke(Color.divider, lineWidth: 1)
-        )
-    }
-
-    private var categoryColor: Color {
-        switch category.iconColor {
-        case "primary": return .primary
-        case "secondary": return .secondary
-        case "success": return .success
-        case "warning": return .warning
-        case "info": return .info
-        default: return .primary
-        }
+        return address.fullAddress.components(separatedBy: ",").prefix(2).joined(separator: ", ")
     }
 }
 
-// MARK: - Compact Category Card (4-column grid)
+// MARK: - Trending Service Card
 
-struct CompactCategoryCard: View {
-    let category: ServiceCategory
+struct TrendingServiceCard: View {
+    let service: Service
 
     var body: some View {
-        VStack(spacing: Spacing.xs) {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            // Service image placeholder
             ZStack {
                 RoundedRectangle(cornerRadius: Spacing.radiusMd)
-                    .fill(categoryColor.opacity(0.1))
-                    .frame(height: 72)
+                    .fill(
+                        LinearGradient(
+                            colors: [Color.primary.opacity(0.3), Color.secondary.opacity(0.3)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
 
-                Image(systemName: category.icon)
-                    .font(.system(size: 32))
-                    .foregroundColor(categoryColor)
+                Image(systemName: service.categoryId == "1" ? "air.conditioner.horizontal" :
+                      service.categoryId == "2" ? "drop.fill" :
+                      service.categoryId == "3" ? "bolt.fill" : "wrench.fill")
+                    .font(.largeTitle)
+                    .foregroundColor(.white)
             }
+            .frame(width: 120, height: 90)
 
-            Text(category.name)
-                .font(.caption)
+            // Service name
+            Text(service.name)
+                .font(.bodySmall)
+                .fontWeight(.semibold)
                 .foregroundColor(.textPrimary)
-                .fontWeight(.medium)
-                .multilineTextAlignment(.center)
                 .lineLimit(2)
-                .fixedSize(horizontal: false, vertical: true)
+                .frame(width: 120, alignment: .leading)
         }
     }
+}
 
-    private var categoryColor: Color {
-        switch category.iconColor {
-        case "primary": return .primary
-        case "secondary": return .secondary
-        case "success": return .success
-        case "warning": return .warning
-        case "info": return .info
-        default: return .primary
+// MARK: - Quick Access Button
+
+struct QuickAccessButton: View {
+    let icon: String
+    let title: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: Spacing.xs) {
+                ZStack {
+                    Circle()
+                        .fill(Color.surface)
+                        .frame(width: 56, height: 56)
+                        .shadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
+
+                    Image(systemName: icon)
+                        .font(.title2)
+                        .foregroundColor(.textPrimary)
+                }
+
+                Text(title)
+                    .font(.caption)
+                    .foregroundColor(.textSecondary)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(2)
+            }
         }
     }
 }
@@ -402,7 +501,6 @@ struct CitySelectorSheet: View {
     @Binding var selectedCity: String
     let cities: [String]
     let onSelect: (String) -> Void
-
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -413,7 +511,7 @@ struct CitySelectorSheet: View {
                 }) {
                     HStack {
                         Text(city)
-                            .font(.bodyLarge)
+                            .font(.body)
                             .foregroundColor(.textPrimary)
 
                         Spacer()
@@ -425,11 +523,11 @@ struct CitySelectorSheet: View {
                     }
                 }
             }
-            .navigationTitle(Strings.Home.selectCity)
+            .navigationTitle("Select City")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(Strings.Common.done) {
+                    Button("Done") {
                         dismiss()
                     }
                 }
@@ -438,120 +536,27 @@ struct CitySelectorSheet: View {
     }
 }
 
-// MARK: - Promo Card
-
-struct PromoCard: View {
-    let promo: PromoBanner
-
-    var body: some View {
-        ZStack(alignment: .bottomLeading) {
-            // Background Gradient
-            LinearGradient(
-                colors: promo.gradientColors,
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .cornerRadius(Spacing.radiusLg)
-
-            // Content
-            VStack(alignment: .leading, spacing: Spacing.sm) {
-                // Icon
-                HStack {
-                    Image(systemName: promo.icon)
-                        .font(.system(size: 32))
-                        .foregroundColor(.white)
-
-                    Spacer()
-
-                    // CTA Badge
-                    if let ctaText = promo.ctaText {
-                        Text(ctaText)
-                            .font(.caption)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, Spacing.sm)
-                            .padding(.vertical, Spacing.xxs)
-                            .background(Color.white.opacity(0.2))
-                            .cornerRadius(Spacing.radiusPill)
-                    }
-                }
-
-                Spacer()
-
-                // Title
-                Text(promo.title)
-                    .font(.h4)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .lineLimit(2)
-
-                // Subtitle
-                Text(promo.subtitle)
-                    .font(.body)
-                    .foregroundColor(.white.opacity(0.9))
-            }
-            .padding(Spacing.lg)
-        }
-        .frame(height: 140)
-        .shadow(color: .black.opacity(0.12), radius: 8, x: 0, y: 4)
-    }
-}
-
-// MARK: - Promo Banner Model
-
-struct PromoBanner: Identifiable {
-    let id: String
-    let title: String
-    let subtitle: String
-    let icon: String
-    let ctaText: String?
-    let gradientColors: [Color]
-    let promoCode: String?
-
-    static let mockBanners: [PromoBanner] = [
-        PromoBanner(
-            id: "promo1",
-            title: Strings.Promo.first20Title,
-            subtitle: Strings.Promo.first20Subtitle,
-            icon: "gift.fill",
-            ctaText: Strings.Promo.first20Cta,
-            gradientColors: [Color.secondary, Color.secondaryLight],
-            promoCode: "FIRST20"
-        ),
-        PromoBanner(
-            id: "promo2",
-            title: Strings.Promo.acCheckupTitle,
-            subtitle: Strings.Promo.acCheckupSubtitle,
-            icon: "snowflake",
-            ctaText: Strings.Promo.acCheckupCta,
-            gradientColors: [Color.info, Color.info.opacity(0.7)],
-            promoCode: nil
-        ),
-        PromoBanner(
-            id: "promo3",
-            title: Strings.Promo.cleaningTitle,
-            subtitle: Strings.Promo.cleaningSubtitle,
-            icon: "sparkles",
-            ctaText: Strings.Promo.cleaningCta,
-            gradientColors: [Color.success, Color.success.opacity(0.7)],
-            promoCode: "CLEAN500"
-        )
-    ]
-}
-
 // MARK: - Preview
 
 #Preview {
     let authViewModel = AuthViewModel()
     authViewModel.currentUser = User(
         id: "123",
-        fullName: "Rahul Sharma",
-        email: "rahul@example.com",
+        fullName: "Manvi Sharma",
+        email: "manvi@example.com",
         phoneNumber: "9876543210",
         photoURL: nil,
         userType: .customer,
-        city: "Delhi",
-        addresses: [],
+        city: "Pune",
+        addresses: [
+            Address(
+                id: "1",
+                label: "Home",
+                fullAddress: "Kesnand Rd, opp. Ayurvedic college, Pune - 411001",
+                city: "Pune",
+                isDefault: true
+            )
+        ],
         createdAt: Date(),
         updatedAt: Date()
     )
@@ -559,24 +564,4 @@ struct PromoBanner: Identifiable {
 
     return HomeView()
         .environmentObject(authViewModel)
-}
-
-#Preview("Dark Mode") {
-    let authViewModel = AuthViewModel()
-    authViewModel.currentUser = User(
-        id: "123",
-        fullName: "Rahul Sharma",
-        email: "rahul@example.com",
-        phoneNumber: "9876543210",
-        photoURL: nil,
-        userType: .customer,
-        city: "Delhi",
-        addresses: [],
-        createdAt: Date(),
-        updatedAt: Date()
-    )
-
-    return HomeView()
-        .environmentObject(authViewModel)
-        .preferredColorScheme(.dark)
 }

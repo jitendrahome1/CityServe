@@ -421,7 +421,7 @@ struct ContactSupportView: View {
             }
         }
         .background(isFormValid ? Color.primary : Color.textTertiary)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
         .disabled(!isFormValid || viewModel.isSubmitting)
         .padding(.horizontal, Spacing.md)
     }

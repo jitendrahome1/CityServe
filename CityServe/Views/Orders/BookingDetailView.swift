@@ -115,7 +115,7 @@ struct BookingDetailView: View {
             }
             .padding(Spacing.md)
             .background(statusColor.opacity(0.05))
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
 
             // Status History
             if booking.statusHistory.count > 1 {
@@ -142,7 +142,7 @@ struct BookingDetailView: View {
             HStack(spacing: Spacing.md) {
                 // Icon
                 ZStack {
-                    RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                    RoundedRectangle(cornerRadius: Spacing.radiusLg)
                         .fill(Color.primary.opacity(0.1))
                         .frame(width: 60, height: 60)
 
@@ -170,7 +170,7 @@ struct BookingDetailView: View {
             }
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
         }
     }
 
@@ -225,7 +225,7 @@ struct BookingDetailView: View {
             }
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
         }
     }
 
@@ -260,7 +260,7 @@ struct BookingDetailView: View {
             .padding(Spacing.md)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
         }
     }
 
@@ -321,7 +321,7 @@ struct BookingDetailView: View {
             }
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
         }
     }
 
@@ -339,7 +339,7 @@ struct BookingDetailView: View {
                 .padding(Spacing.md)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.info.opacity(0.05))
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
         }
     }
 
@@ -381,7 +381,7 @@ struct BookingDetailView: View {
             }
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
 
             // Payment Status
             if let payment = booking.payment {
@@ -619,7 +619,7 @@ struct RatingSheetView: View {
                         .frame(height: 120)
                         .padding(Spacing.md)
                         .background(Color.surface)
-                        .cornerRadius(Spacing.radiusMd)
+                        .cornerRadius(Spacing.radiusLg)
                 }
 
                 Spacer()

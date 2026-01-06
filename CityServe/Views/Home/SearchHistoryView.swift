@@ -66,6 +66,8 @@ struct SearchHistoryView: View {
                         .fontWeight(.medium)
                         .foregroundColor(.error)
                 }
+                .accessibilityLabel("Clear all search history")
+                .accessibilityHint("Delete all recent searches")
             }
 
             ForEach(viewModel.recentSearches) { search in
@@ -183,8 +185,10 @@ struct SearchHistoryView: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 44)
                     .background(Color.primary.opacity(0.1))
-                    .cornerRadius(Spacing.radiusMd)
+                    .cornerRadius(Spacing.radiusLg)
             }
+            .accessibilityLabel("View all service categories")
+            .accessibilityHint("Browse all available service categories")
         }
     }
 }
@@ -220,10 +224,14 @@ struct SearchHistoryRow: View {
                         .font(.system(size: Spacing.iconXS))
                         .foregroundColor(.textTertiary)
                 }
+                .accessibilityLabel("Delete")
+                .accessibilityHint("Remove this search from history")
                 .buttonStyle(PlainButtonStyle())
             }
             .padding(.vertical, Spacing.xs)
         }
+        .accessibilityLabel("Recent search: \(search.query), \(search.timestamp.timeAgoDisplay)")
+        .accessibilityHint("Double tap to search again")
         .buttonStyle(PlainButtonStyle())
     }
 }
@@ -248,12 +256,14 @@ struct PopularSearchButton: View {
             .frame(maxWidth: .infinity)
             .padding(.vertical, Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .stroke(Color.divider, lineWidth: 1)
             )
         }
+        .accessibilityLabel("Search for \(service.name)")
+        .accessibilityHint("Quick search shortcut")
     }
 }
 
@@ -305,12 +315,14 @@ struct TrendingServiceRow: View {
             }
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .stroke(Color.divider, lineWidth: 1)
             )
         }
+        .accessibilityLabel("Trending: \(service.name), ranked number \(rank), \(service.trendIndicator.text)")
+        .accessibilityHint("Search for this trending service")
         .buttonStyle(PlainButtonStyle())
     }
 
@@ -357,16 +369,18 @@ struct SuggestionCard: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, Spacing.sm)
                     .background(Color.primary.opacity(0.1))
-                    .cornerRadius(Spacing.radiusMd)
+                    .cornerRadius(Spacing.radiusLg)
             }
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
         .overlay(
-            RoundedRectangle(cornerRadius: Spacing.radiusMd)
+            RoundedRectangle(cornerRadius: Spacing.radiusLg)
                 .stroke(Color.divider, lineWidth: 1)
         )
+        .accessibilityLabel("\(suggestion.name), \(suggestion.subtitle)")
+        .accessibilityHint("Double tap for \(suggestion.actionText)")
     }
 }
 
@@ -398,6 +412,8 @@ struct CategoryLinkRow: View {
                 Divider()
             }
         }
+        .accessibilityLabel("\(category.name) category")
+        .accessibilityHint("View services in this category")
         .buttonStyle(PlainButtonStyle())
     }
 }

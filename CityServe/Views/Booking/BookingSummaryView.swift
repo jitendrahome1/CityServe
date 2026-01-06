@@ -78,7 +78,7 @@ struct BookingSummaryView: View {
             HStack(spacing: Spacing.md) {
                 // Service Icon
                 ZStack {
-                    RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                    RoundedRectangle(cornerRadius: Spacing.radiusLg)
                         .fill(Color.primary.opacity(0.1))
                         .frame(width: 60, height: 60)
 
@@ -119,7 +119,7 @@ struct BookingSummaryView: View {
             }
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
         }
     }
 
@@ -168,7 +168,7 @@ struct BookingSummaryView: View {
                 .padding(Spacing.md)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(Color.surface)
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
             }
         }
     }
@@ -237,7 +237,7 @@ struct BookingSummaryView: View {
             }
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
         }
     }
 
@@ -253,9 +253,9 @@ struct BookingSummaryView: View {
                 .frame(height: 80)
                 .padding(Spacing.md)
                 .background(Color.surface)
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
                 .overlay(
-                    RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                    RoundedRectangle(cornerRadius: Spacing.radiusLg)
                         .stroke(Color.divider, lineWidth: 1)
                 )
                 .focused($isInstructionsFocused)
@@ -313,7 +313,7 @@ struct BookingSummaryView: View {
                 }
                 .padding(Spacing.md)
                 .background(Color.success.opacity(0.1))
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
             } else {
                 // Apply Promo Code Button
                 Button(action: {
@@ -337,9 +337,9 @@ struct BookingSummaryView: View {
                     }
                     .padding(Spacing.md)
                     .background(Color.surface)
-                    .cornerRadius(Spacing.radiusMd)
+                    .cornerRadius(Spacing.radiusLg)
                     .overlay(
-                        RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                        RoundedRectangle(cornerRadius: Spacing.radiusLg)
                             .stroke(Color.primary.opacity(0.3), style: StrokeStyle(lineWidth: 1.5, dash: [5, 5]))
                     )
                 }
@@ -393,7 +393,7 @@ struct BookingSummaryView: View {
                 }
                 .padding(Spacing.md)
                 .background(Color.surface)
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
             }
         }
     }
@@ -459,7 +459,7 @@ struct PromoCodeSheet: View {
                                 .autocorrectionDisabled()
                                 .padding(Spacing.md)
                                 .background(Color.surface)
-                                .cornerRadius(Spacing.radiusMd)
+                                .cornerRadius(Spacing.radiusLg)
 
                             PrimaryButton(
                                 "Apply",
@@ -558,9 +558,9 @@ struct PromoCodeCard: View {
             }
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .stroke(Color.divider, lineWidth: 1)
             )
         }

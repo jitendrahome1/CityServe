@@ -111,10 +111,10 @@ struct StandardTextField: View {
             .padding(Spacing.md)
             .background(backgroundColor)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .stroke(borderColor, lineWidth: borderWidth)
             )
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)  // More rounded (12pt instead of 8pt)
 
             // Help Text or Error Message
             if let errorMessage = errorMessage, !errorMessage.isEmpty {

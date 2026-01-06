@@ -121,12 +121,12 @@ private struct OTPDigitBox: View {
     var body: some View {
         ZStack {
             // Box background
-            RoundedRectangle(cornerRadius: Spacing.radiusMd)
+            RoundedRectangle(cornerRadius: Spacing.radiusLg)
                 .fill(Color.surface)
                 .overlay(
-                    RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                    RoundedRectangle(cornerRadius: Spacing.radiusLg)
                         .stroke(borderColor, lineWidth: borderWidth)
-                )
+                )  // More rounded (12pt instead of 8pt)
 
             // Digit or cursor
             if !digit.isEmpty {

@@ -49,6 +49,8 @@ struct OTPVerificationView: View {
                                     .font(.h4)
                                     .foregroundColor(.primary)
                             }
+                            .accessibilityLabel("Edit phone number")
+                            .accessibilityHint("Double tap to change your phone number")
                         }
                     }
                     .multilineTextAlignment(.center)
@@ -83,6 +85,8 @@ struct OTPVerificationView: View {
                                         .foregroundColor(.primary)
                                         .fontWeight(.semibold)
                                 }
+                                .accessibilityLabel("Resend OTP")
+                                .accessibilityHint("Double tap to receive a new verification code")
                             }
                         }
                     }
@@ -189,10 +193,12 @@ struct OTPVerificationView: View {
 
     private func startTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            if timeRemaining > 0 {
-                timeRemaining -= 1
-            } else {
-                stopTimer()
+            Task { @MainActor in
+                if self.timeRemaining > 0 {
+                    self.timeRemaining -= 1
+                } else {
+                    self.stopTimer()
+                }
             }
         }
     }

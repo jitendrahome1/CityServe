@@ -104,6 +104,18 @@ extension Font {
     /// Inter Medium, 12pt
     static let tag = Font.custom("Inter-Medium", size: 12)
 
+    /// Badge - Small badges and indicators (similar to tag)
+    /// Inter Medium, 11pt
+    static let badge = Font.custom("Inter-Medium", size: 11)
+
+    /// Section Header - For section titles in lists
+    /// Inter SemiBold, 14pt
+    static let sectionHeader = Font.custom("Inter-SemiBold", size: 14)
+
+    /// Price Label - Prominent price displays (larger than standard price)
+    /// Inter Bold, 24pt
+    static let priceLabel = Font.custom("Inter-Bold", size: 24)
+
     /// Code - Monospaced text (IDs, codes)
     /// SF Mono Regular, 12pt
     static let code = Font.system(size: 12, weight: .regular, design: .monospaced)
@@ -212,6 +224,27 @@ extension Text {
             .foregroundColor(.textPrimary)
     }
 
+    /// Apply large price label style
+    func priceLabelStyle() -> Text {
+        self
+            .font(.priceLabel)
+            .foregroundColor(.textPrimary)
+    }
+
+    /// Apply badge style
+    func badgeStyle() -> Text {
+        self
+            .font(.badge)
+            .foregroundColor(.textSecondary)
+    }
+
+    /// Apply section header style
+    func sectionHeaderStyle() -> Text {
+        self
+            .font(.sectionHeader)
+            .foregroundColor(.textPrimary)
+    }
+
     /// Apply code/monospaced style
     func codeStyle() -> Text {
         self
@@ -230,7 +263,7 @@ struct TypographyModifier: ViewModifier {
         case h1, h2, h3, h4, h5
         case bodyLarge, body, bodySmall, caption
         case button, buttonSmall
-        case label, price, rating, tag, code
+        case label, price, priceLabel, rating, tag, badge, sectionHeader, code
 
         var font: Font {
             switch self {
@@ -247,8 +280,11 @@ struct TypographyModifier: ViewModifier {
             case .buttonSmall: return .buttonSmall
             case .label: return .label
             case .price: return .price
+            case .priceLabel: return .priceLabel
             case .rating: return .rating
             case .tag: return .tag
+            case .badge: return .badge
+            case .sectionHeader: return .sectionHeader
             case .code: return .code
             }
         }
@@ -310,8 +346,11 @@ extension View {
  Special Purpose:
  - Button: Inter SemiBold, 16pt - Button labels
  - Price: Inter Bold, 20pt - Price displays
+ - Price Label: Inter Bold, 24pt - Prominent price displays
  - Rating: Inter Medium, 13pt - Star ratings
  - Tag: Inter Medium, 12pt - Pill/tag labels
+ - Badge: Inter Medium, 11pt - Small badges and indicators
+ - Section Header: Inter SemiBold, 14pt - Section titles in lists
  - Code: SF Mono Regular, 12pt - IDs, codes
 
  Usage Examples:

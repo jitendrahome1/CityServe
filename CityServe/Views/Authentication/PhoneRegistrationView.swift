@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PhoneRegistrationView: View {
 
-    @StateObject private var viewModel = AuthViewModel()
+    @EnvironmentObject var viewModel: AuthViewModel
     @State private var phoneInput = ""
     @State private var navigateToOTP = false
     @FocusState private var isPhoneFocused: Bool
@@ -54,9 +54,9 @@ struct PhoneRegistrationView: View {
                                 }
                                 .padding(Spacing.md)
                                 .background(Color.surface)
-                                .cornerRadius(Spacing.radiusMd)
+                                .cornerRadius(Spacing.radiusLg)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                                    RoundedRectangle(cornerRadius: Spacing.radiusLg)
                                         .stroke(Color.divider, lineWidth: 1)
                                 )
 
@@ -68,14 +68,16 @@ struct PhoneRegistrationView: View {
                                     .focused($isPhoneFocused)
                                     .padding(Spacing.md)
                                     .background(Color.surface)
-                                    .cornerRadius(Spacing.radiusMd)
+                                    .cornerRadius(Spacing.radiusLg)
                                     .overlay(
-                                        RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                                        RoundedRectangle(cornerRadius: Spacing.radiusLg)
                                             .stroke(
                                                 isPhoneFocused ? Color.primary : Color.divider,
                                                 lineWidth: isPhoneFocused ? 2 : 1
                                             )
                                     )
+                                    .accessibilityLabel("Phone number")
+                                    .accessibilityHint("Enter your 10-digit mobile number")
                                     .onChange(of: phoneInput) { oldValue, newValue in
                                         // Only allow digits, limit to 10
                                         let filtered = newValue.filter { $0.isNumber }

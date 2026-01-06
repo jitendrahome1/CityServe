@@ -19,6 +19,12 @@ class HomeViewModel: ObservableObject {
     @Published var allServices: [Service] = []
     @Published var filteredServices: [Service] = []
 
+    // New: Urban Company layout sections
+    @Published var personalServiceCategories: [ServiceCategory] = []
+    @Published var homeServiceCategories: [ServiceCategory] = []
+    @Published var trendingServices: [Service] = []
+    @Published var sponsoredAd: SponsoredAd?
+
     @Published var isLoading = false
     @Published var errorMessage: String?
 
@@ -28,9 +34,6 @@ class HomeViewModel: ObservableObject {
 
     @Published var selectedCity = "Delhi"
     let availableCities = ["Delhi", "Mumbai", "Bangalore", "Pune", "Hyderabad"]
-
-    @Published var promoBanners: [PromoBanner] = []
-    @Published var selectedPromoIndex = 0
 
     // MARK: - Computed Properties
 
@@ -61,7 +64,28 @@ class HomeViewModel: ObservableObject {
         categories = ServiceCategory.mockCategories
         allServices = Service.mockServices
         popularServices = allServices.filter { $0.isPopular }
-        promoBanners = PromoBanner.mockBanners
+
+        // Split categories into Personal and Home services
+        personalServiceCategories = categories.filter { category in
+            ["Salon for Women", "Spa for Women", "Hair & Skin", "Salon for Men", "Massage for Men"].contains(category.name)
+        }
+
+        homeServiceCategories = categories.filter { category in
+            ["Electrical", "Cleaning", "Plumbing", "Painting", "Pest Control"].contains(category.name)
+        }
+
+        // Trending services (high rating + popular)
+        trendingServices = allServices.filter { $0.rating >= 4.5 && $0.reviewCount > 100 }
+
+        // Mock sponsored ad
+        sponsoredAd = SponsoredAd(
+            id: "ad_001",
+            title: "Two's better than one.",
+            subtitle: "Buy one Flatbread Pizza, get another for ₹99",
+            imageURL: "",
+            deepLink: "/offers/pizza"
+        )
+
         isLoading = false
     }
 
@@ -76,7 +100,6 @@ class HomeViewModel: ObservableObject {
             categories = ServiceCategory.mockCategories
             allServices = Service.mockServices
             popularServices = allServices.filter { $0.isPopular }
-            promoBanners = PromoBanner.mockBanners
 
             isLoading = false
         } catch {
@@ -204,4 +227,14 @@ class HomeViewModel: ObservableObject {
         // Reload services for new city
         loadInitialData()
     }
+}
+
+// MARK: - Sponsored Ad Model
+
+struct SponsoredAd: Identifiable {
+    let id: String
+    let title: String
+    let subtitle: String
+    let imageURL: String
+    let deepLink: String
 }

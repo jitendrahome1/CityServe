@@ -14,34 +14,38 @@ struct MainTabView: View {
 
     enum Tab: Int {
         case home = 0
-        case explore = 1
-        case orders = 2
-        case profile = 3
+        case bookings = 1
+        case plus = 2
+        case rewards = 3
+        case account = 4
 
         var title: String {
             switch self {
-            case .home: return "Home"
-            case .explore: return "Explore"
-            case .orders: return "Orders"
-            case .profile: return "Profile"
+            case .home: return "UC"
+            case .bookings: return "Bookings"
+            case .plus: return "UC Plus"
+            case .rewards: return "Rewards"
+            case .account: return "Account"
             }
         }
 
         var icon: String {
             switch self {
             case .home: return "house"
-            case .explore: return "square.grid.2x2"
-            case .orders: return "clock.arrow.circlepath"
-            case .profile: return "person"
+            case .bookings: return "clock.arrow.circlepath"
+            case .plus: return "star"
+            case .rewards: return "gift"
+            case .account: return "person"
             }
         }
 
         var iconFilled: String {
             switch self {
             case .home: return "house.fill"
-            case .explore: return "square.grid.2x2.fill"
-            case .orders: return "clock.arrow.circlepath"
-            case .profile: return "person.fill"
+            case .bookings: return "clock.arrow.circlepath"
+            case .plus: return "star.fill"
+            case .rewards: return "gift.fill"
+            case .account: return "person.fill"
             }
         }
     }
@@ -50,31 +54,43 @@ struct MainTabView: View {
         TabView(selection: $selectedTab) {
             // Home Tab
             HomeView()
+                .environmentObject(authViewModel)
                 .tabItem {
                     Label(Tab.home.title, systemImage: selectedTab == .home ? Tab.home.iconFilled : Tab.home.icon)
                 }
                 .tag(Tab.home)
 
-            // Explore Tab
-            ServiceCategoriesView()
-                .tabItem {
-                    Label(Tab.explore.title, systemImage: selectedTab == .explore ? Tab.explore.iconFilled : Tab.explore.icon)
-                }
-                .tag(Tab.explore)
-
-            // Orders Tab
+            // Bookings Tab
             OrdersView()
+                .environmentObject(authViewModel)
                 .tabItem {
-                    Label(Tab.orders.title, systemImage: selectedTab == .orders ? Tab.orders.iconFilled : Tab.orders.icon)
+                    Label(Tab.bookings.title, systemImage: selectedTab == .bookings ? Tab.bookings.iconFilled : Tab.bookings.icon)
                 }
-                .tag(Tab.orders)
+                .tag(Tab.bookings)
 
-            // Profile Tab
-            ProfileView()
+            // Plus Tab
+            PlusMembershipView()
+                .environmentObject(authViewModel)
                 .tabItem {
-                    Label(Tab.profile.title, systemImage: selectedTab == .profile ? Tab.profile.iconFilled : Tab.profile.icon)
+                    Label(Tab.plus.title, systemImage: selectedTab == .plus ? Tab.plus.iconFilled : Tab.plus.icon)
                 }
-                .tag(Tab.profile)
+                .tag(Tab.plus)
+
+            // Rewards Tab
+            RewardsView()
+                .environmentObject(authViewModel)
+                .tabItem {
+                    Label(Tab.rewards.title, systemImage: selectedTab == .rewards ? Tab.rewards.iconFilled : Tab.rewards.icon)
+                }
+                .tag(Tab.rewards)
+
+            // Account Tab
+            ProfileView()
+                .environmentObject(authViewModel)
+                .tabItem {
+                    Label(Tab.account.title, systemImage: selectedTab == .account ? Tab.account.iconFilled : Tab.account.icon)
+                }
+                .tag(Tab.account)
         }
         .tint(.primary)
         .onChange(of: selectedTab) { oldValue, newValue in

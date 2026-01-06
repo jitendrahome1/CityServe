@@ -206,7 +206,7 @@ struct PaymentMethodsView: View {
         .padding(Spacing.md)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.success.opacity(0.1))
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
         .padding(.horizontal, Spacing.screenPadding)
     }
 }
@@ -326,9 +326,9 @@ struct CardItem: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
         .overlay(
-            RoundedRectangle(cornerRadius: Spacing.radiusMd)
+            RoundedRectangle(cornerRadius: Spacing.radiusLg)
                 .stroke(isPrimary ? Color.secondary : Color.divider, lineWidth: isPrimary ? 2 : 1)
         )
         .alert("Delete Card", isPresented: $showDeleteConfirmation) {
@@ -428,9 +428,9 @@ struct UPIItem: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
         .overlay(
-            RoundedRectangle(cornerRadius: Spacing.radiusMd)
+            RoundedRectangle(cornerRadius: Spacing.radiusLg)
                 .stroke(isPrimary ? Color.secondary : Color.divider, lineWidth: isPrimary ? 2 : 1)
         )
         .alert("Delete UPI", isPresented: $showDeleteConfirmation) {
@@ -506,9 +506,9 @@ struct WalletItem: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
         .overlay(
-            RoundedRectangle(cornerRadius: Spacing.radiusMd)
+            RoundedRectangle(cornerRadius: Spacing.radiusLg)
                 .stroke(Color.divider, lineWidth: 1)
         )
         .alert("Remove Wallet", isPresented: $showRemoveConfirmation) {
@@ -578,9 +578,9 @@ struct BankAccountItem: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
         .overlay(
-            RoundedRectangle(cornerRadius: Spacing.radiusMd)
+            RoundedRectangle(cornerRadius: Spacing.radiusLg)
                 .stroke(Color.divider, lineWidth: 1)
         )
         .alert("Delete Bank Account", isPresented: $showDeleteConfirmation) {
@@ -616,9 +616,9 @@ struct AddPaymentMethodButton: View {
             .frame(maxWidth: .infinity)
             .padding(Spacing.md)
             .background(Color.primary.opacity(0.1))
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [5]))
                     .foregroundColor(.primary)
             )

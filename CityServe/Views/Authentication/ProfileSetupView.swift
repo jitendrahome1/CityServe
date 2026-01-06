@@ -98,9 +98,9 @@ struct ProfileSetupView: View {
                                 }
                                 .padding(Spacing.md)
                                 .background(Color.surface)
-                                .cornerRadius(Spacing.radiusMd)
+                                .cornerRadius(Spacing.radiusLg)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                                    RoundedRectangle(cornerRadius: Spacing.radiusLg)
                                         .stroke(
                                             viewModel.selectedCity.isEmpty ? Color.divider : Color.primary,
                                             lineWidth: viewModel.selectedCity.isEmpty ? 1 : 2
@@ -132,7 +132,7 @@ struct ProfileSetupView: View {
                             }
                             .padding(Spacing.md)
                             .background(Color.error.opacity(0.1))
-                            .cornerRadius(Spacing.radiusMd)
+                            .cornerRadius(Spacing.radiusLg)
                         }
                     }
                     .padding(.horizontal, Spacing.screenPadding)

@@ -15,42 +15,52 @@ struct SplashView: View {
 
     var body: some View {
         ZStack {
-            // Background gradient
-            LinearGradient(
-                colors: [Color.primary, Color.primaryDark],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
+            // Black background (as per design)
+            Color.black
+                .ignoresSafeArea()
 
             VStack(spacing: Spacing.xl) {
                 Spacer()
 
-                // App Logo
-                VStack(spacing: Spacing.md) {
+                // App Logo and Name
+                VStack(spacing: Spacing.lg) {
                     // Logo icon (placeholder - replace with actual logo)
                     ZStack {
                         Circle()
-                            .fill(Color.white.opacity(0.2))
-                            .frame(width: 120, height: 120)
+                            .fill(LinearGradient(
+                                colors: [Color.primary, Color.primaryLight],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ))
+                            .frame(width: 100, height: 100)
 
                         Image(systemName: "house.fill")
-                            .font(.displayMedium)
+                            .font(.system(size: 48))
                             .foregroundColor(.white)
                     }
                     .scaleEffect(logoScale)
                     .opacity(logoOpacity)
 
-                    // App Name
-                    Text("UrbanNest")
-                        .font(.custom("Inter-Bold", size: 36))
+                    // App Name - "City serve"
+                    Text("City serve")
+                        .font(.custom("Inter-Bold", size: 34))
                         .foregroundColor(.white)
                         .opacity(logoOpacity)
 
-                    // Tagline
-                    Text("Trusted services, delivered smartly")
-                        .font(.body)
-                        .foregroundColor(.white.opacity(0.9))
+                    // Tagline with highlighted "Trusted"
+                    HStack(spacing: 4) {
+                        Text("India's ")
+                        Text("Trusted")
+                            .foregroundColor(.secondary)  // Orange/red highlight
+                        Text(" Choice for")
+                    }
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.white)
+                    .opacity(logoOpacity)
+
+                    Text("Quality Services")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(.white)
                         .opacity(logoOpacity)
                 }
 

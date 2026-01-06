@@ -63,7 +63,7 @@ struct DateTimeSelectionView: View {
             .tint(.primary)
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
 
             // Selected Date Display
             if viewModel.selectedDate != Date() {
@@ -127,7 +127,7 @@ struct DateTimeSelectionView: View {
             }
             .padding(Spacing.sm)
             .background(Color.info.opacity(0.1))
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
         }
     }
 
@@ -169,9 +169,9 @@ struct TimeSlotCard: View {
             .frame(maxWidth: .infinity)
             .padding(.vertical, Spacing.md)
             .background(backgroundColor)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .overlay(
-                RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                RoundedRectangle(cornerRadius: Spacing.radiusLg)
                     .stroke(borderColor, lineWidth: isSelected ? 2 : 1)
             )
         }

@@ -14,48 +14,70 @@ struct Shadows {
 
     // MARK: - Shadow Definitions
 
+    /// Subtle shadow - minimal elevation for flat design
+    /// Offset: 0 1px, Radius: 2px, Opacity: 0.05
+    /// Usage: Flat cards, list items, minimal elevation (from designs)
+    static let subtle = Shadow(
+        color: .black,
+        radius: 2,
+        x: 0,
+        y: 1,
+        opacity: 0.05
+    )
+
     /// Small shadow - subtle elevation
-    /// Offset: 0 2px, Radius: 4px, Opacity: 0.1
+    /// Offset: 0 2px, Radius: 4px, Opacity: 0.08
     /// Usage: Buttons, small cards, tags
     static let small = Shadow(
         color: .black,
         radius: 4,
         x: 0,
         y: 2,
-        opacity: 0.1
+        opacity: 0.08
+    )
+
+    /// Floating card shadow - elevated cards in booking flow
+    /// Offset: 0 3px, Radius: 6px, Opacity: 0.10
+    /// Usage: Service cards, booking summary cards, elevated content (from designs)
+    static let floatingCard = Shadow(
+        color: .black,
+        radius: 6,
+        x: 0,
+        y: 3,
+        opacity: 0.10
     )
 
     /// Medium shadow - standard elevation
-    /// Offset: 0 4px, Radius: 8px, Opacity: 0.12
+    /// Offset: 0 4px, Radius: 8px, Opacity: 0.10
     /// Usage: Cards, modals, dropdowns
     static let medium = Shadow(
         color: .black,
         radius: 8,
         x: 0,
         y: 4,
-        opacity: 0.12
+        opacity: 0.10
     )
 
     /// Large shadow - prominent elevation
-    /// Offset: 0 8px, Radius: 16px, Opacity: 0.15
+    /// Offset: 0 8px, Radius: 16px, Opacity: 0.12
     /// Usage: Floating action buttons, popovers, tooltips
     static let large = Shadow(
         color: .black,
         radius: 16,
         x: 0,
         y: 8,
-        opacity: 0.15
+        opacity: 0.12
     )
 
     /// Extra large shadow - maximum elevation
-    /// Offset: 0 12px, Radius: 24px, Opacity: 0.18
+    /// Offset: 0 12px, Radius: 24px, Opacity: 0.15
     /// Usage: Modals, bottom sheets, overlays
     static let extraLarge = Shadow(
         color: .black,
         radius: 24,
         x: 0,
         y: 12,
-        opacity: 0.18
+        opacity: 0.15
     )
 
     /// Button pressed shadow - subtle inset feel
@@ -108,6 +130,16 @@ struct Shadow {
 
 extension View {
 
+    /// Apply subtle shadow (minimal elevation for flat design)
+    func subtleShadow() -> some View {
+        self.shadow(
+            color: Shadows.subtle.color.opacity(Shadows.subtle.opacity),
+            radius: Shadows.subtle.radius,
+            x: Shadows.subtle.x,
+            y: Shadows.subtle.y
+        )
+    }
+
     /// Apply small shadow (subtle elevation)
     func smallShadow() -> some View {
         self.shadow(
@@ -115,6 +147,16 @@ extension View {
             radius: Shadows.small.radius,
             x: Shadows.small.x,
             y: Shadows.small.y
+        )
+    }
+
+    /// Apply floating card shadow (elevated cards in booking flow)
+    func floatingCardShadow() -> some View {
+        self.shadow(
+            color: Shadows.floatingCard.color.opacity(Shadows.floatingCard.opacity),
+            radius: Shadows.floatingCard.radius,
+            x: Shadows.floatingCard.x,
+            y: Shadows.floatingCard.y
         )
     }
 
@@ -216,37 +258,51 @@ extension View {
  Shadow System
  =============
 
- Shadow Levels:
+ Shadow Levels (updated for modern, subtle design):
 
- 1. Small Shadow
+ 1. Subtle Shadow (NEW - from designs)
+    - Offset: 0 1px
+    - Radius: 2px
+    - Opacity: 0.05
+    - Usage: Flat cards, list items, minimal elevation
+    - Elevation: Barely visible, flat design
+
+ 2. Small Shadow
     - Offset: 0 2px
     - Radius: 4px
-    - Opacity: 0.1
+    - Opacity: 0.08 (reduced from 0.1)
     - Usage: Buttons, small cards, tags
     - Elevation: Subtle, barely noticeable
 
- 2. Medium Shadow (Default)
+ 3. Floating Card Shadow (NEW - from designs)
+    - Offset: 0 3px
+    - Radius: 6px
+    - Opacity: 0.10
+    - Usage: Service cards, booking summary cards, elevated content
+    - Elevation: Light elevation for cards
+
+ 4. Medium Shadow (Default)
     - Offset: 0 4px
     - Radius: 8px
-    - Opacity: 0.12
+    - Opacity: 0.10 (reduced from 0.12)
     - Usage: Cards, modals, dropdowns
     - Elevation: Standard, clearly elevated
 
- 3. Large Shadow
+ 5. Large Shadow
     - Offset: 0 8px
     - Radius: 16px
-    - Opacity: 0.15
+    - Opacity: 0.12 (reduced from 0.15)
     - Usage: FABs, popovers, tooltips
     - Elevation: Prominent, floating above
 
- 4. Extra Large Shadow
+ 6. Extra Large Shadow
     - Offset: 0 12px
     - Radius: 24px
-    - Opacity: 0.18
+    - Opacity: 0.15 (reduced from 0.18)
     - Usage: Modals, bottom sheets, overlays
     - Elevation: Maximum, clearly separated
 
- 5. Pressed Shadow
+ 7. Pressed Shadow
     - Offset: 0 1px
     - Radius: 2px
     - Opacity: 0.08
@@ -263,7 +319,20 @@ extension View {
  Usage Examples:
 
  ```swift
- // Using shadow extensions
+ // Using new shadow extensions (from designs)
+
+ // Subtle shadow for flat cards
+ Rectangle()
+     .frame(width: 200, height: 100)
+     .subtleShadow()
+
+ // Floating card shadow for service cards
+ VStack {
+     Text("Service Card")
+ }
+ .floatingCardShadow()
+
+ // Using existing shadow extensions
  Rectangle()
      .frame(width: 200, height: 100)
      .smallShadow()
@@ -276,7 +345,7 @@ extension View {
 
  // Custom shadow
  Circle()
-     .customShadow(Shadows.large)
+     .customShadow(Shadows.floatingCard)
 
  // Elevation levels
  VStack {

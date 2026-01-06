@@ -59,11 +59,20 @@ struct Spacing {
     /// Card padding
     static let cardPadding = md // 16pt
 
+    /// Card content padding - tighter for dense layouts (from designs)
+    static let cardContentPadding: CGFloat = 12
+
     /// Grid gap (horizontal)
     static let gridGapX = sm // 12pt
 
     /// Grid gap (vertical)
     static let gridGapY = md // 16pt
+
+    /// Grid item spacing - for category grids (from designs)
+    static let gridItemSpacing = md // 16pt
+
+    /// Section header spacing - specific spacing for section headers (from designs)
+    static let sectionHeaderSpacing: CGFloat = 20
 
     // MARK: - Component Spacing
 
@@ -314,6 +323,9 @@ extension Spacing {
  - Margin: 16pt (between elements)
  - Section Gap: 24pt (between major sections)
  - Screen Padding: 16pt (edge to edge)
+ - Card Content Padding: 12pt (tighter for dense layouts)
+ - Section Header Spacing: 20pt (for section titles)
+ - Grid Item Spacing: 16pt (for category grids)
 
  Border Radius:
  - Small: 4pt - Tags, badges

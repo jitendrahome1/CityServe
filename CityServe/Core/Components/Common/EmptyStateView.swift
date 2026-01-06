@@ -22,6 +22,8 @@ struct EmptyStateView: View {
 
     // MARK: - Body
 
+    @State private var isVisible = false
+
     var body: some View {
         VStack(spacing: Spacing.lg) {
             Spacer()
@@ -60,6 +62,13 @@ struct EmptyStateView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.background)
+        .opacity(isVisible ? 1.0 : 0)
+        .offset(y: isVisible ? 0 : 20)
+        .onAppear {
+            withAnimation(Animations.floatingCardAppear) {
+                isVisible = true
+            }
+        }
     }
 }
 

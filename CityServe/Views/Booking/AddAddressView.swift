@@ -72,9 +72,9 @@ struct AddAddressView: View {
                                 .frame(height: 100)
                                 .padding(Spacing.md)
                                 .background(Color.surface)
-                                .cornerRadius(Spacing.radiusMd)
+                                .cornerRadius(Spacing.radiusLg)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                                    RoundedRectangle(cornerRadius: Spacing.radiusLg)
                                         .stroke(Color.divider, lineWidth: 1)
                                 )
                         }
@@ -105,9 +105,9 @@ struct AddAddressView: View {
                                 }
                                 .padding(Spacing.md)
                                 .background(Color.surface)
-                                .cornerRadius(Spacing.radiusMd)
+                                .cornerRadius(Spacing.radiusLg)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: Spacing.radiusMd)
+                                    RoundedRectangle(cornerRadius: Spacing.radiusLg)
                                         .stroke(Color.divider, lineWidth: 1)
                                 )
                             }
@@ -141,7 +141,7 @@ struct AddAddressView: View {
                         .tint(.primary)
                         .padding(Spacing.md)
                         .background(Color.surface)
-                        .cornerRadius(Spacing.radiusMd)
+                        .cornerRadius(Spacing.radiusLg)
 
                         // Error Message
                         if let error = errorMessage {

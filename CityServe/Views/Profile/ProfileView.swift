@@ -240,7 +240,7 @@ struct ProfileView: View {
             .foregroundColor(.error)
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
         }
     }
 
@@ -308,7 +308,7 @@ struct MenuRow: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
     }
 }
 

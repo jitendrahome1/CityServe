@@ -229,7 +229,7 @@ struct AddressManagementCard: View {
         }
         .padding(Spacing.md)
         .background(Color.surface)
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
     }
 }
 
@@ -300,7 +300,7 @@ struct EditAddressSheet: View {
                             .frame(height: 100)
                             .padding(Spacing.md)
                             .background(Color.surface)
-                            .cornerRadius(Spacing.radiusMd)
+                            .cornerRadius(Spacing.radiusLg)
                     }
 
                     Toggle(isOn: $isDefault) {

@@ -497,7 +497,7 @@ struct ReleaseNotesView: View {
                     }
                     .padding(Spacing.md)
                     .background(Color.surface)
-                    .cornerRadius(Spacing.radiusMd)
+                    .cornerRadius(Spacing.radiusLg)
 
                     // Previous Versions
                     if !releaseNotes.previousVersions.isEmpty {
@@ -534,7 +534,7 @@ struct ReleaseNotesView: View {
                                 }
                                 .padding(Spacing.md)
                                 .background(Color.surface)
-                                .cornerRadius(Spacing.radiusMd)
+                                .cornerRadius(Spacing.radiusLg)
                             }
                         }
                     }

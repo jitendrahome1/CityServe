@@ -92,7 +92,7 @@ struct NotificationSettingsView: View {
             .tint(.primary)
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
         }
     }
 
@@ -118,7 +118,7 @@ struct NotificationSettingsView: View {
                 .tint(.primary)
                 .padding(Spacing.md)
                 .background(Color.surface)
-                .cornerRadius(Spacing.radiusMd)
+                .cornerRadius(Spacing.radiusLg)
                 .disabled(!viewModel.notificationsEnabled)
                 .opacity(viewModel.notificationsEnabled ? 1.0 : 0.5)
 
@@ -176,7 +176,7 @@ struct NotificationSettingsView: View {
             .tint(.primary)
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .disabled(!viewModel.notificationsEnabled)
             .opacity(viewModel.notificationsEnabled ? 1.0 : 0.5)
         }
@@ -203,7 +203,7 @@ struct NotificationSettingsView: View {
             .tint(.primary)
             .padding(Spacing.md)
             .background(Color.surface)
-            .cornerRadius(Spacing.radiusMd)
+            .cornerRadius(Spacing.radiusLg)
             .disabled(!viewModel.notificationsEnabled)
             .opacity(viewModel.notificationsEnabled ? 1.0 : 0.5)
         }
@@ -229,7 +229,7 @@ struct NotificationSettingsView: View {
         }
         .padding(Spacing.md)
         .background(Color.info.opacity(0.05))
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
     }
 
     // MARK: - Actions
@@ -271,7 +271,7 @@ struct NotificationTypeRow: View {
         }
         .padding(Spacing.sm)
         .background(Color.surface.opacity(0.5))
-        .cornerRadius(Spacing.radiusMd)
+        .cornerRadius(Spacing.radiusLg)
     }
 }
 

@@ -1,0 +1,186 @@
+rules_version = '2';
+
+/**
+ * CityServe Firestore Security Rules
+ *
+ * Security Philosophy:
+ * - Public read for service discovery data (cities, categories, services, banners)
+ * - Admin-only write for operational data
+ * - User-specific read/write for personal data (preferences)
+ * - Authentication required for sensitive operations
+ *
+ * Collections:
+ * - cities: Public read, Admin write
+ * - service_categories: Public read, Admin write
+ * - services: Public read, Admin write
+ * - promotional_banners: Public read, Admin write
+ * - app_config: Public read, Admin write
+ * - users: User-specific read/write for own data
+ */
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =========================================================================
+    // HELPER FUNCTIONS
+    // =========================================================================
+
+    /**
+     * Check if user is authenticated
+     */
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    /**
+     * Check if user is admin
+     * Admins have a custom claim 'admin: true' set in Firebase Auth
+     */
+    function isAdmin() {
+      return isAuthenticated() &&
+             request.auth.token.get('admin', false) == true;
+    }
+
+    /**
+     * Check if user is accessing their own data
+     */
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // =========================================================================
+    // CITIES COLLECTION
+    // =========================================================================
+
+    /**
+     * cities/{cityId}
+     *
+     * Read: Public (anyone can see available cities)
+     * Write: Admin only
+     */
+    match /cities/{cityId} {
+      allow read: if true; // Public read for city discovery
+      allow write: if isAdmin();
+    }
+
+    // =========================================================================
+    // SERVICE CATEGORIES COLLECTION
+    // =========================================================================
+
+    /**
+     * service_categories/{categoryId}
+     *
+     * Read: Public (anyone can browse categories)
+     * Write: Admin only
+     */
+    match /service_categories/{categoryId} {
+      allow read: if true; // Public read for category browsing
+      allow write: if isAdmin();
+    }
+
+    // =========================================================================
+    // SERVICES COLLECTION
+    // =========================================================================
+
+    /**
+     * services/{serviceId}
+     *
+     * Read: Public (anyone can view services)
+     * Write: Admin only
+     */
+    match /services/{serviceId} {
+      allow read: if true; // Public read for service discovery
+      allow write: if isAdmin();
+    }
+
+    // =========================================================================
+    // PROMOTIONAL BANNERS COLLECTION
+    // =========================================================================
+
+    /**
+     * promotional_banners/{bannerId}
+     *
+     * Read: Public (anyone can see active promotions)
+     * Write: Admin only
+     */
+    match /promotional_banners/{bannerId} {
+      allow read: if true; // Public read for banner display
+      allow write: if isAdmin();
+    }
+
+    // =========================================================================
+    // APP CONFIG COLLECTION
+    // =========================================================================
+
+    /**
+     * app_config/global
+     *
+     * Read: Public (trust indicators, feature flags)
+     * Write: Admin only
+     */
+    match /app_config/{configId} {
+      allow read: if true; // Public read for app configuration
+      allow write: if isAdmin();
+    }
+
+    // =========================================================================
+    // USERS COLLECTION
+    // =========================================================================
+
+    /**
+     * users/{userId}
+     *
+     * Read: Owner only (user can read their own profile)
+     * Write: Owner only (user can update their own profile)
+     */
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow write: if isOwner(userId) || isAdmin();
+
+      /**
+       * users/{userId}/preferences/{preferenceId}
+       *
+       * User preferences subcollection
+       * Read/Write: Owner only
+       */
+      match /preferences/{preferenceId} {
+        allow read: if isOwner(userId) || isAdmin();
+        allow write: if isOwner(userId) || isAdmin();
+      }
+    }
+
+    // =========================================================================
+    // DEFAULT DENY
+    // =========================================================================
+
+    /**
+     * Deny all other access by default
+     * Explicit security: if a collection isn't listed above, no access is allowed
+     */
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+/**
+ * IMPORTANT SECURITY NOTES:
+ *
+ * 1. Admin Role Setup:
+ *    Set admin custom claims using Firebase Admin SDK:
+ *    ```
+ *    admin.auth().setCustomUserClaims(uid, { admin: true });
+ *    ```
+ *
+ * 2. Production Considerations:
+ *    - Enable App Check for additional security
+ *    - Add rate limiting using Cloud Functions or Firebase Extensions
+ *    - Monitor security events in Firebase Console
+ *    - Regularly audit admin users
+ *
+ * 3. Testing:
+ *    Test rules using Firebase Emulator Suite:
+ *    ```
+ *    firebase emulators:start --only firestore
+ *    ```
+ */

@@ -1,0 +1,16 @@
+{
+  "name": "servercode",
+  "version": "1.0.0",
+  "description": "``` ServerCode/ ├── functions/ │   ├── src/ │   │   ├── modules/ │   │   │   └── home/ │   │   │       ├── home.controller.ts │   │   │       ├── home.service.ts │   │   │       ├── home.repository.ts │   │   │       └── home.dto.ts │   │   ├── common/ │   │   │   ├── firebase.admin.ts │   │   │   ├── response.handler.ts │   │   │   ├── error.handler.ts │   │   │   └── validators.ts │   │   ├── types/ │   │   │   └── index.ts │   │   └── index.ts │   ├── package.json │   └── tsconfig.json ├── firestore.rules ├── firestore.indexes.json └── sample-data/     ├── cities.json     ├── service_categories.json     ├── services.json     ├── promotional_banners.json     └── app_config.json ```",
+  "main": "import-sample-data.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "firebase-admin": "^13.6.0"
+  }
+}

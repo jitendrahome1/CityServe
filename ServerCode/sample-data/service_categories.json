@@ -1,0 +1,172 @@
+[
+  {
+    "id": "salon_women",
+    "name": "Salon for Women",
+    "displayName": "Salon for Women",
+    "type": "personal",
+    "icon": "scissors",
+    "imageUrl": "",
+    "description": "Professional salon services for women",
+    "sortOrder": 1,
+    "isActive": true,
+    "isPopular": true,
+    "availableCities": ["delhi", "mumbai", "bangalore", "pune", "hyderabad"],
+    "metadata": {
+      "color": "#FF6B9D",
+      "tags": ["beauty", "salon", "women"]
+    }
+  },
+  {
+    "id": "spa_women",
+    "name": "Spa for Women",
+    "displayName": "Spa for Women",
+    "type": "personal",
+    "icon": "sparkles",
+    "imageUrl": "",
+    "description": "Relaxing spa treatments for women",
+    "sortOrder": 2,
+    "isActive": true,
+    "isPopular": true,
+    "availableCities": ["delhi", "mumbai", "bangalore", "pune"],
+    "metadata": {
+      "color": "#C77DFF",
+      "tags": ["spa", "relaxation", "women"]
+    }
+  },
+  {
+    "id": "salon_men",
+    "name": "Salon for Men",
+    "displayName": "Men's Salon & Grooming",
+    "type": "personal",
+    "icon": "mustache",
+    "imageUrl": "",
+    "description": "Grooming services for men",
+    "sortOrder": 3,
+    "isActive": true,
+    "isPopular": true,
+    "availableCities": ["delhi", "mumbai", "bangalore", "pune", "hyderabad"],
+    "metadata": {
+      "color": "#4CC9F0",
+      "tags": ["men", "grooming", "salon"]
+    }
+  },
+  {
+    "id": "massage_men",
+    "name": "Massage for Men",
+    "displayName": "Massage Therapy",
+    "type": "personal",
+    "icon": "hands.sparkles",
+    "imageUrl": "",
+    "description": "Therapeutic massage services",
+    "sortOrder": 4,
+    "isActive": true,
+    "isPopular": false,
+    "availableCities": ["delhi", "mumbai", "bangalore"],
+    "metadata": {
+      "color": "#06FFA5",
+      "tags": ["massage", "therapy", "men"]
+    }
+  },
+  {
+    "id": "hair_skin",
+    "name": "Hair & Skin",
+    "displayName": "Hair & Skin Care",
+    "type": "personal",
+    "icon": "face.smiling",
+    "imageUrl": "",
+    "description": "Hair and skin treatments",
+    "sortOrder": 5,
+    "isActive": true,
+    "isPopular": false,
+    "availableCities": ["delhi", "mumbai", "bangalore", "pune"],
+    "metadata": {
+      "color": "#FFB6D9",
+      "tags": ["hair", "skin", "beauty"]
+    }
+  },
+  {
+    "id": "plumbing",
+    "name": "Plumbing",
+    "displayName": "Plumbing Services",
+    "type": "home",
+    "icon": "drop.fill",
+    "imageUrl": "",
+    "description": "Professional plumbing repairs and installations",
+    "sortOrder": 1,
+    "isActive": true,
+    "isPopular": true,
+    "availableCities": ["delhi", "mumbai", "bangalore", "pune", "hyderabad"],
+    "metadata": {
+      "color": "#4ECDC4",
+      "tags": ["plumbing", "repair", "home"]
+    }
+  },
+  {
+    "id": "electrical",
+    "name": "Electrical",
+    "displayName": "Electrical Services",
+    "type": "home",
+    "icon": "bolt.fill",
+    "imageUrl": "",
+    "description": "Electrical repairs and installations",
+    "sortOrder": 2,
+    "isActive": true,
+    "isPopular": true,
+    "availableCities": ["delhi", "mumbai", "bangalore", "pune", "hyderabad"],
+    "metadata": {
+      "color": "#FFA500",
+      "tags": ["electrical", "repair", "home"]
+    }
+  },
+  {
+    "id": "cleaning",
+    "name": "Cleaning",
+    "displayName": "Home Cleaning",
+    "type": "home",
+    "icon": "sparkles.rectangle.stack",
+    "imageUrl": "",
+    "description": "Professional home cleaning services",
+    "sortOrder": 3,
+    "isActive": true,
+    "isPopular": true,
+    "availableCities": ["delhi", "mumbai", "bangalore", "pune", "hyderabad"],
+    "metadata": {
+      "color": "#FFB627",
+      "tags": ["cleaning", "home", "hygiene"]
+    }
+  },
+  {
+    "id": "painting",
+    "name": "Painting",
+    "displayName": "Painting Services",
+    "type": "home",
+    "icon": "paintbrush.fill",
+    "imageUrl": "",
+    "description": "Interior and exterior painting",
+    "sortOrder": 4,
+    "isActive": true,
+    "isPopular": false,
+    "availableCities": ["delhi", "mumbai", "bangalore", "pune"],
+    "metadata": {
+      "color": "#9B59B6",
+      "tags": ["painting", "home", "renovation"]
+    }
+  },
+  {
+    "id": "pest_control",
+    "name": "Pest Control",
+    "displayName": "Pest Control",
+    "type": "home",
+    "icon": "ant.fill",
+    "imageUrl": "",
+    "description": "Professional pest control services",
+    "sortOrder": 5,
+    "isActive": true,
+    "isPopular": false,
+    "availableCities": ["delhi", "mumbai", "bangalore", "pune", "hyderabad"],
+    "metadata": {
+      "color": "#2ECC71",
+      "tags": ["pest", "control", "home"]
+    }
+  }
+]

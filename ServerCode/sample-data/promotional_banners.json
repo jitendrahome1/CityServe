@@ -1,0 +1,86 @@
+[
+  {
+    "id": "plus_membership_2026",
+    "title": "Save 15% on every service",
+    "subtitle": "Join CityServe Plus today",
+    "imageUrl": "https://via.placeholder.com/800x300/6366F1/FFFFFF?text=Plus+Membership",
+    "type": "plus_membership",
+    "action": {
+      "type": "navigate",
+      "target": "/plus-membership"
+    },
+    "displayOrder": 1,
+    "isActive": true,
+    "targetCities": [],
+    "targetUsers": {
+      "type": "all"
+    },
+    "validFrom": "2026-01-01T00:00:00Z",
+    "validUntil": "2026-12-31T23:59:59Z",
+    "impressions": 0,
+    "clicks": 0
+  },
+  {
+    "id": "custom_package_jan2026",
+    "title": "Let's make a package just for you",
+    "subtitle": "Salon for women - Create your custom combo",
+    "imageUrl": "https://via.placeholder.com/800x300/7C3AED/FFFFFF?text=Custom+Package",
+    "type": "custom_package",
+    "action": {
+      "type": "navigate",
+      "target": "/custom-package"
+    },
+    "displayOrder": 2,
+    "isActive": true,
+    "targetCities": [],
+    "targetUsers": {
+      "type": "all"
+    },
+    "validFrom": "2026-01-01T00:00:00Z",
+    "validUntil": "2026-03-31T23:59:59Z",
+    "impressions": 0,
+    "clicks": 0
+  },
+  {
+    "id": "sponsored_food_jan2026",
+    "title": "Two's better than one",
+    "subtitle": "Buy one Flatbread Pizza, get another for ₹99",
+    "imageUrl": "https://via.placeholder.com/800x300/FB923C/FFFFFF?text=Special+Offer",
+    "type": "sponsored",
+    "action": {
+      "type": "external",
+      "target": "https://example.com/offer"
+    },
+    "displayOrder": 3,
+    "isActive": true,
+    "targetCities": ["delhi", "mumbai"],
+    "targetUsers": {
+      "type": "all"
+    },
+    "validFrom": "2026-01-01T00:00:00Z",
+    "validUntil": "2026-01-31T23:59:59Z",
+    "impressions": 0,
+    "clicks": 0
+  },
+  {
+    "id": "seasonal_winter_2026",
+    "title": "Winter Special - AC Service",
+    "subtitle": "Get your AC serviced before summer. Flat 20% off",
+    "imageUrl": "https://via.placeholder.com/800x300/3B82F6/FFFFFF?text=Winter+Special",
+    "type": "seasonal",
+    "action": {
+      "type": "navigate",
+      "target": "/service/ac_repair_basic"
+    },
+    "displayOrder": 4,
+    "isActive": true,
+    "targetCities": ["delhi", "pune"],
+    "targetUsers": {
+      "type": "all"
+    },
+    "validFrom": "2026-01-01T00:00:00Z",
+    "validUntil": "2026-02-28T23:59:59Z",
+    "impressions": 0,
+    "clicks": 0
+  }
+]

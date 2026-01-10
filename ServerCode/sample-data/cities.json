@@ -1,0 +1,82 @@
+[
+  {
+    "id": "delhi",
+    "name": "Delhi",
+    "displayName": "Delhi NCR",
+    "isActive": true,
+    "coordinates": {
+      "latitude": 28.7041,
+      "longitude": 77.1025
+    },
+    "timezone": "Asia/Kolkata",
+    "currency": "INR",
+    "currencySymbol": "₹",
+    "serviceRadius": 25,
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "mumbai",
+    "name": "Mumbai",
+    "displayName": "Mumbai",
+    "isActive": true,
+    "coordinates": {
+      "latitude": 19.0760,
+      "longitude": 72.8777
+    },
+    "timezone": "Asia/Kolkata",
+    "currency": "INR",
+    "currencySymbol": "₹",
+    "serviceRadius": 20,
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "bangalore",
+    "name": "Bangalore",
+    "displayName": "Bengaluru",
+    "isActive": true,
+    "coordinates": {
+      "latitude": 12.9716,
+      "longitude": 77.5946
+    },
+    "timezone": "Asia/Kolkata",
+    "currency": "INR",
+    "currencySymbol": "₹",
+    "serviceRadius": 22,
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "pune",
+    "name": "Pune",
+    "displayName": "Pune",
+    "isActive": true,
+    "coordinates": {
+      "latitude": 18.5204,
+      "longitude": 73.8567
+    },
+    "timezone": "Asia/Kolkata",
+    "currency": "INR",
+    "currencySymbol": "₹",
+    "serviceRadius": 18,
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "hyderabad",
+    "name": "Hyderabad",
+    "displayName": "Hyderabad",
+    "isActive": true,
+    "coordinates": {
+      "latitude": 17.3850,
+      "longitude": 78.4867
+    },
+    "timezone": "Asia/Kolkata",
+    "currency": "INR",
+    "currencySymbol": "₹",
+    "serviceRadius": 20,
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  }
+]

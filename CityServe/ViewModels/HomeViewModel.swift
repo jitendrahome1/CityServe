@@ -60,52 +60,124 @@ class HomeViewModel: ObservableObject {
     // MARK: - Data Loading
 
     func loadInitialData() {
-        // Load mock data immediately for better UX
-        categories = ServiceCategory.mockCategories
-        allServices = Service.mockServices
-        popularServices = allServices.filter { $0.isPopular }
-
-        // Split categories into Personal and Home services
-        personalServiceCategories = categories.filter { category in
-            ["Salon for Women", "Spa for Women", "Hair & Skin", "Salon for Men", "Massage for Men"].contains(category.name)
+        // Load data from API
+        Task {
+            await fetchHomeScreenData()
         }
-
-        homeServiceCategories = categories.filter { category in
-            ["Electrical", "Cleaning", "Plumbing", "Painting", "Pest Control"].contains(category.name)
-        }
-
-        // Trending services (high rating + popular)
-        trendingServices = allServices.filter { $0.rating >= 4.5 && $0.reviewCount > 100 }
-
-        // Mock sponsored ad
-        sponsoredAd = SponsoredAd(
-            id: "ad_001",
-            title: "Two's better than one.",
-            subtitle: "Buy one Flatbread Pizza, get another for ₹99",
-            imageURL: "",
-            deepLink: "/offers/pizza"
-        )
-
-        isLoading = false
     }
 
-    func refreshData() async {
+    private func fetchHomeScreenData() async {
         isLoading = true
         errorMessage = nil
 
         do {
-            try await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 seconds
+            // Convert city name to lowercase ID for API (e.g., "Delhi" -> "delhi")
+            let cityId = selectedCity.lowercased()
 
-            // Reload data
+            if AppConfig.isLoggingEnabled {
+                print("🏠 Fetching home screen data for city: \(cityId)")
+            }
+
+            // Fetch data from API
+            let response = try await APIService.shared.fetchHomeScreen(cityId: cityId)
+
+            // Convert API models to app models
+            let (apiCategories, apiServices) = response.toAppModels()
+
+            // Update UI on main actor
+            categories = apiCategories
+            allServices = apiServices
+            popularServices = apiServices // All services from popular endpoint
+
+            // Split categories into Personal and Home services
+            personalServiceCategories = categories.filter { $0.name.contains("Salon") || $0.name.contains("Spa") || $0.name.contains("Hair") || $0.name.contains("Massage") }
+
+            homeServiceCategories = categories.filter { $0.name.contains("Electrical") || $0.name.contains("Cleaning") || $0.name.contains("Plumbing") || $0.name.contains("Painting") || $0.name.contains("Pest") }
+
+            // Trending services from API (if available)
+            if let trending = response.trendingServices, !trending.isEmpty {
+                trendingServices = trending.map { dto in
+                    Service(
+                        id: dto.id,
+                        categoryId: dto.categoryId,
+                        name: dto.name,
+                        shortDescription: dto.shortDescription,
+                        longDescription: dto.shortDescription,
+                        icon: nil,
+                        imageURL: dto.imageUrl.isEmpty ? nil : dto.imageUrl,
+                        basePrice: dto.basePrice,
+                        priceRange: dto.priceRange.map { PriceRange(min: $0.min, max: $0.max) },
+                        duration: dto.duration,
+                        rating: dto.rating,
+                        reviewCount: dto.reviewCount,
+                        isPopular: false,
+                        isActive: true,
+                        tags: dto.tags,
+                        inclusions: [],
+                        exclusions: [],
+                        faqs: [],
+                        createdAt: Date(),
+                        updatedAt: Date()
+                    )
+                }
+            } else {
+                // Fallback: Filter from popular services
+                trendingServices = allServices.filter { $0.rating >= 4.5 && $0.reviewCount > 100 }
+            }
+
+            // Mock sponsored ad (not in API yet)
+            sponsoredAd = SponsoredAd(
+                id: "ad_001",
+                title: "Two's better than one.",
+                subtitle: "Buy one Flatbread Pizza, get another for ₹99",
+                imageURL: "",
+                deepLink: "/offers/pizza"
+            )
+
+            isLoading = false
+
+            if AppConfig.isLoggingEnabled {
+                print("✅ Home screen data loaded successfully")
+                print("   - Categories: \(categories.count)")
+                print("   - Services: \(allServices.count)")
+            }
+
+        } catch {
+            errorMessage = error.localizedDescription
+
+            if AppConfig.isLoggingEnabled {
+                print("❌ Failed to load home screen data: \(error)")
+            }
+
+            // Fallback to mock data on error
             categories = ServiceCategory.mockCategories
             allServices = Service.mockServices
             popularServices = allServices.filter { $0.isPopular }
 
-            isLoading = false
-        } catch {
-            errorMessage = "Failed to refresh data."
+            personalServiceCategories = categories.filter { category in
+                ["Salon for Women", "Spa for Women", "Hair & Skin", "Salon for Men", "Massage for Men"].contains(category.name)
+            }
+
+            homeServiceCategories = categories.filter { category in
+                ["Electrical", "Cleaning", "Plumbing", "Painting", "Pest Control"].contains(category.name)
+            }
+
+            trendingServices = allServices.filter { $0.rating >= 4.5 && $0.reviewCount > 100 }
+
+            sponsoredAd = SponsoredAd(
+                id: "ad_001",
+                title: "Two's better than one.",
+                subtitle: "Buy one Flatbread Pizza, get another for ₹99",
+                imageURL: "",
+                deepLink: "/offers/pizza"
+            )
+
             isLoading = false
         }
+    }
+
+    func refreshData() async {
+        await fetchHomeScreenData()
     }
 
     // MARK: - Search
@@ -224,8 +296,10 @@ class HomeViewModel: ObservableObject {
 
     func changeCity(_ newCity: String) {
         selectedCity = newCity
-        // Reload services for new city
-        loadInitialData()
+        // Reload services for new city from API
+        Task {
+            await fetchHomeScreenData()
+        }
     }
 }
 

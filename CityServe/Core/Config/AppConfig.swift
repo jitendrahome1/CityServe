@@ -49,16 +49,28 @@ struct AppConfig {
     // MARK: - API Configuration
 
     /// Base URL for backend API
-    /// These will be set from xcconfig once backend is implemented
+    /// For local development, uses Firebase Emulator
+    /// For production, uses deployed Cloud Functions
     static var apiBaseURL: String {
         #if DEV
-        return "https://dev-api.urbanest.app"
+        // Local Firebase Emulator
+        return "http://127.0.0.1:5001/demo-no-project/asia-south1/api/api/v1"
         #elseif STAGING
         return "https://staging-api.urbanest.app"
         #elseif PRODUCTION
         return "https://api.urbanest.app"
         #else
-        return "https://dev-api.urbanest.app"
+        // Default to local emulator for development
+        return "http://127.0.0.1:5001/demo-no-project/asia-south1/api/api/v1"
+        #endif
+    }
+
+    /// Health check endpoint URL
+    static var healthCheckURL: String {
+        #if DEV
+        return "http://127.0.0.1:5001/demo-no-project/asia-south1/api/health"
+        #else
+        return "\(apiBaseURL)/health"
         #endif
     }
 
